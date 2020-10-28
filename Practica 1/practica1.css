@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Grandstander&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Grandstander', cursive;
+}  
+
+body{
+    background-image: url("recursos/posits.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+h1 {
+    color:white;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+/*HEADER*/
+div.heading {
+    display: fixed;
+    justify-content: space-between;
+    width: 100%; /*ocupa toda la pantalla de largo*/
+    height: 100px; /*poner px para que sea fijo, El % es para que cambie con el tamaño de la ventana*/
+    background-color: rgb(219, 208, 201)
+}
+
+div.heading a { /*enlaces dentro de navegacion*/
+    text-decoration: none;
+    padding-bottom: 15px;
+    color:rgb(38, 97, 38);
+}
+
+div.infoUser{
+    display: flex;
+    flex-direction: row;
+    padding-right: 10px;
+    position:absolute;
+    top:9px;
+    right:20px;
+}
+
+div.User{
+    display: flex;
+    flex-direction: column;
+    padding-top:14px;
+    padding-left:15px;
+    text-align: center;
+}
+
+.boton:hover{ 
+    color: rgb(86, 204, 122);
+}
+
+.imgUser{
+    border-radius:50%;
+    height:80px;
+}
+
+div.logo{
+    padding-left:10px;
+    padding-top:10px;
+}
+
+.imgTask{
+    display:block;
+    height:80px;
+}
+
+/*TAREAS*/
+div.containerTasks{
+    display: flex;
+    flex-direction: column;
+    margin: 10%;
+}
+
+.elemento {
+    background-color: rgb(58, 148, 106);
+    border: solid rgb(71, 71, 71) 2px;
+    padding: 8px;
+    margin:10px;
+}
+
+.elementoCross {
+    text-decoration: line-through rgb(21, 56, 40);;
+    background-color: rgba(117, 117, 117, 0.603);
+    border: solid rgb(71, 71, 71) 2px;
+    padding: 8px;
+    margin:10px;
+}
+
+p.texto{
+    display: inline;
+    font-size: 30px;
+    color:white;
+    padding-top: 20px;
+    padding-left: 5px;
+    font-weight: 100;
+}
+
+.tag{
+    padding: 4px;
+    margin-left: 3%;
+    font-size: 14px;
+    color:white;
+    border-radius: 10px 10px 10px 10px;
+    background-color: rgb(37, 94, 67);
+    border: 2px solid rgb(21, 56, 40);
+}
+
+.botonFin{
+    float: right;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.botonAdd{
+    display: inline-block;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border: 2px solid black;
+    padding-top:20px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: rgb(58, 148, 106);
+}
+
+.botonAdd a{
+    color:white;
+    text-decoration: none;
+}
+
+div.AddTask{
+    display: flex;
+    flex-direction: row;
+    margin-top: 300px; /*espacio para header*/
+    text-align: center;
+    background-color:  rgb(33, 87, 62);
+}
+
+div.WriteDiv {
+    margin-top:20px;
+    margin-left:20px;
+    margin-bottom:20px;
+    margin-right: 30px;
+    width: 700px;
+    background-color: white;
+    padding:50px;
+}
