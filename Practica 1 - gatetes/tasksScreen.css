@@ -40,20 +40,20 @@ div.infoUser{
     flex-direction: row;
     padding-right: 10px;
     position:absolute;
-    top:9px;
+    top:5px;
     right:20px;
 }
 
 div.User{
     display: flex;
     flex-direction: column;
-    padding-top:14px;
+    padding-top:28px;
     padding-left:15px;
     text-align: center;
 }
 
 .boton:hover{ 
-    color: rgb(86, 204, 122);
+    color: #e8858e;
 }
 
 .imgUser{
@@ -62,15 +62,12 @@ div.User{
 }
 
 div.logo{
-    /* padding-left:10px;
-    padding-top:10px; */
     padding-top: 15px;
     padding-left: 15px;
     font-size: 80px;
     color: #e8858e;
     text-shadow: -3px 3px #ffffff, -3px -3px #ffffff, 3px -3px #ffffff, 3px 3px #f3f3f2, 6px 6px #6ac7c2;
 }
-
 
 .imgTask{
     display:block;
@@ -110,8 +107,8 @@ p.texto{
 
 .tag{
     padding: 4px;
-    margin-left: 3%;
-    font-size: 14px;
+    margin-left: 2%;
+    font-size: 20px;
     color:white;
     border-radius: 10px 10px 10px 10px;
     background-color:  #973d45;
@@ -137,7 +134,7 @@ p.texto{
     margin-top: 12px;
     margin-right: 40px;
     text-align: center;
-    font-size: 26px;
+    font-size: 30px;
     background-color:  #e8858e;
 }
 
