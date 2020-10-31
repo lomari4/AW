@@ -4,13 +4,14 @@
     margin: 0;
     padding: 0;
     font-family: 'Grandstander', cursive;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }  
 
 body{
-    background-image: url("recursos/posits.jpg");
-    background-repeat: no-repeat;
-    background-size: 100%;
+    background-image: url("recursos/fondoGatosDifuminada.jpg");
+    background-size: 50%;
+    background-position: 50%;
+    background-repeat: repeat;
 }
 
 h1 {
@@ -24,14 +25,14 @@ div.heading {
     display: fixed;
     justify-content: space-between;
     width: 100%; /*ocupa toda la pantalla de largo*/
-    height: 100px; /*poner px para que sea fijo, El % es para que cambie con el tamaño de la ventana*/
+    height: 110px; /*poner px para que sea fijo, El % es para que cambie con el tamaño de la ventana*/
     background-color: rgb(219, 208, 201)
 }
 
 div.heading a { /*enlaces dentro de navegacion*/
     text-decoration: none;
     padding-bottom: 15px;
-    color:rgb(38, 97, 38);
+    color:#5f272c;
 }
 
 div.infoUser{
@@ -57,17 +58,23 @@ div.User{
 
 .imgUser{
     border-radius:50%;
-    height:80px;
+    height:110px;
 }
 
 div.logo{
-    padding-left:10px;
-    padding-top:10px;
+    /* padding-left:10px;
+    padding-top:10px; */
+    padding-top: 15px;
+    padding-left: 15px;
+    font-size: 80px;
+    color: #e8858e;
+    text-shadow: -3px 3px #ffffff, -3px -3px #ffffff, 3px -3px #ffffff, 3px 3px #f3f3f2, 6px 6px #6ac7c2;
 }
+
 
 .imgTask{
     display:block;
-    height:80px;
+    height:110px;
 }
 
 /*TAREAS*/
@@ -78,8 +85,8 @@ div.containerTasks{
 }
 
 .elemento {
-    background-color: rgb(58, 148, 106);
-    border: solid rgb(71, 71, 71) 2px;
+    background-color: #e8858e;
+    border: solid #5f272c 5px;
     padding: 8px;
     margin:10px;
 }
@@ -107,8 +114,8 @@ p.texto{
     font-size: 14px;
     color:white;
     border-radius: 10px 10px 10px 10px;
-    background-color: rgb(37, 94, 67);
-    border: 2px solid rgb(21, 56, 40);
+    background-color:  #973d45;
+    border: 2px solid  #5f272c;
 }
 
 .botonFin{
@@ -117,6 +124,7 @@ p.texto{
     cursor: pointer;
     padding: 5px;
     text-align: center;
+    background-color: #b4e4e1ea;
     font-size: 16px;
 }
 
@@ -126,11 +134,11 @@ p.texto{
     border-radius: 5px;
     cursor: pointer;
     padding: 6px;
-    margin-top: 5px;
-    margin-right: 12px;
+    margin-top: 12px;
+    margin-right: 40px;
     text-align: center;
     font-size: 26px;
-    background-color: rgb(58, 148, 106);
+    background-color:  #e8858e;
 }
 
 div.AddTask{
@@ -138,7 +146,7 @@ div.AddTask{
     margin-left: 10px;
     margin-right: 10px;
     padding: 20px;
-    background-color:  rgb(33, 87, 62);
+    background-color:  #5f272c;
 }
 
 div.WriteDiv {
@@ -149,8 +157,8 @@ div.WriteDiv {
 }
 
 .botonDelete{
-    background-color: rgb(92, 45, 23);
-    margin-left: 25%;
+    background-color:#5f272c;
+    margin-left: 35%;
     margin-top: 30px;
     padding: 10px;
     font-size: 30px;
