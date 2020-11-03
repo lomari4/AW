@@ -164,3 +164,8 @@ div.AddTask{
     color: white;
     text-align: center;
 }
+
+button:hover, .botonAdd:hover{
+    background-color: #857375;
+    cursor: pointer;
+}
