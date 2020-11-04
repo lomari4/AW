@@ -16,7 +16,8 @@ body{
 
 /*HEADER*/
 div.heading {
-    display: fixed;
+    position: fixed;
+    top: 0px;
     justify-content: space-between;
     width: 100%; /*ocupa toda la pantalla de largo*/
     height: 110px; /*poner px para que sea fijo, El % es para que cambie con el tamaño de la ventana*/
