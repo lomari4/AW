@@ -22,21 +22,3 @@ function createTask(texto){
 
     return { texto, tags }
 }
-
-function main(){
-
-    let listaTareas = [
-        { text: "Preparar práctica AW", tags: ["AW", "practica"] },
-        { text: "Mirar fechas congreso", done: true, tags: [] },
-        { text: "Ir al supermercado", tags: ["personal"] },
-        { text: "Mudanza", done: false, tags: ["personal"] },
-    ];
-    
-    console.log(getToDoTasks(listaTareas))
-    console.log(findByTag(listaTareas, "personal"))
-    console.log(findByTags(listaTareas, ["personal", "practica"]))
-    console.log(countDone(listaTareas))
-    console.log(createTask("Ir al medico @personal @salud"))
-}
-
-main()
