@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    /* border: 1px solid red; */
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    background: linear-gradient(to top, rgb(51, 115, 112), rgb(169, 205, 223));
+}
+
+/*HEADER*/
+div.logo {
+    width:355px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 15px;
+    margin-top: 20px;   
+    font-size: 200px;
+    color: #0f679b;
+    text-shadow: -3px 3px #ffffff, -3px -3px #ffffff, 3px -3px #ffffff, 3px 3px #f3f3f2, 6px 6px #6ac7c2;
+}
+
+div.datos{
+    display: flex;
+    flex-direction: column;
+    margin: 10%;
+    margin-top: 5px;
+}
+
+div.info{
+    margin-left:30%;
+    margin-bottom:100px;
+    padding-top: 40px;
+    padding-bottom: 50px;
+    height: 70px;
+}
+
+div.info p{
+    padding-bottom: 10px;
+    font-size:22px;
+}
+    
+.box{
+    font-size:20px;
+    margin-bottom:20px;
+    padding:5px;
+    height:20px;
+    width:58%;
+}
+
+.button{
+    margin-left:auto;
+    margin-right:auto;
+    border-radius: 5px;
+    font-size:22px;
+    width: 20%;
+    padding: 10px;
+    margin-bottom: 50px;
+    background-color: #0f679b;
+    color: white;
+}
+
+.button:hover{
+    background-color: rgb(18, 99, 90);
+    width: 21%;
+}
