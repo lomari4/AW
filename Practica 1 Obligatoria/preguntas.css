@@ -18,15 +18,20 @@ div.containerQuestions{
 }
 
 .text{
+    margin-top: 5px;
     margin-bottom: 14px;
     margin-left: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 150ch;
 }
 
 .element {
     display: flex;
     flex-direction: row;
-    background-color:  rgb(199, 223, 230);
-    border: 2px solid  rgb(107, 119, 134);
+    background-color: #c4f0fdce;
+    border: 5px solid #3290C7;
     padding: 10px;
     margin: 10px;
     justify-content: space-around;
@@ -44,8 +49,8 @@ div.tags{
     font-size: 20px;
     color:white;
     border-radius: 10px 10px 10px 10px;
-    background-color:  rgb(86, 133, 148);
-    border: 1px solid  rgb(107, 119, 134);
+    background-color: #568FE8;
+    border: 2px solid #2358AB;
     
 }
 

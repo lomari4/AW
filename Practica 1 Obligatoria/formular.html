@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="formular.css">
     <link rel="icon" type="img/png" href="recursos/404icon.png">
     <title>404</title>
 </head>
@@ -27,7 +28,7 @@
             <div class="informacion">
                 <a href=" ">SHAM</a>
                 <button class="button">Cerrar sesión</button>
-            </div> 
+            </div>
         </div>
     </div>
 
@@ -35,6 +36,28 @@
         <button class="button">Buscar</button>
         <input type="text" class="box" placeholder=" 🔎   Buscar por titulo/cuerpo de pregunta">
     </div>
+
+    <h1>Formular una pregunta</h1>
+
+    <div class="askQuestion">
+        <div class="title">
+            <h4>Titulo</h4>
+            <p>Sé especifico e imagina que estás haciendo la pregunta a otra persona</p>
+            <input type="text" class="box" placeholder="¿Cuál es tu pregunta sobre programación de aplicaciones web?">
+        </div>
+        <div class="askBody"> 
+            <h4>Cuerpo</h4>
+            <p>Incluye toda la informacion que alguien necesitaria para responder tu pregunta</p>
+            <textarea name="textarea" class="box"></textarea>
+        </div>
+        <div class="labels">
+            <h4>Etiquetas</h4>
+            <p>Añade hasta 5 etiquetas para describir sobre qué trata tu pregunta</p>
+            <input type="text" class="box" placeholder="Por ejemplo: @node@express">
+        </div>
+        <button class="button">Publica tu pregunta</button>
+    </div>
+
 </body>
 
 </html>

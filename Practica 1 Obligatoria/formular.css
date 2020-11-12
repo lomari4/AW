@@ -1,0 +1,40 @@
+div.askQuestion{
+    display: flex;
+    flex-direction: column;
+    padding:25px;
+    padding-left:70px;
+    padding-right:70px;
+    background-color: #c4f0fdce;
+    border: 5px solid #3290C7;
+    border-radius:10px;
+    width:70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 80px;
+}
+
+div.askBody .box{
+    height: 200px;
+}
+
+div.askQuestion p{
+    font-size: 20px;
+    margin-bottom:5px;
+}
+
+div.askQuestion button{
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h1{
+    font-size:55px;
+    margin-top:25px;
+    margin-bottom:70px;
+    text-align: center;
+}
+
+h4{
+    font-size:30px;
+    margin-bottom:10px;
+}
