@@ -12,7 +12,8 @@ html{
 }
 
 body{
-    background: linear-gradient(to top, rgb(51, 115, 112), rgb(169, 205, 223));
+    background: url("recursos/bg_cat.jpg") no-repeat center fixed;
+    background-size: cover;
 }
 
 /*HEADER*/
