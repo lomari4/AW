@@ -5,6 +5,10 @@ div.menu{
     margin-top: 40px;
 }
 
+.button{
+    cursor: pointer;
+}
+
 div.menu .button{
     width: 300px;
     margin-left: 20px;
