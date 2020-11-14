@@ -45,6 +45,7 @@ div.tags{
 .tag{
     display: inline-block;
     padding: 4px;
+    margin-top:15px;
     margin-left: 14px;
     font-size: 20px;
     color:white;
@@ -83,6 +84,6 @@ div.usuario a{
 }
 
 div.usuario a:hover{
-    color: red;
+    color: rgb(239, 116, 250);
 }
 

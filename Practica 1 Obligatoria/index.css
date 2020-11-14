@@ -54,7 +54,7 @@ div.userInfo a{
 }
 
 div.userInfo a:hover{
-    color:red;
+    color:rgb(239, 116, 250);
 }
 
 div.avatar{
