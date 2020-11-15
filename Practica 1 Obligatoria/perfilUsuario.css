@@ -1,0 +1,124 @@
+div.profile{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.allStatistics{
+    display: flex;
+    width: 70%;
+    justify-content: center;
+}
+
+div.usuario{
+    width: 20%;
+}
+
+
+p{
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 22px;
+}
+
+.number{
+    font-size: 35px;
+    padding-top: 1px;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+div.statistics{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin-left: 3%;
+}
+
+.titleStatistics{
+    background-color: #568FE8;
+    text-align: center;
+    font-size: 30px;
+}
+
+div.type{
+    display: flex;
+    justify-content: space-around;
+    height: 71%;
+    background-color:#c4f0fdce;
+    margin-top: 10px;
+    border: 5px solid #3290C7;
+}
+
+div.type p{
+    padding-top: 5px;
+}
+
+div.bottomPosition{
+    padding-top: 95px;
+}
+
+div.topPosition{
+    padding-top: 38px;
+}
+
+.titleMedals{    
+    background-color: #568FE8;
+    width: 50%;
+    margin-top: 100px;
+    font-size: 30px;
+}
+
+div.medals{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    width: 50%;
+}
+
+div.bronze{
+    background-color: #cd8032d5;
+    font-size: 20px;
+}
+
+div.silver{
+    background-color: #e3e4e5;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+div.gold{
+    background-color: #eabf3fcc;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+div.tag{
+    background-color: rgba(0, 0, 0, 0.829);
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 2px;
+}
+
+div.tag p{
+    padding-left: 10px;
+    font-size: 18px;
+}
+
+.imgMedals{
+    width: 5%;
+    padding-left: 2%;
+    padding-top: 3px;
+    padding-bottom: 5px;
+}
+
+
+
+
