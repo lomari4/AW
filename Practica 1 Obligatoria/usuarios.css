@@ -41,8 +41,8 @@ div.containerUsers .tag{
 }
 
 div.containerUsers .element:nth-child(odd) {
-    background:#fee4b5cb;
-    border: 2px solid #a7846c;
+    background:#8ee5ffce;
+    border: 2px solid #3290C7;
 }
 
 div.reputacion{
