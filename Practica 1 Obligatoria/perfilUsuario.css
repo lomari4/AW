@@ -3,11 +3,12 @@ div.profile{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom:100px;
 }
 
 div.allStatistics{
     display: flex;
-    width: 70%;
+    width: 75%;
     justify-content: center;
 }
 
@@ -15,12 +16,31 @@ div.usuario{
     width: 20%;
 }
 
-
 p{
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 22px;
+}
+
+.cat1{
+    height:100px;
+    margin-top:10px;
+    margin-bottom:20px;
+}
+
+.cat2{
+    height:100px;
+    margin-left:30px;
+    margin-top:40px;
+    padding-bottom:10px;
+}
+
+.cat3{
+    height:75px;
+    margin-top:40px;
+    margin-left:10px;
+    margin-bottom:20px;
 }
 
 .number{
@@ -48,7 +68,7 @@ div.statistics{
 div.type{
     display: flex;
     justify-content: space-around;
-    height: 71%;
+    height: 100%;
     background-color:#c4f0fdce;
     margin-top: 10px;
     border: 5px solid #3290C7;
@@ -56,10 +76,6 @@ div.type{
 
 div.type p{
     padding-top: 5px;
-}
-
-div.bottomPosition{
-    padding-top: 95px;
 }
 
 div.topPosition{
