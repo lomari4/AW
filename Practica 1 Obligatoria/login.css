@@ -17,7 +17,7 @@ body{
 }
 
 /*HEADER*/
-div.logo {
+/* div.logo {
     width:355px;
     margin-left: auto;
     margin-right: auto;
@@ -26,6 +26,13 @@ div.logo {
     font-size: 200px;
     color: #0f679b;
     text-shadow: -3px 3px #ffffff, -3px -3px #ffffff, 3px -3px #ffffff, 3px 3px #f3f3f2, 6px 6px #6ac7c2;
+} */
+
+.logo{
+    width: 400px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 div.datos{
