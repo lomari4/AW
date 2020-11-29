@@ -26,25 +26,27 @@ class DAOTasks {
                             }
                             else {
                                 let array = []
-                                let i = 0
+                                let task = []
 
-                                while (i < rows.length) {
+                                rows.forEach(e => {
+                                    if (array[e.id] === undefined) {
+                                        task = {
+                                            "id": e.id,
+                                            "text": e.text,
+                                            "done": e.done,
+                                            "tags": [e.tag]
+                                        };
 
-                                    let arrayTags = []
-
-                                    while (rows.length > i + 1 && rows[i].id === rows[i + 1].id) {
-                                        arrayTags.push(rows[i].tag)
-                                        i++
+                                        array[task.id] = task;
                                     }
-                                    arrayTags.push(rows[i].tag)
-
-                                    if (rows[i].tag === null) {
-                                        array.push([rows[i].id, rows[i].text, rows[i].done])
-                                    } else {
-                                        array.push([rows[i].id, rows[i].text, rows[i].done, arrayTags])
+                                    else {
+                                        array[task.id].tags.push(e.tag);
                                     }
-                                    i++
-                                }
+
+                                });
+                                
+                                //como los ids son las posiciones del array, a veces los ids en la BD son 1,4,5... Y las posiciones del 2 al 3 quedan vacias, por lo que para eliminarlas se hace esto:
+                                array = array.filter(Boolean)
 
                                 callback(null, array);
                             }
@@ -80,14 +82,14 @@ class DAOTasks {
 
                                 connection.query("INSERT INTO tag(taskId,tag) VALUES ?",
                                     [array], function (err, result) {
- 
+
                                         if (err) {
                                             callback(new Error("Error de acceso a la base de datos"));
                                         }
-                                        else{
+                                        else {
                                             callback(null);
                                         }
-                                       
+
                                     })
                             }
                         }
@@ -110,7 +112,7 @@ class DAOTasks {
                         if (err) {
                             callback(new Error("Error de acceso a la base de datos"));
                         }
-                        else{
+                        else {
                             callback(null);
                         }
                     });
@@ -132,7 +134,7 @@ class DAOTasks {
                         if (err) {
                             callback(new Error("Error de acceso a la base de datos"));
                         }
-                        else{
+                        else {
                             callback(null);
                         }
                     });
