@@ -49,9 +49,21 @@ class SAUser {
             if (err) {
                 console.log(err.message);
             } else if (result) {
-                console.log("Usuario: "+ result[0].correo);
+                console.log("Usuario: " + result[0].correo);
             } else {
-                console.log("Error al obtener el usuario con el email" + email);
+                console.log("Error al obtener el usuario con el email " + email);
+            }
+        });
+    }
+
+    getUserbyName(name){
+        this.daoUser.getUserbyName(name, function (err, result) {
+            if (err) {
+                console.log(err.message);
+            } else if (result) {
+                console.log("Correo del usuario: " + result[0].correo);
+            } else {
+                console.log("Error al obtener el usuario con el nombre " + name);
             }
         });
     }

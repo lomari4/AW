@@ -14,8 +14,8 @@ const pool = mysql.createPool({
 
 let saUser = new SAUser(pool)
 
-// console.log(saUser.getAllUsers());
-// console.log(saUser.isUserCorrect("usuario1@ucm.es", 1234));
+//console.log(saUser.getAllUsers());
+//console.log(saUser.isUserCorrect("usuario1@ucm.es", 1234));
 //console.log(saUser.insertUser("usuario3@ucm.es", 4321, "Usuario3", "../recursos/user.png"));
-
-console.log(saUser.getUser("usuario3@ucm.es"));
+//console.log(saUser.getUser("usuario3@ucm.es"));
+console.log(saUser.getUserbyName("Usuario3"));
