@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-12-2020 a las 19:52:02
+-- Tiempo de generación: 09-12-2020 a las 19:43:56
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.34
 
@@ -29,9 +29,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `etiquetas` (
   `id` int(10) NOT NULL,
-  `idPreguntas` int(10) NOT NULL,
+  `idPregunta` int(10) NOT NULL,
   `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `etiquetas`
+--
+
+INSERT INTO `etiquetas` (`id`, `idPregunta`, `nombre`) VALUES
+(1, 1, 'node'),
+(2, 1, 'aw'),
+(8, 2, 'aw');
 
 -- --------------------------------------------------------
 
@@ -40,12 +49,22 @@ CREATE TABLE `etiquetas` (
 --
 
 CREATE TABLE `medallas` (
-  `id` int(10) NOT NULL,
   `idUsuario` int(10) NOT NULL,
   `logro` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `cantidad` int(10) NOT NULL,
   `tipo` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `medallas`
+--
+
+INSERT INTO `medallas` (`idUsuario`, `logro`, `cantidad`, `tipo`) VALUES
+(1, 'Registrado', 4, 'bronce'),
+(1, 'Registrado', 3, 'oro'),
+(1, 'Registrado', 3, 'plata'),
+(2, 'Registrado', 4, 'oro'),
+(2, 'Registrado', 3, 'plata');
 
 -- --------------------------------------------------------
 
@@ -62,6 +81,14 @@ CREATE TABLE `preguntas` (
   `visitas` int(30) NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `preguntas`
+--
+
+INSERT INTO `preguntas` (`id`, `titulo`, `texto`, `idUsuario`, `votos`, `visitas`, `fecha`) VALUES
+(1, 'Prueba', 'PruebaTexto', 1, 0, 0, '0000-00-00'),
+(2, 'Prueba2', 'Prueba2Texto', 2, 0, 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -148,14 +175,14 @@ CREATE TABLE `votarespuesta` (
 -- Indices de la tabla `etiquetas`
 --
 ALTER TABLE `etiquetas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idPreguntas` (`idPreguntas`);
+  ADD PRIMARY KEY (`id`,`nombre`),
+  ADD KEY `idPreguntas` (`idPregunta`);
 
 --
 -- Indices de la tabla `medallas`
 --
 ALTER TABLE `medallas`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`idUsuario`,`logro`,`tipo`),
   ADD KEY `idUsuario` (`idUsuario`);
 
 --
@@ -209,19 +236,13 @@ ALTER TABLE `votarespuesta`
 -- AUTO_INCREMENT de la tabla `etiquetas`
 --
 ALTER TABLE `etiquetas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `medallas`
---
-ALTER TABLE `medallas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
@@ -243,7 +264,7 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `etiquetas`
 --
 ALTER TABLE `etiquetas`
-  ADD CONSTRAINT `etiquetas_ibfk_1` FOREIGN KEY (`idPreguntas`) REFERENCES `preguntas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `etiquetas_ibfk_1` FOREIGN KEY (`idPregunta`) REFERENCES `preguntas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `medallas`
