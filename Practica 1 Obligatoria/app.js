@@ -1,5 +1,4 @@
 "use strict";
-
 const mysql = require("mysql");
 const config = require("./config.js");
 const SAUser = require("./public/js/SA/SAUser.js");
