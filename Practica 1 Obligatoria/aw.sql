@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-12-2020 a las 19:43:56
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.34
+-- Tiempo de generación: 11-12-2020 a las 00:16:13
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -77,7 +77,7 @@ CREATE TABLE `preguntas` (
   `titulo` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
   `texto` varchar(1000) COLLATE utf8mb4_spanish_ci NOT NULL,
   `idUsuario` int(10) NOT NULL,
-  `votos` int(30) NOT NULL,
+  `votos` int(30) NOT NULL DEFAULT 0,
   `visitas` int(30) NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -99,11 +99,21 @@ INSERT INTO `preguntas` (`id`, `titulo`, `texto`, `idUsuario`, `votos`, `visitas
 CREATE TABLE `respuestas` (
   `id` int(10) NOT NULL,
   `texto` varchar(1000) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `votos` int(10) NOT NULL,
+  `votos` int(10) NOT NULL DEFAULT 0,
   `fecha` date NOT NULL,
   `idUsuario` int(10) NOT NULL,
   `idPregunta` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `respuestas`
+--
+
+INSERT INTO `respuestas` (`id`, `texto`, `votos`, `fecha`, `idUsuario`, `idPregunta`) VALUES
+(1, 'Respuesta prueba', 0, '2020-12-10', 1, 1),
+(2, 'Respuesta prueba', 0, '2020-12-10', 2, 1),
+(3, 'Respuesta prueba', 0, '2020-12-10', 2, 1),
+(5, 'Respuesta prueba2', 0, '2020-12-11', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -248,7 +258,7 @@ ALTER TABLE `preguntas`
 -- AUTO_INCREMENT de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

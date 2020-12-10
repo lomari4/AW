@@ -14,7 +14,7 @@ class SAMedal {
             } else if (result) {
                 console.log(result);
             } else {
-                console.log("No hay existe medallas para ese usuario en la base de datos");
+                console.log("No hay existen medallas para ese usuario en la base de datos");
             }
         });
     }
