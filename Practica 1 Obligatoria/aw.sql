@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-12-2020 a las 00:16:13
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.0
+-- Tiempo de generación: 12-12-2020 a las 17:51:39
+-- Versión del servidor: 10.4.16-MariaDB
+-- Versión de PHP: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -87,8 +87,10 @@ CREATE TABLE `preguntas` (
 --
 
 INSERT INTO `preguntas` (`id`, `titulo`, `texto`, `idUsuario`, `votos`, `visitas`, `fecha`) VALUES
-(1, 'Prueba', 'PruebaTexto', 1, 0, 0, '0000-00-00'),
-(2, 'Prueba2', 'Prueba2Texto', 2, 0, 0, '0000-00-00');
+(1, 'Prueba', 'PruebaTexto', 1, 0, 3, '0000-00-00'),
+(2, 'Prueba2', 'Prueba2Texto', 2, 0, 1, '0000-00-00'),
+(3, 'Pregunta AW', 'cuando se entrega la practica', 2, 0, 3, '2020-12-12'),
+(4, 'Pregunta SGE', 'señor croquetin cuantos años tiene', 1, 0, 1, '2020-12-12');
 
 -- --------------------------------------------------------
 
@@ -252,7 +254,7 @@ ALTER TABLE `etiquetas`
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
