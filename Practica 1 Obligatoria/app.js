@@ -5,7 +5,7 @@ const SAUser = require("./public/js/SA/SAUser.js");
 const SAMedal = require("./public/js/SA/SAMedal.js");
 const SATag = require("./public/js/SA/SATag.js");
 const SAReply = require("./public/js/SA/SAReply.js");
-
+const SAAsk = require("./public/js/SA/SAAsk.js");
 
 
 // Crear el pool de conexiones
@@ -20,6 +20,7 @@ let saUser = new SAUser(pool)
 let saMedal = new SAMedal(pool)
 let saTag = new SATag(pool)
 let saReply = new SAReply(pool)
+let saAsk = new SAAsk(pool)
 
 //**************USUARIOS****************
 //console.log(saUser.getAllUsers());
@@ -40,3 +41,12 @@ let saReply = new SAReply(pool)
 //console.log(saReply.insertReply("Respuesta prueba2",2,2));
 //console.log(saReply.getAllReplies(1));
 //console.log(saReply.getAllUserReplies(2));
+
+//**************PREGUNTAS***************
+// console.log(saAsk.getAllAsk())
+// console.log(saAsk.insertAsk("Pregunta SGE", "señor croquetin cuantos años tiene", 1))
+// console.log(saAsk.getAllAsksByTag("aw"))
+// console.log(saAsk.getAllAsksWithoutReply())
+// console.log(saAsk.getAllAsksByText("x"))
+// console.log(saAsk.getAsk(1)) 
+//DUDA CON HACER TRIGGER O AUMENTAR EN 1 A MANO creo que mejor a mano 
