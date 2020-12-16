@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2020 a las 18:26:41
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.34
+-- Tiempo de generación: 16-12-2020 a las 20:10:10
+-- Versión del servidor: 10.4.16-MariaDB
+-- Versión de PHP: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,12 +37,10 @@ CREATE TABLE `tag` (
 --
 
 INSERT INTO `tag` (`taskId`, `tag`) VALUES
-(1, 'Compra'),
-(1, 'Venta'),
-(2, 'Recado'),
-(3, 'Alquiler'),
 (13, 'gato'),
-(13, 'perro');
+(13, 'perro'),
+(16, 'aw'),
+(17, 'ew');
 
 -- --------------------------------------------------------
 
@@ -62,11 +60,10 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`id`, `user`, `text`, `done`) VALUES
-(1, 'usuario@ucm.es', 'TAREA usuario', 1),
-(2, 'usuario@ucm.es', 'TAREA usuario', 1),
-(3, 'usuario@ucm.es', 'TAREA usuario', 1),
-(13, 'usuario@ucm.es', 'TAREA usuario perro gato', 1),
-(14, 'usuario2@ucm.es', 'hola', 0);
+(13, 'usuario@ucm.es', 'TAREA 4', 0),
+(14, 'usuario2@ucm.es', 'hola', 0),
+(16, 'usuario@ucm.es', 'Tarea hola', 0),
+(17, 'usuario@ucm.es', 'tarea adios', 0);
 
 -- --------------------------------------------------------
 
@@ -119,13 +116,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas
