@@ -35,7 +35,7 @@ let saAsk = new SAAsk(pool)
 
 //**************ETIQUETAS***************
 //console.log(saTag.getAllTags(1))
-//console.log(saTag.insertTag(2, "aw"));
+// console.log(saTag.insertTag(5, "covid"));
 
 //**************RESPUESTAS***************
 //console.log(saReply.insertReply("Respuesta prueba2",2,2));
@@ -44,9 +44,9 @@ let saAsk = new SAAsk(pool)
 
 //**************PREGUNTAS***************
 // console.log(saAsk.getAllAsk())
-// console.log(saAsk.insertAsk("Pregunta SGE", "señor croquetin cuantos años tiene", 1))
+// console.log(saAsk.insertAsk("Evolucion del covid-19", "El covid a dia de hoy...", 2))
 // console.log(saAsk.getAllAsksByTag("aw"))
 // console.log(saAsk.getAllAsksWithoutReply())
-// console.log(saAsk.getAllAsksByText("x"))
-// console.log(saAsk.getAsk(1)) 
+// console.log(saAsk.getAllAsksByText("dia"))
+console.log(saAsk.getAsk(5)) 
 //DUDA CON HACER TRIGGER O AUMENTAR EN 1 A MANO creo que mejor a mano 
