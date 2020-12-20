@@ -12,28 +12,38 @@
 <body>
     <div class="logo"><img class="logo" src="recursos/404iconp.png"></div>
 
-    <div class="datos">
-        <div class="info">
-            <p>Correo *</p>
-            <input type="text" class="box">
+    <form method="POST" action="usuarios/procesar_registro">
+        <div class="datos">
+            <div class="info">
+                <label for="formCorreo">
+                    <p>Correo *</p>
+                </label>
+                <input type="text" name="correo" id="formCorreo" class="box">
 
-            <p>Contraseña *</p>
-            <input type="text" class="box">
+                <label for="formPassword">
+                    <p>Contraseña *</p>
+                </label>
+                <input type="text" name="password" id="formPassword" class="box">
 
-            <p>Confirmar contraseña *</p>
-            <input type="text" class="box">
+                <label for="formConfirmPassword">
+                    <p>Confirmar contraseña *</p>
+                </label>
+                <input type="text" name="confirmPassword" id="formConfirmPassword" class="box">
 
-            <p>Nombre para mostrar *</p>
-            <input type="text" class="box">
+                <label for="formNickname">
+                    <p>Nombre para mostrar *</p>
+                </label>
+                <input type="text" name="nickname" id="formNickname" class="box">
 
-            <p>Imagen de perfil</p>
-            <input type="file" class="boxFile">
+                <label for="formNickname">
+                    <p>Imagen de perfil *</p>
+                </label>
+                <input type="file" name="avatar" id="formAvatar" class="boxFile">
+            </div>
 
-
+            <button class="button" type="submit">Crear cuenta</button>
         </div>
-        <button class="button">Iniciar sesión</button>
-        <button class="button">Crear cuenta</button>
-    </div>
+    </form>
 </body>
 
 </html>

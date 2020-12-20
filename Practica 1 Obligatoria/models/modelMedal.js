@@ -1,7 +1,7 @@
 "use strict";
 const mysql = require("mysql");
 
-class DAOMedal { 
+class modelMedal { 
     constructor(pool) {
         this.pool = pool;
     }
@@ -64,4 +64,4 @@ class DAOMedal {
         );
     }
 }
-module.exports = DAOMedal;
+module.exports = modelMedal;

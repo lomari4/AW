@@ -64,18 +64,26 @@ div.info p{
 }
 
 .button{
+    text-align: center;
     margin-left:auto;
     margin-right:auto;
     border-radius: 5px;
     font-size:22px;
     width: 20%;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin-bottom: 50px;
     background-color: #0f679b;
     color: white;
+    border: 2px solid rgb(36, 45, 85);
+}
+
+a{
+    text-decoration: none;
 }
 
 .button:hover{
     background-color: rgb(18, 99, 90);
     width: 21%;
+    cursor: pointer;
 }

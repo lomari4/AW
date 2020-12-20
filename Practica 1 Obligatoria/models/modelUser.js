@@ -1,7 +1,7 @@
 "use strict";
 const mysql = require("mysql");
 
-class DAOUser { 
+class modelUser { 
     constructor(pool) {
         this.pool = pool;
     }
@@ -133,5 +133,26 @@ class DAOUser {
         });
     }
 
+    updateReputation(id, reputacion, callback){
+        this.pool.getConnection(function (err, connection){
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"))
+            }
+            else{
+                connection.query("UPDATE usuarios SET reputacion=? + (SELECT reputacion FROM usuarios WHERE id=?) WHERE id=?",
+                [reputacion,id,id],
+                function (err, rows) {
+                    connection.release(); // devolver al pool la conexión
+                    if (err) {
+                        callback(new Error("Error de acceso a la base de datos"))
+                    }
+                    else {
+                        callback(null, rows)
+                    }
+                });
+            }
+        });
+    }
+    
 }
-module.exports = DAOUser;
+module.exports = modelUser;

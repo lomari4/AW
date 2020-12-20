@@ -1,7 +1,7 @@
 "use strict";
 const mysql = require("mysql");
 
-class DAOReply {
+class modelReply {
     constructor(pool) {
         this.pool = pool;
     }
@@ -81,5 +81,35 @@ class DAOReply {
         });
     }
 
+    voteReply(idUsuario, idRespuesta, puntos, callback){
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"))
+            }
+            else {
+                connection.query("INSERT INTO votarespuesta(idUsuario, idRespuesta, puntos) VALUES (?,?,?)",
+                    [idUsuario, idRespuesta, puntos],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Un usuario no puede votar dos veces a la misma respuesta"))
+                        }
+                        else {
+                            connection.query("UPDATE respuestas SET votos=? + (SELECT votos FROM respuestas WHERE id=?) where id=?",
+                            [puntos, idRespuesta, idRespuesta],
+                            function (err, rows) {
+                                if (err) {
+                                    callback(new Error("Error de acceso a la base de datos"))
+                                }
+                                else {
+                                    callback(null, rows)
+                                }
+                            });
+                        }
+                    });
+            }
+        });
+    }
+
 }
-module.exports = DAOReply;
+module.exports = modelReply;

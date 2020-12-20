@@ -1,7 +1,7 @@
 "use strict";
 const mysql = require("mysql");
 
-class DAOTag {
+class modelTag {
     constructor(pool) {
         this.pool = pool;
     }
@@ -72,4 +72,4 @@ class DAOTag {
     }
 
 }
-module.exports = DAOTag;
+module.exports = modelTag;

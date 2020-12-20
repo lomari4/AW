@@ -1,7 +1,7 @@
 "use strict";
 const mysql = require("mysql");
 
-class DAOAsk {
+class modelAsk {
     constructor(pool) {
         this.pool = pool;
     }
@@ -39,12 +39,15 @@ class DAOAsk {
             }
 
             else { //Left join para que saque preguntas aunque no tengan etiquetas
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha, preguntas.votos, preguntas.visitas, usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.id WHERE preguntas.id = ?",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto, preguntas.fecha, preguntas.votos, preguntas.visitas, usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.id WHERE preguntas.id = ?",
                     [idPregunta],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
                             callback(new Error("Error de acceso a la base de datos"))
+                        }
+                        else if (rows.length === 0) {
+                            callback(null, false) //no existe la pregunta
                         }
                         else { //En cuanto a las visitas de las preguntas, cada vez que un usuario accede a la información detallada de una pregunta, se incrementa en uno sun número de visitas.
                             connection.query("UPDATE preguntas SET visitas=visitas+1 WHERE id = ?",
@@ -161,5 +164,35 @@ class DAOAsk {
         });
     }
 
+    voteAsk(idUsuario, idPregunta, puntos, callback){
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"))
+            }
+            else {
+                connection.query("INSERT INTO votapregunta(idUsuario, idPregunta, puntos) VALUES (?,?,?)",
+                    [idUsuario, idPregunta, puntos],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Un usuario no puede votar dos veces a la misma pregunta"))
+                        }
+                        else {
+                            connection.query("UPDATE preguntas SET votos=? + (SELECT votos FROM preguntas WHERE id=?) where id=?",
+                            [puntos, idPregunta, idPregunta],
+                            function (err, rows) {
+                                if (err) {
+                                    callback(new Error("Error de acceso a la base de datos"))
+                                }
+                                else {
+                                    callback(null, rows)
+                                }
+                            });
+                        }
+                    });
+            }
+        });
+    }
+
 }
-module.exports = DAOAsk;
+module.exports = modelAsk;

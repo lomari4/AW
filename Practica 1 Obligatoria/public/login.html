@@ -11,17 +11,25 @@
 <body>
     <div class="logo"><img class="logo" src="recursos/404iconp.png"></div>
 
-    <div class="datos">
-        <div class="info">
-            <p>Correo *</p>
-            <input type="text" class="box">
+    <form method="POST" action="usuarios/procesar_login">
+        <div class="datos">
+            <div class="info">
+                <label for="formCorreo">
+                    <p>Correo *</p>
+                </label>
+                <input type="text" name="correo" id="formCorreo" class="box">
 
-            <p>Contraseña *</p>
-            <input type="text" class="box">
+                <label for="formPassword">
+                    <p>Contraseña *</p>
+                </label>
+                <input type="text" name="password" id="formPassword" class="box">
+            </div>
+
+            <button class="button" type="submit">Iniciar sesión</button>
+            <a class="button" href="usuarios/registro">Crear cuenta</a>
         </div>
-        <button class="button">Iniciar sesión</button>
-        <button class="button">Crear cuenta</button>
-    </div>
+    </form>
+
 </body>
 
 </html>
