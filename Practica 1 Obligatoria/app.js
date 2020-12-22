@@ -12,21 +12,6 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static(__dirname + '/public'));
 
-// Crear el pool de conexiones
-const pool = mysql.createPool({
-    host: config.mysqlConfig.host,
-    user: config.mysqlConfig.user,
-    password: config.mysqlConfig.password,
-    database: config.mysqlConfig.database
-});
-
-
-const controllerUsuarios = require("./controllers/controllerUsuarios.js");
-
-//PREGUNTAR: ESTO VA AQUI? PORQUE HAY QUE PASAR EL pool
-let controllerUser = new controllerUsuarios(pool)
-//let controllerAsk = new controllerPreguntas(pool)
-
 app.use("/usuarios", routerUsuarios)
 app.use("/preguntas", routerPreguntas)
 

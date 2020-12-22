@@ -5,7 +5,7 @@
     <title>Gestor de Tareas</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" media="screen" href="css/tasksScreen.css">
-    <link rel="stylesheet" media="print" href="css/tasksPrint.css"> 
+    <link rel="stylesheet" media="print" href="css/tasksPrint.css">
     <link rel="icon" type="img/png" href="img/icon.png">
 </head>
 
@@ -26,32 +26,42 @@
         <% taskList.forEach(function(task) { %>
             <% if(task.done==0){ %>
                 <div class="elemento">
-                    <p class="texto"><%=task.text%></p>
+                    <p class="texto">
+                        <%=task.text%>
+                    </p>
+
+                    <% if (task.tags.length>0) { %>
                         <% task.tags.forEach(function(t) { %>
-                            <span class="tag"><%=t%></span>
+                            <span class="tag">
+                                <%=t%>
+                            </span>
                             <% }); %>
 
-                    <a class="botonFin" href="/finish/<%=task.id%>">MARCAR FINALIZADA</a> 
+                                <% } %>
+
+                    <a class="botonFin" href="/finish/<%=task.id%>">MARCAR FINALIZADA</a>
+
                 </div>
-              <% }
-              else{ %>  
-                <div class="elementoCross">
-                    <p class="texto texto_cross"><%=task.text%></p>
-                </div>
-             <% } %>
+                <% } else{ %>
+                    <div class="elementoCross">
+                        <p class="texto texto_cross">
+                            <%=task.text%>
+                        </p>
+                    </div>
+                    <% } %>
 
-            <% }); %>
+                        <% }); %>
 
-        <div class="AddTask">
-            <form action="addTask" method="POST">
-                <input type="text" name="text" class="Write">
-                <input type="submit" button class="botonAdd" value=AÑADIR>
-            </form>
-        </div>
+                            <div class="AddTask">
+                                <form action="addTask" method="POST">
+                                    <input type="text" name="text" class="Write">
+                                    <input type="submit" button class="botonAdd" value=AÑADIR>
+                                </form>
+                            </div>
 
-        <div class="DeleteTask">
-            <a class="botonDelete" href="/deleteCompleted">Eliminar Tareas Completadas</a>
-        </div>
+                            <div class="DeleteTask">
+                                <a class="botonDelete" href="/deleteCompleted">Eliminar Tareas Completadas</a>
+                            </div>
     </div>
 
 </body>

@@ -6,6 +6,7 @@ const controllerUsuarios = require("../controllers/controllerUsuarios.js");
 //preguntar si el pool va aqui
 const config = require("../config.js");
 const mysql = require("mysql");
+
 // Crear el pool de conexiones
 const pool = mysql.createPool({
     host: config.mysqlConfig.host,
@@ -24,24 +25,23 @@ router.get("perfil/:idUsuario",....)
 let controllerUser = new controllerUsuarios(pool)
 
 router.get("/", function (request, response) {
-    response.redirect("/login.html")
+    response.redirect("usuarios/login.html")
 });
 
 router.get("/login", function (request, response) {
-    response.redirect("/login.html")
+    response.redirect("usuarios/login.html")
 });
 
 router.get("/registro", function (request, response) {
-    response.redirect("/registro.html")
+    response.redirect("usuarios/registro.html")
 });
 
 router.get("/principal", function (request, response) {
-    response.redirect("/principal.html")
+    response.redirect("usuarios/principal.html")
 });
 
-//preguntar si response va ahi
 router.post("/procesar_login", function (request, response, next) {
-    controllerUser.isUserCorrect(request.body.correo, request.body.password, response, next);
+    controllerUser.isUserCorrect(request.body.correo, request.body.password, response, next); //preguntar si response va ahi
 });
 
 router.post("/procesar_registro", function (request, response, next) {
@@ -51,8 +51,11 @@ router.post("/procesar_registro", function (request, response, next) {
     else{
         response.statusCode = 404;
         console.log("Passwords no coinciden")
+        //hacer popup o cuando renderizas pones un mensaje
+
+
         //preguntar
-        //preguntar validacion formularios (dejar correo vacio etc)
+        //preguntar validacion formularios (dejar correo vacio etc) SI SE HACE VALIDACION DE TODO CON REQUIRED
     }
 });
 
