@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/registro.css">
+    <link rel="icon" type="img/png" href="/recursos/404icon.png">
+    <title>404</title>
+</head>
+
+<body>
+    <div class="logo"><img class="logo" src="/recursos/404iconp.png"></div>
+
+    <form method="POST" action="/usuarios/procesar_registro">
+        <div class="datos">
+            <div class="info">
+                <label for="formCorreo">
+                    <p>Correo *</p>
+                </label>
+                <input type="email" name="correo" id="formCorreo" placeholder="ejemplo@gmail.com" class="box" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" title="El email debe de ser valido">
+
+                <label for="formPassword">
+                    <p>Contraseña *</p>
+                </label>
+                <input type="password" name="password" pattern=".{8,12}" title="De 8 a 12 caracteres" id="formPassword" class="box" required>
+
+                <label for="formConfirmPassword">
+                    <p>Confirmar contraseña *</p>
+                </label>
+                <input type="password" name="confirmPassword" pattern=".{8,12}" title="De 8 a 12 caracteres" id="formConfirmPassword" class="box" required>
+
+                <label for="formNickname">
+                    <p>Nombre para mostrar *</p>
+                </label>
+                <input type="text" name="nickname" id="formNickname" class="box" required>
+
+                <label for="formNickname">
+                    <p>Imagen de perfil *</p>
+                </label>
+                <input type="file" name="avatar" id="formAvatar" class="boxFile">
+
+                <% if (errorMsg) { %>
+                    <div class="error"><%=errorMsg%></div>
+                 <% } else { %>
+                    <p></p>
+                <% } %>
+                
+            </div>
+
+            <button class="button" type="submit">Crear cuenta</button>
+        </div>
+    </form>
+</body>
+
+</html>

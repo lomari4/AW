@@ -1,6 +1,8 @@
 const modelUser = require("../models/modelUser.js");
 const modelMedal = require("../models/modelMedal.js");
 
+var path = require('path');
+
 class controllerUsuarios {
 
     constructor(pool) {
@@ -22,34 +24,44 @@ class controllerUsuarios {
         });
     }
 
-    isUserCorrect(email,pass,response,next){
+    isUserCorrect(email,pass,response){
         this.modelUser.isUserCorrect(email, pass, function (err, result) {
             if (err) {
                 console.log(err.message);
-                response.redirect("/login")
+                response.render("login", { errorMsg: err.message });
             } else if (result) {
                 console.log("Usuario y contraseña correctos");
-                response.redirect("/principal")
-                next()
+                response.redirect("/usuarios/principal")
             } else {
                 console.log("Usuario y/o contraseña incorrectos");
-                response.redirect("/login")
+                response.render("login", { errorMsg: "Usuario y/o contraseña incorrectos" });
             }
         });
     }
 
-    insertUser(email,pass,nombre,avatar,response,next){
+    insertUser(email,pass,nombre,avatar,response){
         let f = new Date();
         let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
     
         this.modelUser.insertUser(email,pass,nombre,avatar,fecha, function (err, result){
             if (err) {
                 console.log(err.message);
-                response.redirect("/registro")
+                response.render("registro", { errorMsg: "Email ya existente" });
             } else {            
                 console.log("Usuario registrado con id: " + result.insertId);
-                response.redirect("/principal")
-                next()
+                response.redirect("/usuarios/principal")
+            }
+        });
+    }
+
+    getUserImageName(email, response){
+        this.modelUser.getUserImageName(email, function (err, result){
+            if (err) {
+                console.log(err.message);
+            } else if (result[0].avatar != null) {
+                response.sendFile(path.resolve("public/profile_imgs/") + "/" + result[0].avatar)
+            } else {
+                response.sendFile(path.resolve("public/profile_imgs/") + "/avatar_" + Math.floor(Math.random() * 4) + ".png")
             }
         });
     }

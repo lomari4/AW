@@ -1,61 +1,72 @@
 const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
-const controllerUsuarios = require("../controllers/controllerUsuarios.js");
-
-//preguntar si el pool va aqui
 const config = require("../config.js");
 const mysql = require("mysql");
+const path = require("path");
+
+const session = require("express-session");
+const mysqlSession = require("express-mysql-session");
+const MySQLStore = mysqlSession(session);
+
+const controllerUsuarios = require("../controllers/controllerUsuarios.js");
 
 // Crear el pool de conexiones
-const pool = mysql.createPool({
-    host: config.mysqlConfig.host,
-    user: config.mysqlConfig.user,
-    password: config.mysqlConfig.password,
-    database: config.mysqlConfig.database
+const pool = mysql.createPool(config.mysqlConfig);
+
+//Sesiones
+const sessionStore = new MySQLStore(config.mysqlConfig);
+const middlewareSession = session({
+    saveUninitialized: false,
+    secret: "foobar34",
+    resave: false,
+    store: sessionStore
 });
 
+//Uses
+router.use(middlewareSession);
 router.use(bodyParser.urlencoded({ extended: true }));
 
-/* middleware propios
+//Declaraciones
+let controllerUser = new controllerUsuarios(pool)
 
+//Middleware para identificar al usuario
+function identificacionRequerida(request, response, next) {
+    if (request.session.currentUser) {
+        response.locals.userEmail = request.session.currentUser;
+        next();
+    } else {
+        console.log("No lo intentes ;)")
+        response.redirect("/login");
+    }
+}
+
+/* middleware propios
 router.get("perfil/:idUsuario",....)
 */
 
-let controllerUser = new controllerUsuarios(pool)
-
-router.get("/", function (request, response) {
-    response.redirect("usuarios/login.html")
+//MANEJADORES DE RUTA
+router.get("/principal", identificacionRequerida, function (request, response) {
+    response.render("principal", { userMail: response.locals.userEmail });
 });
 
-router.get("/login", function (request, response) {
-    response.redirect("usuarios/login.html")
+router.get("/imagenUsuario", function (request, response) {
+    controllerUser.getUserImageName(request.session.currentUser,response)
 });
 
-router.get("/registro", function (request, response) {
-    response.redirect("usuarios/registro.html")
+//POST REQUESTS
+router.post("/procesar_login", function (request, response) {
+    request.session.currentUser = request.body.correo; //guardar la sesion del usuario
+    controllerUser.isUserCorrect(request.body.correo, request.body.password, response)
 });
 
-router.get("/principal", function (request, response) {
-    response.redirect("usuarios/principal.html")
-});
-
-router.post("/procesar_login", function (request, response, next) {
-    controllerUser.isUserCorrect(request.body.correo, request.body.password, response, next); //preguntar si response va ahi
-});
-
-router.post("/procesar_registro", function (request, response, next) {
+router.post("/procesar_registro", function (request, response) {
     if (request.body.password == request.body.confirmPassword) {
-        controllerUser.insertUser(request.body.correo, request.body.password, request.body.nickname, request.body.avatar, response, next);
+        request.session.currentUser = request.body.correo; //guardar la sesion del usuario
+        controllerUser.insertUser(request.body.correo, request.body.password, request.body.nickname, request.body.avatar, response);
     }
-    else{
-        response.statusCode = 404;
-        console.log("Passwords no coinciden")
-        //hacer popup o cuando renderizas pones un mensaje
-
-
-        //preguntar
-        //preguntar validacion formularios (dejar correo vacio etc) SI SE HACE VALIDACION DE TODO CON REQUIRED
+    else {
+        response.render("registro", { errorMsg: "Passwords no coinciden" });
     }
 });
 

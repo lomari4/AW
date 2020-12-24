@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="icon" type="img/png" href="/recursos/404icon.png">
+    <title>404</title>
+</head>
+
+<body>
+    <div class="logo"><img class="logo" src="/recursos/404iconp.png"></div>
+
+    <form method="POST" action="/usuarios/procesar_login">
+        <div class="datos">
+            <div class="info">
+                <label for="formCorreo">
+                    <p>Correo *</p>
+                </label>
+                <input type="email" name="correo" id="formCorreo" class="box" required>
+
+                <label for="formPassword">
+                    <p>Contraseña *</p>
+                </label>
+                <input type="password" name="password" id="formPassword" class="box" required>
+
+                <% if (errorMsg) { %>
+                    <div class="error"><%=errorMsg%></div>
+                 <% } else { %>
+                    <p></p>
+                <% } %>
+
+            </div>
+
+            <button class="button" type="submit">Iniciar sesión</button>
+            <a class="button" href="/registro">Crear cuenta</a>
+        </div>
+    </form>
+
+</body>
+
+</html>

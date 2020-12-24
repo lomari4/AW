@@ -7,25 +7,55 @@ const routerPreguntas = require("./routers/routerPreguntas.js");
 const path = require("path");
 const app = express();
 
+const session = require("express-session");
+const mysqlSession = require("express-mysql-session");
+const MySQLStore = mysqlSession(session);
+
+//Sesiones
+const sessionStore = new MySQLStore(config.mysqlConfig);
+const middlewareSession = session({
+  saveUninitialized: false,
+  secret: "foobar34",
+  resave: false,
+  store: sessionStore
+});
+
+//para que funcione ejs
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use(express.static(__dirname + '/public'));
-
+//Uses
+app.use(middlewareSession);
+app.use(express.static(__dirname + '/public')); //IMPORTANTE
+//routers
 app.use("/usuarios", routerUsuarios)
 app.use("/preguntas", routerPreguntas)
 
+//MANEJADORES DE RUTA
 app.get("/", function (request, response) {
-    response.redirect("/usuarios/login")
+  response.redirect("/login")
+});
+
+app.get("/login", function (request, response) {
+  response.render("login", { errorMsg: null });
+});
+
+app.get("/registro", function (request, response) {
+  response.render("registro", { errorMsg: null });
+});
+
+app.get("/logout", function (request, response) {
+  request.session.destroy()
+  response.redirect("/login");
 });
 
 // Arrancar el servidor
 app.listen(config.port, function (err) {
-    if (err) {
-      console.log("ERROR al iniciar el servidor");
-    } else {
-      console.log(`Servidor arrancado en el puerto ${config.port}`);
-    }
+  if (err) {
+    console.log("ERROR al iniciar el servidor");
+  } else {
+    console.log(`Servidor arrancado en el puerto ${config.port}`);
+  }
 });
 
 

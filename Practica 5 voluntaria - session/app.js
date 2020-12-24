@@ -67,7 +67,7 @@ app.get("/login", function (request, response) {
 });
 
 app.post("/procesar_login", function (request, response) {
-
+  //SOLO AQUI USAER EL request.body.correo. PARA ACCEDER AL USER CORREO CUSAR request.session.currentUser
   daoUser.isUserCorrect(request.body.correo, request.body.password, function (err, result) {
     if (err) {
       console.log(err.message);

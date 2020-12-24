@@ -16,21 +16,9 @@ body{
     background-size: cover;
 }
 
-/*HEADER*/
-/* div.logo {
-    width:355px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 15px;
-    margin-top: 20px;   
-    font-size: 200px;
-    color: #0f679b;
-    text-shadow: -3px 3px #ffffff, -3px -3px #ffffff, 3px -3px #ffffff, 3px 3px #f3f3f2, 6px 6px #6ac7c2;
-} */
-
 .logo{
-    width: 300px;
-    margin-top: 20px;
+    width: 350px;
+    margin-top: 13px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -63,6 +51,11 @@ div.info p{
     width:58%;
 }
 
+.error{
+    color:red;
+    font-size: 20px;
+}
+
 .button{
     text-align: center;
     margin-left:auto;
@@ -83,7 +76,6 @@ a{
 }
 
 .button:hover{
-    background-color: rgb(18, 99, 90);
-    width: 21%;
+    background-color:#6CC8C3;
     cursor: pointer;
 }
