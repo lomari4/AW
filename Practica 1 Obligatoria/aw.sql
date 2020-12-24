@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-12-2020 a las 17:51:39
--- Versión del servidor: 10.4.16-MariaDB
--- Versión de PHP: 7.4.12
+-- Tiempo de generación: 24-12-2020 a las 14:30:26
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,15 +33,6 @@ CREATE TABLE `etiquetas` (
   `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `etiquetas`
---
-
-INSERT INTO `etiquetas` (`id`, `idPregunta`, `nombre`) VALUES
-(1, 1, 'node'),
-(2, 1, 'aw'),
-(8, 2, 'aw');
-
 -- --------------------------------------------------------
 
 --
@@ -54,17 +45,6 @@ CREATE TABLE `medallas` (
   `cantidad` int(10) NOT NULL,
   `tipo` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- Volcado de datos para la tabla `medallas`
---
-
-INSERT INTO `medallas` (`idUsuario`, `logro`, `cantidad`, `tipo`) VALUES
-(1, 'Registrado', 4, 'bronce'),
-(1, 'Registrado', 3, 'oro'),
-(1, 'Registrado', 3, 'plata'),
-(2, 'Registrado', 4, 'oro'),
-(2, 'Registrado', 3, 'plata');
 
 -- --------------------------------------------------------
 
@@ -82,16 +62,6 @@ CREATE TABLE `preguntas` (
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- Volcado de datos para la tabla `preguntas`
---
-
-INSERT INTO `preguntas` (`id`, `titulo`, `texto`, `idUsuario`, `votos`, `visitas`, `fecha`) VALUES
-(1, 'Prueba', 'PruebaTexto', 1, 0, 3, '0000-00-00'),
-(2, 'Prueba2', 'Prueba2Texto', 2, 0, 1, '0000-00-00'),
-(3, 'Pregunta AW', 'cuando se entrega la practica', 2, 0, 3, '2020-12-12'),
-(4, 'Pregunta SGE', 'señor croquetin cuantos años tiene', 1, 0, 1, '2020-12-12');
-
 -- --------------------------------------------------------
 
 --
@@ -107,15 +77,17 @@ CREATE TABLE `respuestas` (
   `idPregunta` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `respuestas`
+-- Estructura de tabla para la tabla `sessions`
 --
 
-INSERT INTO `respuestas` (`id`, `texto`, `votos`, `fecha`, `idUsuario`, `idPregunta`) VALUES
-(1, 'Respuesta prueba', 0, '2020-12-10', 1, 1),
-(2, 'Respuesta prueba', 0, '2020-12-10', 2, 1),
-(3, 'Respuesta prueba', 0, '2020-12-10', 2, 1),
-(5, 'Respuesta prueba2', 0, '2020-12-11', 2, 2);
+CREATE TABLE `sessions` (
+  `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `expires` int(11) UNSIGNED NOT NULL,
+  `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -127,7 +99,7 @@ CREATE TABLE `usuarios` (
   `id` int(10) NOT NULL,
   `pass` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `correo` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `avatar` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `avatar` varchar(20) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `fecha` date NOT NULL,
   `nombre` varchar(15) COLLATE utf8mb4_spanish_ci NOT NULL,
   `npreguntas` int(10) NOT NULL,
@@ -140,9 +112,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `pass`, `correo`, `avatar`, `fecha`, `nombre`, `npreguntas`, `nrespuestas`, `reputacion`) VALUES
-(1, '1234', 'usuario1@ucm.es', '../recursos/user.png', '2020-12-02', 'Usuario1', 0, 0, 0),
-(2, '4321', 'usuario2@ucm.es', '../recursos/user.png', '2020-12-02', 'Usuario2', 0, 0, 0),
-(8, '4321', 'usuario3@ucm.es', '../recursos/user.png', '2020-12-02', 'Usuario3', 0, 0, 0);
+(19, '12345678', 'usuario3@ucm.es', NULL, '2020-12-24', 'Usuario 3', 0, 0, 0),
+(20, '12345678', 'usuario1@ucm.es', 'user.png', '2020-12-24', 'Usuario 1', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -213,6 +184,12 @@ ALTER TABLE `respuestas`
   ADD KEY `idPregunta` (`idPregunta`);
 
 --
+-- Indices de la tabla `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`session_id`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -254,7 +231,7 @@ ALTER TABLE `etiquetas`
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
@@ -266,7 +243,7 @@ ALTER TABLE `respuestas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restricciones para tablas volcadas
