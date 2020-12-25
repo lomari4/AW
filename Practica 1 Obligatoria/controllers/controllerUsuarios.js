@@ -61,7 +61,20 @@ class controllerUsuarios {
             } else if (result[0].avatar != null) {
                 response.sendFile(path.resolve("public/profile_imgs/") + "/" + result[0].avatar)
             } else {
-                response.sendFile(path.resolve("public/profile_imgs/") + "/avatar_" + Math.floor(Math.random() * 4) + ".png")
+                let random = Math.floor(Math.random() * 4);
+                let avatar = "avatar_" + random + ".png";
+                response.sendFile(path.resolve("public/profile_imgs/") + "/" + avatar)
+            }
+        });
+    }
+
+    updateUserImage(avatar,email,response){
+        this.modelUser.updateUserImage(avatar,email, function (err, result){
+            if (err) {
+                console.log(err.message);
+            } else {            
+                console.log("Avatar actualizado");
+                //response.redirect("/usuarios/...")
             }
         });
     }
