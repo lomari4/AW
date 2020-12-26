@@ -32,16 +32,29 @@ app.use("/usuarios", routerUsuarios)
 app.use("/preguntas", routerPreguntas)
 
 //MANEJADORES DE RUTA
+//Si no cerraste sesion, se te direcciona a la pagina principal
 app.get("/", function (request, response) {
-  response.redirect("/login")
+  if (request.session.currentUser) {
+    response.redirect("/usuarios/principal")
+  }
+  else
+    response.redirect("/login")
 });
 
 app.get("/login", function (request, response) {
-  response.render("login", { errorMsg: null });
+  if (request.session.currentUser) {
+    response.redirect("/usuarios/principal")
+  }
+  else
+    response.render("login", { errorMsg: null });
 });
 
 app.get("/registro", function (request, response) {
-  response.render("registro", { errorMsg: null });
+  if (request.session.currentUser) {
+    response.redirect("/usuarios/principal")
+  }
+  else
+    response.render("registro", { errorMsg: null });
 });
 
 app.get("/logout", function (request, response) {

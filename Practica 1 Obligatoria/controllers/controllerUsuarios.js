@@ -58,12 +58,8 @@ class controllerUsuarios {
         this.modelUser.getUserImageName(email, function (err, result){
             if (err) {
                 console.log(err.message);
-            } else if (result[0].avatar != null) {
-                response.sendFile(path.resolve("public/profile_imgs/") + "/" + result[0].avatar)
             } else {
-                let random = Math.floor(Math.random() * 4);
-                let avatar = "avatar_" + random + ".png";
-                response.sendFile(path.resolve("public/profile_imgs/") + "/" + avatar)
+                response.sendFile(path.resolve("public/profile_imgs/") + "/" + result)
             }
         });
     }

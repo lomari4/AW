@@ -1,7 +1,7 @@
 "use strict";
 const mysql = require("mysql");
 
-class modelUser { 
+class modelUser {
     constructor(pool) {
         this.pool = pool;
     }
@@ -82,129 +82,152 @@ class modelUser {
     }
 
     getUser(email, callback) {
-        this.pool.getConnection(function (err, connection){
+        this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
-            else{
+            else {
                 connection.query("SELECT * FROM usuarios WHERE correo = ?",
-                [email],
-                function (err, rows) {
-                    connection.release(); // devolver al pool la conexión
-                    if (err) {
-                        callback(new Error("Error de acceso a la base de datos"))
-                    }
-                    else {
-                        if (rows.length === 0) {
-                            callback(null, false) //no existe el usuario
+                    [email],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Error de acceso a la base de datos"))
                         }
                         else {
-                            callback(null, rows)
+                            if (rows.length === 0) {
+                                callback(null, false) //no existe el usuario
+                            }
+                            else {
+                                callback(null, rows)
+                            }
                         }
-                    }
-                });
+                    });
             }
         });
     }
 
     getUserbyName(name, callback) {
-        this.pool.getConnection(function (err, connection){
+        this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
-            else{
+            else {
                 connection.query("SELECT * FROM usuarios WHERE nombre = ?",
-                [name],
-                function (err, rows) {
-                    connection.release(); // devolver al pool la conexión
-                    if (err) {
-                        callback(new Error("Error de acceso a la base de datos"))
-                    }
-                    else {
-                        if (rows.length === 0) {
-                            callback(null, false) //no existe el usuario
+                    [name],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Error de acceso a la base de datos"))
                         }
                         else {
-                            callback(null, rows)
+                            if (rows.length === 0) {
+                                callback(null, false) //no existe el usuario
+                            }
+                            else {
+                                callback(null, rows)
+                            }
                         }
-                    }
-                });
+                    });
             }
         });
     }
 
-    updateReputation(id, reputacion, callback){
-        this.pool.getConnection(function (err, connection){
+    updateReputation(id, reputacion, callback) {
+        this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
-            else{
+            else {
                 connection.query("UPDATE usuarios SET reputacion=? + (SELECT reputacion FROM usuarios WHERE id=?) WHERE id=?",
-                [reputacion,id,id],
-                function (err, rows) {
-                    connection.release(); // devolver al pool la conexión
-                    if (err) {
-                        callback(new Error("Error de acceso a la base de datos"))
-                    }
-                    else {
-                        callback(null, rows)
-                    }
-                });
+                    [reputacion, id, id],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Error de acceso a la base de datos"))
+                        }
+                        else {
+                            callback(null, rows)
+                        }
+                    });
             }
         });
     }
 
     getUserImageName(email, callback) {
-        this.pool.getConnection(function (err, connection){
+        this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
-            else{
+            else {
                 connection.query("SELECT avatar FROM usuarios WHERE correo = ?",
-                [email],
-                function (err, rows) {
-                    connection.release(); // devolver al pool la conexión
-                    if (err) {
-                        callback(new Error("Error de acceso a la base de datos"))
-                    }
-                    else {
-                        if (rows.length === 0) {
-                            callback(null, false) //no existe el usuario
+                    [email],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Error de acceso a la base de datos"))
                         }
                         else {
-                            callback(null, rows)
+                            if (rows.length === 0) {
+                                callback(null, false) //no existe el usuario
+                            }
+                            else {
+                                let avatar = rows[0].avatar;
+                                if (avatar == null) { //si su avatar es null, el sistema le inserta uno random
+                                    let random = Math.floor(Math.random() * 4);
+                                    let rngAvatar = "avatar_" + random + ".png";
+                                    connection.query("UPDATE usuarios SET avatar = ? WHERE correo = ?",
+                                        [rngAvatar, email],
+                                        function (err, rows) {
+                                            if (err) {
+                                                callback(new Error("Error de acceso a la base de datos"))
+                                            }
+                                            else {
+                                                if (rows.length === 0) {
+                                                    callback(null, false) //no existe el usuario
+                                                }
+                                                else {
+                                                    callback(null, rngAvatar)
+                                                }
+                                            }
+                                        });
+                                }
+                                else {
+                                    callback(null, avatar)
+                                }
+                                    
+                            }
                         }
-                    }
-                });
+                    });
             }
         });
     }
 
     updateUserImage(avatar, email, callback) {
-        this.pool.getConnection(function (err, connection){
+        this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
-            else{
+            else {
                 connection.query("UPDATE usuarios SET avatar = ? WHERE correo = ?",
-                [avatar, email],
-                function (err, rows) {
-                    connection.release(); // devolver al pool la conexión
-                    if (err) {
-                        callback(new Error("Error de acceso a la base de datos"))
-                    }
-                    else {
-                        if (rows.length === 0) {
-                            callback(null, false) //no existe el usuario
+                    [avatar, email],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Error de acceso a la base de datos"))
                         }
                         else {
-                            callback(null, rows)
+                            if (rows.length === 0) {
+                                callback(null, false) //no existe el usuario
+                            }
+                            else {
+                                callback(null, rows)
+                            }
                         }
-                    }
-                });
+                    });
             }
         });
     }
-    
+
 }
 module.exports = modelUser;
