@@ -55,14 +55,14 @@ class modelReply {
         );
     }
 
-    getAllUserReplies(idUsuario, callback){
+    getAllUserReplies(email, callback){
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT respuestas.texto, respuestas.votos, respuestas.fecha, respuestas.idPregunta FROM respuestas JOIN usuarios ON respuestas.idUsuario = usuarios.id WHERE usuarios.id = ?",
-                    [idUsuario],
+                connection.query("SELECT respuestas.texto, respuestas.votos, respuestas.fecha, respuestas.idPregunta FROM respuestas JOIN usuarios ON respuestas.idUsuario = usuarios.correo WHERE usuarios.correo = ?",
+                    [email],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {

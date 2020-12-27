@@ -31,7 +31,9 @@ class controllerUsuarios {
                 response.render("login", { errorMsg: err.message });
             } else if (result) {
                 console.log("Usuario y contraseña correctos");
-                response.redirect("/usuarios/principal")
+                response.redirect("/usuarios/userCorrect")
+
+                //response.redirect("/usuarios/principal")
             } else {
                 console.log("Usuario y/o contraseña incorrectos");
                 response.render("login", { errorMsg: "Usuario y/o contraseña incorrectos" });
@@ -87,20 +89,20 @@ class controllerUsuarios {
         });
     }
 
-    getUserbyName(name){
-        this.modelUser.getUserbyName(name, function (err, result) {
+    getUserIDbyEmail(email){
+        this.modelUser.getUserIDbyEmail(email, function (err, result) {
             if (err) {
                 console.log(err.message);
             } else if (result) {
-                console.log("Correo del usuario: " + result[0].correo);
+                console.log("Id del usuario: " + result[0].id);
             } else {
-                console.log("Error al obtener el usuario con el nombre " + name);
+                console.log("Error al obtener el usuario con el email " + email);
             }
         });
     }
 
-    updateReputation(id,reputacion){
-        this.modelUser.updateReputation(id,reputacion, function (err, result) {
+    updateReputation(email,reputacion){
+        this.modelUser.updateReputation(email,reputacion, function (err, result) {
             if (err) {
                 console.log(err.message);
             } else if (result) {
@@ -124,12 +126,12 @@ class controllerUsuarios {
         });
     }
 
-    insertMedal(idUsuario, logro, cantidad, tipo){
-        this.modelMedal.insertMedal(idUsuario, logro, cantidad, tipo, function (err, result){
+    insertMedal(email, logro, cantidad, tipo){
+        this.modelMedal.insertMedal(email, logro, cantidad, tipo, function (err, result){
             if (err) {
                 console.log(err.message);
             } else {            
-                console.log("Medalla añadida al usuario: " + idUsuario);
+                console.log("Medalla añadida al usuario: " + email);
             }
         });
     }

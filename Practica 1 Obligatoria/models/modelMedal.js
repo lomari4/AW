@@ -13,7 +13,7 @@ class modelMedal {
             }
 
             else {
-                connection.query("SELECT medallas.logro, medallas.cantidad, medallas.tipo FROM usuarios JOIN medallas ON usuarios.id = medallas.idUsuario WHERE usuarios.correo = ?",
+                connection.query("SELECT medallas.logro, medallas.cantidad, medallas.tipo FROM usuarios JOIN medallas ON usuarios.correo = medallas.idUsuario WHERE usuarios.correo = ?",
                 [email],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión

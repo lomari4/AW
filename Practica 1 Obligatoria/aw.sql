@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-12-2020 a las 14:30:26
+-- Tiempo de generación: 27-12-2020 a las 14:22:01
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -40,7 +40,7 @@ CREATE TABLE `etiquetas` (
 --
 
 CREATE TABLE `medallas` (
-  `idUsuario` int(10) NOT NULL,
+  `idUsuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `logro` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `cantidad` int(10) NOT NULL,
   `tipo` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL
@@ -56,11 +56,19 @@ CREATE TABLE `preguntas` (
   `id` int(10) NOT NULL,
   `titulo` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
   `texto` varchar(1000) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `idUsuario` int(10) NOT NULL,
+  `idUsuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `votos` int(30) NOT NULL DEFAULT 0,
   `visitas` int(30) NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `preguntas`
+--
+
+INSERT INTO `preguntas` (`id`, `titulo`, `texto`, `idUsuario`, `votos`, `visitas`, `fecha`) VALUES
+(4, 'pls funsiona', 'pls', 'usuario1@ucm.es', 0, 0, '2020-12-27'),
+(5, 'pls funsiona 2', 'dfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfsg', 'usuario1@ucm.es', 0, 0, '2020-12-27');
 
 -- --------------------------------------------------------
 
@@ -73,7 +81,7 @@ CREATE TABLE `respuestas` (
   `texto` varchar(1000) COLLATE utf8mb4_spanish_ci NOT NULL,
   `votos` int(10) NOT NULL DEFAULT 0,
   `fecha` date NOT NULL,
-  `idUsuario` int(10) NOT NULL,
+  `idUsuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `idPregunta` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -89,6 +97,13 @@ CREATE TABLE `sessions` (
   `data` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `sessions`
+--
+
+INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('TTEO1diiX4ltAWOOX9jmd32yG7jKCRdB', 1609161668, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"usuario1@ucm.es\"}');
+
 -- --------------------------------------------------------
 
 --
@@ -96,9 +111,8 @@ CREATE TABLE `sessions` (
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(10) NOT NULL,
-  `pass` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `correo` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `pass` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `avatar` varchar(20) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `fecha` date NOT NULL,
   `nombre` varchar(15) COLLATE utf8mb4_spanish_ci NOT NULL,
@@ -111,9 +125,8 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `pass`, `correo`, `avatar`, `fecha`, `nombre`, `npreguntas`, `nrespuestas`, `reputacion`) VALUES
-(19, '12345678', 'usuario3@ucm.es', NULL, '2020-12-24', 'Usuario 3', 0, 0, 0),
-(20, '12345678', 'usuario1@ucm.es', 'user.png', '2020-12-24', 'Usuario 1', 0, 0, 0);
+INSERT INTO `usuarios` (`correo`, `pass`, `avatar`, `fecha`, `nombre`, `npreguntas`, `nrespuestas`, `reputacion`) VALUES
+('usuario1@ucm.es', '12345678', 'avatar_2.png', '2020-12-27', 'Usuario 1', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -122,7 +135,7 @@ INSERT INTO `usuarios` (`id`, `pass`, `correo`, `avatar`, `fecha`, `nombre`, `np
 --
 
 CREATE TABLE `visitapregunta` (
-  `idUsuario` int(11) NOT NULL,
+  `idUsuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `idPregunta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -133,7 +146,7 @@ CREATE TABLE `visitapregunta` (
 --
 
 CREATE TABLE `votapregunta` (
-  `idUsuario` int(11) NOT NULL,
+  `idUsuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `idPregunta` int(11) NOT NULL,
   `puntos` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -145,7 +158,7 @@ CREATE TABLE `votapregunta` (
 --
 
 CREATE TABLE `votarespuesta` (
-  `idUsuario` int(10) NOT NULL,
+  `idUsuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `idRespuesta` int(10) NOT NULL,
   `puntos` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -193,8 +206,7 @@ ALTER TABLE `sessions`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `correo` (`correo`);
+  ADD PRIMARY KEY (`correo`);
 
 --
 -- Indices de la tabla `visitapregunta`
@@ -231,19 +243,13 @@ ALTER TABLE `etiquetas`
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restricciones para tablas volcadas
@@ -259,40 +265,40 @@ ALTER TABLE `etiquetas`
 -- Filtros para la tabla `medallas`
 --
 ALTER TABLE `medallas`
-  ADD CONSTRAINT `medallas_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `medallas_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  ADD CONSTRAINT `preguntas_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `preguntas_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
-  ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`idPregunta`) REFERENCES `preguntas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `respuestas_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `respuestas_ibfk_2` FOREIGN KEY (`idPregunta`) REFERENCES `preguntas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `visitapregunta`
 --
 ALTER TABLE `visitapregunta`
-  ADD CONSTRAINT `visitapregunta_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `visitapregunta_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `visitapregunta_ibfk_2` FOREIGN KEY (`idPregunta`) REFERENCES `preguntas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `votapregunta`
 --
 ALTER TABLE `votapregunta`
-  ADD CONSTRAINT `votapregunta_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `votapregunta_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `votapregunta_ibfk_2` FOREIGN KEY (`idPregunta`) REFERENCES `preguntas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `votarespuesta`
 --
 ALTER TABLE `votarespuesta`
-  ADD CONSTRAINT `votarespuesta_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `votarespuesta_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`correo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `votarespuesta_ibfk_2` FOREIGN KEY (`idRespuesta`) REFERENCES `respuestas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

@@ -34,6 +34,7 @@ let controllerUser = new controllerUsuarios(pool)
 function identificacionRequerida(request, response, next) {
     if (request.session.currentUser) {
         response.locals.userEmail = request.session.currentUser;
+        response.locals.userId = request.session.currentId;
         next();
     } else {
         console.log("No lo intentes ;)")

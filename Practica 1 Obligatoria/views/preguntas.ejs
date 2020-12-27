@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/principal.css">
+    <link rel="stylesheet" href="/css/preguntas.css">
+    <link rel="icon" type="img/png" href="/recursos/404icon.png">
+    <title>404</title>
+</head>
+
+<body>
+
+    <%- include('header'); %>
+
+        <div class="buscar">
+            <button class="button">Buscar</button>
+            <input type="text" class="box" placeholder=" 🔎   Buscar por titulo/cuerpo de pregunta">
+        </div>
+
+        <h1>Todas las preguntas</h1>
+        <div class="headingQuestions">
+            <h2><%=preguntas.length%> preguntas</h2>
+            <a class="botones" href="/preguntas/formular">
+                <p>Formular una pregunta</p>
+            </a>
+        </div>
+
+        <div class="containerQuestions">
+
+            <% if (preguntas !=undefined) { %>
+                <% preguntas.forEach(function(p) { %>
+                    <div class="element">
+                        <div class="informacionPregunta">
+                            <p class="title">
+                                <%=p.titulo%>
+                            </p>
+                            <p maxlength="6" class="text">
+                                <%=p.texto%>
+                            </p>
+                            <div class="tags">
+                                <div>
+                                    <!--TODO-->
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="usuario">
+                            <p class="fecha">
+                                Formulada el <%=p.fecha%>
+                            </p>
+                            <div class="avatar">
+                                <img class="img" src="/usuarios/imagenUsuario">
+                            </div>
+                            <div>
+                                <a href=" ">
+                                    <%=p.nombreUsuario%>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <% }); %>
+                        <% } %>
+
+
+
+        </div>
+
+</body>
+
+</html>

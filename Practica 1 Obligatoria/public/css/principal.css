@@ -9,11 +9,26 @@ div.menu{
     cursor: pointer;
 }
 
-div.menu .button{
-    width: 300px;
+.botones{
+    width: 200px;
     margin-left: 20px;
     margin-bottom: 20px;
     border-radius: 5px;
+    font-size:22px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #0f679b;
+    color: white;
+    border: 2px solid rgb(36, 45, 85);
+}
+
+.botones:hover {
+    color:white;
+    background-color:#6CC8C3;
+}
+
+.botones p{
+    text-align: center;
 }
 
 div.heading{

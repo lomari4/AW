@@ -12,12 +12,13 @@ class controllerPreguntas {
     }
 
     //PREGUNTAS//
-    getAllAsk() {
+    getAllAsk(response) {
         this.modelAsk.getAllAsks(function (err, result) {
             if (err) {
                 console.log(err.message);
             } else if (result) {
                 console.log(result);
+                response.render("preguntas", { userMail: response.locals.userEmail, preguntas: result});
             } else {
                 console.log("No hay preguntas en la BD");
             }
@@ -36,15 +37,17 @@ class controllerPreguntas {
         });
     }
 
-    insertAsk(titulo, texto, idUsuario){
+    insertAsk(titulo, texto, email, response){
         let f = new Date();
         let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
 
-        this.modelAsk.insertAsk(titulo, texto, fecha, idUsuario, function (err, result){
+        this.modelAsk.insertAsk(titulo, texto, fecha, email, function (err, result){
             if (err) {
                 console.log(err.message);
+                response.render("preguntas", { errorMsg: "Error al insertar" });
             } else {            
-                console.log("Pregunta con id " + result.insertId + " hecha por el usuario " + idUsuario);
+                console.log("Pregunta con id " + result.insertId + " hecha por el usuario " + email);
+                response.redirect("/preguntas/preguntas")
             }
         });
     }
@@ -85,8 +88,8 @@ class controllerPreguntas {
         });
     }
 
-    voteAsk(idUsuario, idPregunta, puntos){
-        this.modelAsk.voteAsk(idUsuario, idPregunta, puntos, function (err, result){
+    voteAsk(email, idPregunta, puntos){
+        this.modelAsk.voteAsk(email, idPregunta, puntos, function (err, result){
             if (err) {
                 console.log(err.message);
             } else if (result) {
@@ -110,15 +113,15 @@ class controllerPreguntas {
         });
     }
 
-    insertReply(texto, idUsuario, idPregunta){
+    insertReply(texto, email, idPregunta){
         let f = new Date();
         let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
 
-        this.modelReply.insertReply(texto, fecha, idUsuario, idPregunta, function (err, result){
+        this.modelReply.insertReply(texto, fecha, email, idPregunta, function (err, result){
             if (err) {
                 console.log(err.message);
             } else {            
-                console.log("Respuesta con id " + result.insertId + " añadida a la pregunta: " + idPregunta + " hecha por el usuario " + idUsuario);
+                console.log("Respuesta con id " + result.insertId + " añadida a la pregunta: " + idPregunta + " hecha por el usuario " + email);
             }
         });
     }
@@ -135,8 +138,8 @@ class controllerPreguntas {
         });
     }
 
-    voteReply(idUsuario, idRespuesta, puntos){
-        this.modelReply.voteReply(idUsuario, idRespuesta, puntos, function (err, result){
+    voteReply(email, idRespuesta, puntos){
+        this.modelReply.voteReply(email, idRespuesta, puntos, function (err, result){
             if (err) {
                 console.log(err.message);
             } else if (result) {

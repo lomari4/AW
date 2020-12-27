@@ -13,7 +13,7 @@ class modelAsk {
             }
 
             else { //Left join para que saque preguntas aunque no tengan etiquetas
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.id",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo",
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -39,7 +39,7 @@ class modelAsk {
             }
 
             else { //Left join para que saque preguntas aunque no tengan etiquetas
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto, preguntas.fecha, preguntas.votos, preguntas.visitas, usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.id WHERE preguntas.id = ?",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto, preguntas.fecha, preguntas.votos, preguntas.visitas, usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.id = ?",
                     [idPregunta],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
@@ -66,20 +66,22 @@ class modelAsk {
         });
     }
 
-    insertAsk(titulo, texto, fecha, idUsuario, callback) {
+    insertAsk(titulo, texto, fecha, email, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
                 connection.query("INSERT INTO preguntas(titulo, texto, fecha, idUsuario) VALUES (?,?,?,?)",
-                    [titulo, texto, fecha, idUsuario],
+                    [titulo, texto, fecha, email],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
                             callback(new Error("Error en la insercion de la pregunta"))
                         }
                         else {
+
+
                             callback(null, rows)
                         }
                     });
@@ -94,7 +96,7 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.id WHERE etiquetas.nombre = ?",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE etiquetas.nombre = ?",
                     [nombreTag],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
@@ -120,7 +122,7 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.id WHERE preguntas.id NOT IN (SELECT respuestas.idPregunta FROM respuestas)",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.id NOT IN (SELECT respuestas.idPregunta FROM respuestas)",
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -145,7 +147,7 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.id WHERE preguntas.titulo LIKE '%" + palabra + "%' OR preguntas.texto LIKE '%" + palabra + "%'",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.titulo LIKE '%" + palabra + "%' OR preguntas.texto LIKE '%" + palabra + "%'",
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -164,14 +166,14 @@ class modelAsk {
         });
     }
 
-    voteAsk(idUsuario, idPregunta, puntos, callback){
+    voteAsk(email, idPregunta, puntos, callback){
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
                 connection.query("INSERT INTO votapregunta(idUsuario, idPregunta, puntos) VALUES (?,?,?)",
-                    [idUsuario, idPregunta, puntos],
+                    [email, idPregunta, puntos],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {

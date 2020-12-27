@@ -50,7 +50,7 @@ class modelUser {
                                 callback(null, false) //no está el usuario con el password proporcionado
                             }
                             else {
-                                callback(null, true)
+                                callback(null, rows)
                             }
                         }
                     });
@@ -107,14 +107,14 @@ class modelUser {
         });
     }
 
-    getUserbyName(name, callback) {
+    getUserIDbyEmail(email, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT * FROM usuarios WHERE nombre = ?",
-                    [name],
+                connection.query("SELECT id FROM usuarios WHERE correo = ?",
+                    [email],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -133,14 +133,14 @@ class modelUser {
         });
     }
 
-    updateReputation(id, reputacion, callback) {
+    updateReputation(correo, reputacion, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("UPDATE usuarios SET reputacion=? + (SELECT reputacion FROM usuarios WHERE id=?) WHERE id=?",
-                    [reputacion, id, id],
+                connection.query("UPDATE usuarios SET reputacion=? + (SELECT reputacion FROM usuarios WHERE correo=?) WHERE correo=?",
+                    [reputacion, correo, correo],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -173,7 +173,7 @@ class modelUser {
                             }
                             else {
                                 let avatar = rows[0].avatar;
-                                if (avatar == null) { //si su avatar es null, el sistema le inserta uno random
+                                if (avatar == '') { //si su avatar no existe, el sistema le inserta uno random
                                     let random = Math.floor(Math.random() * 4);
                                     let rngAvatar = "avatar_" + random + ".png";
                                     connection.query("UPDATE usuarios SET avatar = ? WHERE correo = ?",
