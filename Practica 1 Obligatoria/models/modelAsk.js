@@ -20,16 +20,15 @@ class modelAsk {
                             callback(new Error("Error de acceso a la base de datos"))
                         }
                         else {
-                            if (rows.length === 0) {
-                                callback(null, false) //no existe el usuario
-                            }
-                            else {
-                                let array = []
-                                let task = []
+                            let array = []
+
+                            if (rows.length != 0) {
+
+                                let p = []
 
                                 rows.forEach(e => {
                                     if (array[e.id] === undefined) {
-                                        task = {
+                                        p = {
                                             "id": e.id,
                                             "titulo": e.titulo,
                                             "texto": e.texto,
@@ -39,21 +38,21 @@ class modelAsk {
                                             "tags": [e.nombreEtiqueta]
                                         };
 
-                                        array[task.id] = task
+                                        array[p.id] = p
                                     }
                                     else {
-                                        array[task.id].tags.push(e.nombreEtiqueta)
+                                        array[p.id].tags.push(e.nombreEtiqueta)
                                     }
 
                                 });
-                                
+
                                 //como los ids son las posiciones del array, a veces los ids en la BD son 1,4,5... Y las posiciones del 2 al 3 quedan vacias, por lo que para eliminarlas se hace esto:
                                 array = array.filter(Boolean)
-
-                                callback(null, array)
                             }
+
+                            callback(null, array)
                         }
-                        
+
                     });
             }
         });
@@ -80,13 +79,13 @@ class modelAsk {
                             connection.query("UPDATE preguntas SET visitas=visitas+1 WHERE id = ?",
                                 [idPregunta],
                                 function (err) {
-                                    if(err){
+                                    if (err) {
                                         callback(new Error("Error de acceso a la base de datos"))
                                     }
-                                    else{
+                                    else {
                                         callback(null, rows)
                                     }
-                            });
+                                });
                         }
                     });
             }
@@ -117,7 +116,7 @@ class modelAsk {
         );
     }
 
-    getAllAsksByTag(nombreTag, callback){
+    getAllAsksByTag(nombreTag, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
@@ -143,7 +142,7 @@ class modelAsk {
         });
     }
 
-    getAllAsksWithoutReply(callback){
+    getAllAsksWithoutReply(callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
@@ -168,7 +167,7 @@ class modelAsk {
         });
     }
 
-    getAllAsksByText(palabra, callback){
+    getAllAsksByText(palabra, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
@@ -193,7 +192,7 @@ class modelAsk {
         });
     }
 
-    voteAsk(email, idPregunta, puntos, callback){
+    voteAsk(email, idPregunta, puntos, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
@@ -208,15 +207,15 @@ class modelAsk {
                         }
                         else {
                             connection.query("UPDATE preguntas SET votos=? + (SELECT votos FROM preguntas WHERE id=?) where id=?",
-                            [puntos, idPregunta, idPregunta],
-                            function (err, rows) {
-                                if (err) {
-                                    callback(new Error("Error de acceso a la base de datos"))
-                                }
-                                else {
-                                    callback(null, rows)
-                                }
-                            });
+                                [puntos, idPregunta, idPregunta],
+                                function (err, rows) {
+                                    if (err) {
+                                        callback(new Error("Error de acceso a la base de datos"))
+                                    }
+                                    else {
+                                        callback(null, rows)
+                                    }
+                                });
                         }
                     });
             }
