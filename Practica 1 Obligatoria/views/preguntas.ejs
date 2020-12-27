@@ -21,7 +21,13 @@
 
         <h1>Todas las preguntas</h1>
         <div class="headingQuestions">
-            <h2><%=preguntas.length%> preguntas</h2>
+            <% if (preguntas !=undefined) { %>
+                <h2><%=preguntas.length%> preguntas</h2>
+            <% }else { %>
+                <h2>0 preguntas</h2>
+            <% } %>
+
+            
             <a class="botones" href="/preguntas/formular">
                 <p>Formular una pregunta</p>
             </a>
@@ -39,10 +45,9 @@
                             <p class="text">
                                 <%=p.texto%>
                             </p>
-                            <% if (p.tags != null) { %>
+                            <% if (p.tags != "") { %>
                             <div class="tags">
                                 <div>
-                                   
                                         <% p.tags.forEach(function(t) { %>
                                             <span class="tag">
                                                 <%=t%>
