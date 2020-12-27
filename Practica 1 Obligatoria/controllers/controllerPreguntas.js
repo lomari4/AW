@@ -13,15 +13,12 @@ class controllerPreguntas {
 
     //PREGUNTAS//
     getAllAsk(response) {
-        let taskList;
         this.modelAsk.getAllAsks(function (err, result) {
             if (err) {
                 console.log(err.message);
-            } else if (result) {
-                taskList = result;
-                response.render("preguntas", { userMail: response.locals.userEmail ,preguntas: taskList });
             } else {
-                response.render("preguntas", { userMail: response.locals.userEmail, preguntas: taskList });
+                console.log(result);
+                response.render("preguntas", { userMail: response.locals.userEmail, preguntas: result});
             }
         });
     }
