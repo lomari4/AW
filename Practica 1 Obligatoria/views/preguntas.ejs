@@ -39,12 +39,18 @@
                             <p class="text">
                                 <%=p.texto%>
                             </p>
+                            <% if (p.tags != null) { %>
                             <div class="tags">
                                 <div>
-                                    <!--TODO-->
-
+                                   
+                                        <% p.tags.forEach(function(t) { %>
+                                            <span class="tag">
+                                                <%=t%>
+                                            </span>
+                                            <% }); %>        
                                 </div>
                             </div>
+                            <% } %>
                         </div>
 
                         <div class="usuario">

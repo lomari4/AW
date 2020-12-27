@@ -17,6 +17,7 @@ class controllerPreguntas {
             if (err) {
                 console.log(err.message);
             } else {
+                console.log(result);
                 response.render("preguntas", { userMail: response.locals.userEmail, preguntas: result});
             }
         });
