@@ -20,8 +20,40 @@ class modelAsk {
                             callback(new Error("Error de acceso a la base de datos"))
                         }
                         else {
-                            callback(null, rows)
+                            if (rows.length === 0) {
+                                callback(null, false) //no existe el usuario
+                            }
+                            else {
+                                let array = []
+                                let task = []
+
+                                rows.forEach(e => {
+                                    if (array[e.id] === undefined) {
+                                        task = {
+                                            "id": e.id,
+                                            "titulo": e.titulo,
+                                            "texto": e.texto,
+                                            "fecha": e.fecha,
+                                            "avatar": e.avatar,
+                                            "nombreUsuario": e.nombreUsuario,
+                                            "tags": [e.nombreEtiqueta]
+                                        };
+
+                                        array[task.id] = task
+                                    }
+                                    else {
+                                        array[task.id].tags.push(e.nombreEtiqueta)
+                                    }
+
+                                });
+                                
+                                //como los ids son las posiciones del array, a veces los ids en la BD son 1,4,5... Y las posiciones del 2 al 3 quedan vacias, por lo que para eliminarlas se hace esto:
+                                array = array.filter(Boolean)
+
+                                callback(null, array)
+                            }
                         }
+                        
                     });
             }
         });
