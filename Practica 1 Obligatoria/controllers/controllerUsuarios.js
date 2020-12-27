@@ -33,7 +33,7 @@ class controllerUsuarios {
                 console.log("Usuario y contraseña correctos");
                 response.redirect("/usuarios/principal")
             } else {
-                console.log("Usuario y/o contraseña incorrectos");
+                console.log("Usuario y/o  contraseña incorrectos");
                 response.render("login", { errorMsg: "Usuario y/o contraseña incorrectos" });
             }
         });
