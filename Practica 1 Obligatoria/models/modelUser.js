@@ -65,6 +65,11 @@ class modelUser {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
+                if(avatar.length < 1){
+                    console.log("Sin avatar. Generando uno random.")
+                    let random = Math.floor(Math.random() * 4);
+                    avatar = "avatar_" + random + ".png";
+                }
                 connection.query("INSERT INTO usuarios(correo, pass, nombre, avatar, fecha) VALUES (?,?,?,?,?)",
                     [email, pass, name, avatar, fecha],
                     function (err, rows) {
@@ -107,13 +112,13 @@ class modelUser {
         });
     }
 
-    getUserIDbyEmail(email, callback) {
+    getUserImageName(email, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT id FROM usuarios WHERE correo = ?",
+                connection.query("SELECT avatar FROM usuarios WHERE correo = ?",
                     [email],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
@@ -125,7 +130,7 @@ class modelUser {
                                 callback(null, false) //no existe el usuario
                             }
                             else {
-                                callback(null, rows)
+                                callback(null, rows) 
                             }
                         }
                     });
@@ -148,55 +153,6 @@ class modelUser {
                         }
                         else {
                             callback(null, rows)
-                        }
-                    });
-            }
-        });
-    }
-
-    getUserImageName(email, callback) {
-        this.pool.getConnection(function (err, connection) {
-            if (err) {
-                callback(new Error("Error de conexión a la base de datos"))
-            }
-            else {
-                connection.query("SELECT avatar FROM usuarios WHERE correo = ?",
-                    [email],
-                    function (err, rows) {
-                        connection.release(); // devolver al pool la conexión
-                        if (err) {
-                            callback(new Error("Error de acceso a la base de datos"))
-                        }
-                        else {
-                            if (rows.length === 0) {
-                                callback(null, false) //no existe el usuario
-                            }
-                            else {
-                                let avatar = rows[0].avatar;
-                                if (avatar == '') { //si su avatar no existe, el sistema le inserta uno random
-                                    let random = Math.floor(Math.random() * 4);
-                                    let rngAvatar = "avatar_" + random + ".png";
-                                    connection.query("UPDATE usuarios SET avatar = ? WHERE correo = ?",
-                                        [rngAvatar, email],
-                                        function (err, rows) {
-                                            if (err) {
-                                                callback(new Error("Error de acceso a la base de datos"))
-                                            }
-                                            else {
-                                                if (rows.length === 0) {
-                                                    callback(null, false) //no existe el usuario
-                                                }
-                                                else {
-                                                    callback(null, rngAvatar)
-                                                }
-                                            }
-                                        });
-                                }
-                                else {
-                                    callback(null, avatar)
-                                }
-                                    
-                            }
                         }
                     });
             }

@@ -13,19 +13,14 @@ class modelAsk {
             }
 
             else { //Left join para que saque preguntas aunque no tengan etiquetas
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo ORDER BY preguntas.id DESC",
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
                             callback(new Error("Error de acceso a la base de datos"))
                         }
                         else {
-                            if (rows.length === 0) {
-                                callback(null, false) //no hay preguntas en la BD
-                            }
-                            else {
-                                callback(null, rows)
-                            }
+                            callback(null, rows)
                         }
                     });
             }

@@ -31,9 +31,7 @@ class controllerUsuarios {
                 response.render("login", { errorMsg: err.message });
             } else if (result) {
                 console.log("Usuario y contraseña correctos");
-                response.redirect("/usuarios/userCorrect")
-
-                //response.redirect("/usuarios/principal")
+                response.redirect("/usuarios/principal")
             } else {
                 console.log("Usuario y/o contraseña incorrectos");
                 response.render("login", { errorMsg: "Usuario y/o contraseña incorrectos" });
@@ -50,7 +48,7 @@ class controllerUsuarios {
                 console.log(err.message);
                 response.render("registro", { errorMsg: "Email ya existente" });
             } else {            
-                console.log("Usuario registrado con id: " + result.insertId);
+                console.log("Usuario registrado con correo: " + email);
                 response.redirect("/usuarios/principal")
             }
         });
@@ -61,7 +59,7 @@ class controllerUsuarios {
             if (err) {
                 console.log(err.message);
             } else {
-                response.sendFile(path.resolve("public/profile_imgs/") + "/" + result)
+                response.sendFile(path.resolve("public/profile_imgs/") + "/" + result[0].avatar)
             }
         });
     }

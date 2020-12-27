@@ -16,11 +16,8 @@ class controllerPreguntas {
         this.modelAsk.getAllAsks(function (err, result) {
             if (err) {
                 console.log(err.message);
-            } else if (result) {
-                console.log(result);
-                response.render("preguntas", { userMail: response.locals.userEmail, preguntas: result});
             } else {
-                console.log("No hay preguntas en la BD");
+                response.render("preguntas", { userMail: response.locals.userEmail, preguntas: result});
             }
         });
     }

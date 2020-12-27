@@ -33,10 +33,10 @@
                 <% preguntas.forEach(function(p) { %>
                     <div class="element">
                         <div class="informacionPregunta">
-                            <p class="title">
+                            <a class="title" href="">
                                 <%=p.titulo%>
-                            </p>
-                            <p maxlength="6" class="text">
+                            </a>
+                            <p class="text">
                                 <%=p.texto%>
                             </p>
                             <div class="tags">
@@ -52,7 +52,7 @@
                                 Formulada el <%=p.fecha%>
                             </p>
                             <div class="avatar">
-                                <img class="img" src="/usuarios/imagenUsuario">
+                                <img class="img" src="../profile_imgs/<%=p.avatar%>">
                             </div>
                             <div>
                                 <a href=" ">

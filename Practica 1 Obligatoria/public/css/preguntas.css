@@ -11,30 +11,6 @@ div.containerQuestions{
     padding-bottom: 100px;
 }
 
-.title{
-    font-size: 25px;
-    font-weight: bold;
-    margin-left: 14px;
-    color: #0f679b;
-}
-
-.text{
-    margin-top: 20px;
-    margin-bottom: 14px;
-    margin-left: 14px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: 150ch;
-}
-
-
-.fecha{
-    margin-top: 10px;
-   
-}
-
-
 .element {
     display: flex;
     flex-direction: row;
@@ -79,7 +55,28 @@ div.informacionPregunta{
     flex-direction: column;
     width: 80%;
     margin:10px;
+}
 
+.title{
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 14px;
+    color: #0f679b;
+}
+
+.text{
+    max-width: 150ch;
+    margin-top: 20px;
+    margin-bottom: 14px;
+    margin-left: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+.fecha{
+    margin-top: 10px;   
 }
 
 div.usuario{
@@ -97,7 +94,7 @@ div.usuario a{
     font-weight: bold;
 }
 
-div.usuario a:hover{
+a:hover{
     color: rgb(239, 116, 250);
 }
 
