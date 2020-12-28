@@ -14,73 +14,72 @@
 
     <%- include('header'); %>
 
-        <%- include('buscar'); %>
+    <h1>
+        <%=titulo%>
+    </h1>
+    
+    <div class="headingQuestions">
+        <h2>
+            <%=preguntas.length%> preguntas
+        </h2>
 
-            <h1>
-                <%=titulo%>
-            </h1>
-            <div class="headingQuestions">
-                <h2>
-                    <%=preguntas.length%> preguntas
-                </h2>
+        <a class="botones" href="/preguntas/formular">
+            <p>Formular una pregunta</p>
+        </a>
+    </div>
 
-                <a class="botones" href="/preguntas/formular">
-                    <p>Formular una pregunta</p>
-                </a>
-            </div>
+    <div class="containerQuestions">
 
-            <div class="containerQuestions">
-
-                <% if (preguntas !=undefined) { %>
-                    <% preguntas.forEach(function(p) { %>
-                        <div class="element">
-                            <div class="informacionPregunta">
-                                <div>
-                                    <a class="title" href="">
-                                        <%=p.titulo%>
-                                    </a>
-                                </div>
-
-                                <p class="text">
-                                    <%=p.texto%>
-                                </p>
-
-                                <% if (p.tags !="" ) { %>
-                                    <div class="tags">
-                                        <div>
-                                            <% p.tags.forEach(function(t) { %>
-                                                <span class="tag">
-                                                    <a href="/preguntas/<%=t%>">
-                                                        <%=t%>
-                                                    </a>
-                                                </span>
-                                                <% }); %>
-                                        </div>
-                                    </div>
-                                    <% } %>
-                            </div>
-
-                            <div class="usuario">
-                                <p class="fecha">
-                                    Formulada el <%=p.fecha%>
-                                </p>
-                                <div class="avatar">
-                                    <img class="img" src="../profile_imgs/<%=p.avatar%>">
-                                </div>
-                                <div>
-                                    <a href=" ">
-                                        <%=p.nombreUsuario%>
-                                    </a>
-                                </div>
-                            </div>
-
+        <% if (preguntas !=undefined) { %>
+            <% preguntas.forEach(function(p) { %>
+                <div class="element">
+                    <div class="informacionPregunta">
+                        <div>
+                            <a class="title" href="">
+                                <%=p.titulo%>
+                            </a>
                         </div>
-                        <% }); %>
+
+                        <p class="text">
+                            <%=p.texto%>
+                        </p>
+
+                        <% if (p.tags !="" ) { %>
+                            <div class="tags">
+                                <div>
+                                    <% p.tags.forEach(function(t) { %>
+                                        <span class="tag">
+                                            <a href="/preguntas/<%=t%>">
+                                                <%=t%>
+                                            </a>
+                                        </span>
+                                        <% }); %>
+                                </div>
+                            </div>
                             <% } %>
+                    </div>
+
+                    <div class="usuario">
+                        <p class="fecha">
+                            Formulada el <%=p.fecha%>
+                        </p>
+                        <div class="avatar">
+                            <img class="img" src="../profile_imgs/<%=p.avatar%>">
+                        </div>
+                        <div>
+                            <a href=" ">
+                                <%=p.nombreUsuario%>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <% }); %>
+                    <% } %>
 
 
 
-            </div>
+    </div>
 
 </body>
 

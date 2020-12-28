@@ -54,7 +54,6 @@ class controllerPreguntas {
             if (err) {
                 console.log(err.message);
             } else {
-                console.log(result);
                 response.render("preguntas", { userName: response.locals.userName, preguntas: result, titulo: "Preguntas con la etiqueta [" + nombreTag + "]" });
             }
         });
@@ -65,7 +64,6 @@ class controllerPreguntas {
             if (err) {
                 console.log(err.message);
             } else if (result) {
-                console.log(result)
                 response.render("preguntas", { userName: response.locals.userName, preguntas: result, titulo: "Preguntas sin responder" });
             } else {
                 response.render("preguntas", { userName: response.locals.userName, preguntas: [], titulo: "Todas las preguntas tienen respuesta" });
@@ -73,14 +71,14 @@ class controllerPreguntas {
         });
     }
 
-    getAllAsksByText(palabra, response){
+    getAllAsksByText(palabra, username, response){
         this.modelAsk.getAllAsksByText(palabra, function (err, result){
             if (err) {
                 console.log(err.message);
             } else if (result) {
-                response.render("preguntas", { userName: response.locals.userName, preguntas: result, titulo: "Resultados de la busqueda \"" + palabra + "\"" });
+                response.render("preguntas", { userName: username, preguntas: result, titulo: "Resultados de la busqueda \"" + palabra + "\"" });
             } else {
-                response.render("preguntas", { userName: response.locals.userName, preguntas: [], titulo: "Ninguna pregunta contiene esa palabra en su texto o titulo" });
+                response.render("preguntas", { userName: username, preguntas: [], titulo: "Ninguna pregunta contiene esa palabra en su texto o titulo" });
             }
         });
     }

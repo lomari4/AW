@@ -72,8 +72,8 @@ router.post("/procesar_formular", function (request, response) {
     controllerAsk.insertAsk(request.body.titulo, request.body.cuerpo, request.session.currentUser, etiquetas, response);
 });
 
-router.post("/procesar_busqueda", function (request, response) {
-    controllerAsk.getAllAsksByText(request.body.nombreBusqueda, response);
+router.post("/procesar_busqueda", function (request, response) { //al no necesitar la funcion identificacionRequerida, no puedes usar response.locals para pasarle el username ya que ahi es donde se define
+    controllerAsk.getAllAsksByText(request.body.nombreBusqueda, request.session.currentName, response);
 });
 
 
