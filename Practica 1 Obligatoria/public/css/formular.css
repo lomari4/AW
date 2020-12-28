@@ -16,8 +16,13 @@ form{
     padding-bottom: 100px;
 }
 
+div.askQuestion .box{
+    width:90%;
+}
+
 div.askBody .box{
     height: 200px;
+    width: 90%;
 }
 
 div.askQuestion p{

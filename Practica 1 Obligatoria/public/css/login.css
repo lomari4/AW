@@ -39,7 +39,14 @@ div.datos h1{
 div.datos .descripcion{
     font-size: 22px;
     text-align: center;
-    color: rgb(51, 50, 50);
+    color: rgb(71, 70, 70);
+}
+
+div.datos .descripcion2{
+    font-size: 17px;
+    margin-top:10px;
+    text-align: center;
+    color: rgb(96, 96, 96);
 }
 
 div.datos .crearCuenta{
@@ -54,7 +61,7 @@ div.datos .crearCuenta{
 }
 
 .botonUnir:hover{
-    font-size: 26px;
+    color: rgb(239, 116, 250);
 }
 
 div.info{    

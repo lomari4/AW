@@ -14,10 +14,7 @@
     
     <%- include('header'); %>
 
-    <div class="buscar">
-        <button class="button">Buscar</button>
-        <input type="text" class="boxBusqueda" placeholder=" 🔎   Buscar por titulo/cuerpo de pregunta">
-    </div>
+    <%- include('buscar'); %>
 
     <h1>Formular una pregunta</h1>
 
@@ -47,12 +44,6 @@
                 </label> 
                 <input type="text" name="etiquetas" class="box" placeholder="Por ejemplo: @node@express">
             </div>
-
-            <% if (errorMsg) { %>
-                <div class="error"><%=errorMsg%></div>
-             <% } else { %>
-                <p></p>
-            <% } %>
 
             <button class="button" type="submit">Publica tu pregunta</button>
         </div>

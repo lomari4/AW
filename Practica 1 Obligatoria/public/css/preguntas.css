@@ -65,14 +65,11 @@ div.informacionPregunta{
 }
 
 .text{
-    max-width: 150ch;
     margin-top: 20px;
     margin-bottom: 14px;
     margin-left: 14px;
-    text-overflow: ellipsis;
-    overflow: hidden;
     font-size: 20px;
-    white-space: nowrap;
+    word-wrap: break-word;
 }
 
 .fecha{

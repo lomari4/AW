@@ -48,6 +48,7 @@ class modelTag {
                         }
                         else {
                             if (rows.length === 0) {
+
                                 connection.query("INSERT INTO etiquetas(idPregunta, nombre) VALUES (?,?)",
                                 [idPregunta, nombre],
                                 function (err, rows2) {

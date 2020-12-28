@@ -24,14 +24,15 @@ class controllerUsuarios {
         });
     }
 
-    isUserCorrect(email,pass,response){
+    isUserCorrect(email,pass, request, response){
         this.modelUser.isUserCorrect(email, pass, function (err, result) {
             if (err) {
                 console.log(err.message);
                 response.render("login", { errorMsg: err.message });
             } else if (result) {
                 console.log("Usuario y contraseña correctos");
-                response.redirect("/usuarios/principal")
+                request.session.currentUser = request.body.correo;
+                response.redirect("/usuarios/nombreUsuario");
             } else {
                 console.log("Usuario y/o  contraseña incorrectos");
                 response.render("login", { errorMsg: "Usuario y/o contraseña incorrectos" });
@@ -39,7 +40,7 @@ class controllerUsuarios {
         });
     }
 
-    insertUser(email,pass,nombre,avatar,response){
+    insertUser(email,pass,nombre,avatar,request,response){
         let f = new Date();
         let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
     
@@ -49,7 +50,8 @@ class controllerUsuarios {
                 response.render("registro", { errorMsg: "Email ya existente" });
             } else {            
                 console.log("Usuario registrado con correo: " + email);
-                response.redirect("/usuarios/principal")
+                request.session.currentUser = request.body.correo;
+                response.redirect("/usuarios/nombreUsuario")    
             }
         });
     }
@@ -87,14 +89,16 @@ class controllerUsuarios {
         });
     }
 
-    getUserIDbyEmail(email){
-        this.modelUser.getUserIDbyEmail(email, function (err, result) {
+    getUserName(email, request, response){
+        this.modelUser.getUserName(email, function (err, result) {
             if (err) {
                 console.log(err.message);
             } else if (result) {
-                console.log("Id del usuario: " + result[0].id);
+                request.session.currentName = result[0].nombre;
+                console.log(request.session.currentName);
+                response.redirect("/usuarios/principal");
             } else {
-                console.log("Error al obtener el usuario con el email " + email);
+                console.log("Error al obtener el usuario");
             }
         });
     }

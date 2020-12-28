@@ -34,6 +34,7 @@ let controllerUser = new controllerUsuarios(pool)
 function identificacionRequerida(request, response, next) {
     if (request.session.currentUser) {
         response.locals.userEmail = request.session.currentUser;
+        response.locals.userName = request.session.currentName;
         next();
     } else {
         console.log("No lo intentes ;)")
@@ -47,23 +48,26 @@ router.get("perfil/:idUsuario",....)
 
 //MANEJADORES DE RUTA
 router.get("/principal", identificacionRequerida, function (request, response) {
-    response.render("principal", { userMail: response.locals.userEmail });
+    response.render("principal", { userName: response.locals.userName });
 });
 
 router.get("/imagenUsuario", function (request, response) {
     controllerUser.getUserImageName(request.session.currentUser,response)
 });
 
+router.get("/nombreUsuario", function (request, response) {
+    console.log("hola")
+    controllerUser.getUserName(request.session.currentUser, request, response);
+});
+
 //POST REQUESTS
 router.post("/procesar_login", function (request, response) {
-    request.session.currentUser = request.body.correo; //guardar la sesion del usuario
-    controllerUser.isUserCorrect(request.body.correo, request.body.password, response)
+    controllerUser.isUserCorrect(request.body.correo, request.body.password, request, response)
 });
 
 router.post("/procesar_registro", function (request, response) {
     if (request.body.password == request.body.confirmPassword) {
-        request.session.currentUser = request.body.correo; //guardar la sesion del usuario
-        controllerUser.insertUser(request.body.correo, request.body.password, request.body.nickname, request.body.avatar, response);
+        controllerUser.insertUser(request.body.correo, request.body.password, request.body.nickname, request.body.avatar, request, response);
     }
     else {
         response.render("registro", { errorMsg: "Passwords no coinciden" });

@@ -17,7 +17,7 @@ class controllerPreguntas {
             if (err) {
                 console.log(err.message);
             } else {
-                response.render("preguntas", { userMail: response.locals.userEmail, preguntas: result });
+                response.render("preguntas", { userName: response.locals.userName, preguntas: result, titulo: "Todas las preguntas" });
             }
         });
     }
@@ -34,53 +34,53 @@ class controllerPreguntas {
         });
     }
 
-    insertAsk(titulo, texto, email, response){
+    insertAsk(titulo, texto, email,etiquetas, response){
         let f = new Date();
         let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
 
-        this.modelAsk.insertAsk(titulo, texto, fecha, email, function (err, result){
+        this.modelAsk.insertAsk(titulo, texto, fecha, email, etiquetas, function (err, result){
             if (err) {
                 console.log(err.message);
-                response.render("preguntas", { errorMsg: "Error al insertar" });
-            } else {            
+                response.redirect("/preguntas/preguntas")
+            } else {       
                 console.log("Pregunta con id " + result.insertId + " hecha por el usuario " + email);
                 response.redirect("/preguntas/preguntas")
             }
         });
     }
 
-    getAllAsksByTag(nombreTag){
+    getAllAsksByTag(nombreTag, response){
         this.modelAsk.getAllAsksByTag(nombreTag, function (err, result){
             if (err) {
                 console.log(err.message);
-            } else if (result) {
-                console.log(result);
             } else {
-                console.log("No hay preguntas con esa etiqueta");
+                console.log(result);
+                response.render("preguntas", { userName: response.locals.userName, preguntas: result, titulo: "Preguntas con la etiqueta [" + nombreTag + "]" });
             }
         });
     }
 
-    getAllAsksWithoutReply(){
+    getAllAsksWithoutReply(response){
         this.modelAsk.getAllAsksWithoutReply(function (err, result){
             if (err) {
                 console.log(err.message);
             } else if (result) {
-                console.log(result);
+                console.log(result)
+                response.render("preguntas", { userName: response.locals.userName, preguntas: result, titulo: "Preguntas sin responder" });
             } else {
-                console.log("Todas las preguntas tienen respuesta");
+                response.render("preguntas", { userName: response.locals.userName, preguntas: [], titulo: "Todas las preguntas tienen respuesta" });
             }
         });
     }
 
-    getAllAsksByText(palabra){
+    getAllAsksByText(palabra, response){
         this.modelAsk.getAllAsksByText(palabra, function (err, result){
             if (err) {
                 console.log(err.message);
             } else if (result) {
-                console.log(result);
+                response.render("preguntas", { userName: response.locals.userName, preguntas: result, titulo: "Resultados de la busqueda \"" + palabra + "\"" });
             } else {
-                console.log("ninguna pregunta contiene esa palabra en su texto o titulo");
+                response.render("preguntas", { userName: response.locals.userName, preguntas: [], titulo: "Ninguna pregunta contiene esa palabra en su texto o titulo" });
             }
         });
     }

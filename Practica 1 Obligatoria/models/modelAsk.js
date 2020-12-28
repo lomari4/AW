@@ -1,5 +1,7 @@
 "use strict";
 const mysql = require("mysql");
+const util = require("../utils.js")
+const utils = new util();
 
 class modelAsk {
     constructor(pool) {
@@ -20,36 +22,7 @@ class modelAsk {
                             callback(new Error("Error de acceso a la base de datos"))
                         }
                         else {
-                            let array = []
-
-                            if (rows.length != 0) {
-
-                                let p = []
-
-                                rows.forEach(e => {
-                                    if (array[e.id] === undefined) {
-                                        p = {
-                                            "id": e.id,
-                                            "titulo": e.titulo,
-                                            "texto": e.texto,
-                                            "fecha": e.fecha,
-                                            "avatar": e.avatar,
-                                            "nombreUsuario": e.nombreUsuario,
-                                            "tags": [e.nombreEtiqueta]
-                                        };
-
-                                        array[p.id] = p
-                                    }
-                                    else {
-                                        array[p.id].tags.push(e.nombreEtiqueta)
-                                    }
-
-                                });
-
-                                //como los ids son las posiciones del array, a veces los ids en la BD son 1,4,5... Y las posiciones del 2 al 3 quedan vacias, por lo que para eliminarlas se hace esto:
-                                array = array.filter(Boolean)
-                            }
-
+                            let array = utils.joinAskWithTags(rows)
                             callback(null, array)
                         }
 
@@ -92,7 +65,7 @@ class modelAsk {
         });
     }
 
-    insertAsk(titulo, texto, fecha, email, callback) {
+    insertAsk(titulo, texto, fecha, email, etiquetas, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
@@ -106,8 +79,19 @@ class modelAsk {
                             callback(new Error("Error en la insercion de la pregunta"))
                         }
                         else {
+                            let cont = 0;
+                            for (var i = 0; i < etiquetas.length; ++i) {
+                                if (cont > 4) break; //solo deja insertar 5 etiquetas
 
-
+                                connection.query("INSERT INTO etiquetas(idPregunta, nombre) VALUES (?,?)",
+                                    [rows.insertId, etiquetas[i]],
+                                    function (err, rows2) {
+                                        if (err) {
+                                            callback(new Error("Error de acceso a la base de datos"))
+                                        }
+                                    });
+                                cont++;
+                            }
                             callback(null, rows)
                         }
                     });
@@ -134,7 +118,8 @@ class modelAsk {
                                 callback(null, false) //no hay preguntas con esa etiqueta
                             }
                             else {
-                                callback(null, rows)
+                                let array =  utils.joinAskWithTags(rows)
+                                callback(null, array)
                             }
                         }
                     });
@@ -159,7 +144,8 @@ class modelAsk {
                                 callback(null, false) //todas las preguntas tienen respuesta
                             }
                             else {
-                                callback(null, rows)
+                                let array =  utils.joinAskWithTags(rows);
+                                callback(null, array)
                             }
                         }
                     });
@@ -184,7 +170,8 @@ class modelAsk {
                                 callback(null, false) //ninguna pregunta contiene esa palabra en su texto o titulo
                             }
                             else {
-                                callback(null, rows)
+                                let array =  utils.joinAskWithTags(rows)
+                                callback(null, array)  
                             }
                         }
                     });
