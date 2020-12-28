@@ -9,6 +9,14 @@ div.menu{
     cursor: pointer;
 }
 
+.boxBusqueda{
+    font-size:20px;
+    margin-bottom:20px;
+    padding:5px;
+    height:30px;
+    width:80%;
+}
+
 .botones{
     width: 200px;
     margin-left: 20px;

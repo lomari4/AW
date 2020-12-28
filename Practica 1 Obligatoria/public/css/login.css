@@ -17,7 +17,7 @@ body{
 }
 
 .logo{
-    width: 350px;
+    width: 300px;
     margin-top: 13px;
     margin-left: auto;
     margin-right: auto;
@@ -26,16 +26,44 @@ body{
 div.datos{
     display: flex;
     flex-direction: column;
-    margin: 10%;
-    margin-top: 5px;
 }
 
-div.info{
-    margin-left:30%;
-    margin-bottom:100px;
-    padding-top: 40px;
-    padding-bottom: 50px;
-    height: 70px;
+div.datos h1{
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+div.datos .descripcion{
+    font-size: 22px;
+    text-align: center;
+    color: rgb(51, 50, 50);
+}
+
+div.datos .crearCuenta{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 24px;
+}
+
+.botonUnir{
+    color:#0d74af;
+    font-weight: bold;
+}
+
+.botonUnir:hover{
+    font-size: 26px;
+}
+
+div.info{    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom:40px;
+    padding-top: 50px;
 }
 
 div.info p{
@@ -47,11 +75,12 @@ div.info p{
     font-size:20px;
     margin-bottom:20px;
     padding:5px;
-    height:20px;
-    width:58%;
+    height:40px;
+    width:25%;
 }
 
 .error{
+    margin-top: 3px;
     color:red;
     font-size: 20px;
 }
@@ -65,10 +94,14 @@ div.info p{
     width: 20%;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     background-color: #0f679b;
     color: white;
     border: 2px solid rgb(36, 45, 85);
+}
+
+div.error{
+    margin-bottom: 1px;
 }
 
 a{
