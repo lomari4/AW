@@ -43,13 +43,10 @@ div.information p{
 }
 
 div.puntuation{
-    background-color: aquamarine;
-}
-
-div.puntuation{
     display:flex;
     margin-left:5px;
     text-align: center;
+    background-color: aquamarine;
 }
 
 .vote{

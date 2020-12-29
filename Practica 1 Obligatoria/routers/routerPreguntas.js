@@ -62,18 +62,34 @@ router.get("/sinResponder", identificacionRequerida, function (request, response
     controllerAsk.getAllAsksWithoutReply(response);
 });
 
-router.get("/:tag", identificacionRequerida, function (request, response) {
+router.get("/etiquetados/:tag", identificacionRequerida, function (request, response) {
     controllerAsk.getAllAsksByTag(request.params.tag, response);
 });
 
+router.get("/:idPregunta", identificacionRequerida, function (request, response) {
+    controllerAsk.getAsk(request.params.idPregunta, response);
+});
+
+router.get("/likePregunta/:idPregunta", identificacionRequerida, function (request, response) {
+    controllerAsk.voteAsk(response.locals.userEmail,request.params.idPregunta, 1, response);
+});
+
+router.get("/dislikePregunta/:idPregunta", identificacionRequerida, function (request, response) {
+    controllerAsk.voteAsk(response.locals.userEmail,request.params.idPregunta, -1, response);
+});
+
 //POST REQUESTS
-router.post("/procesar_formular", function (request, response) {
+router.post("/procesar_formular", function (request, response) { //al no necesitar la funcion identificacionRequerida, no puedes usar response.locals para pasarle el username ya que ahi es donde se define
     let etiquetas = utils.createTask(request.body.etiquetas)
     controllerAsk.insertAsk(request.body.titulo, request.body.cuerpo, request.session.currentUser, etiquetas, response);
 });
 
-router.post("/procesar_busqueda", function (request, response) { //al no necesitar la funcion identificacionRequerida, no puedes usar response.locals para pasarle el username ya que ahi es donde se define
+router.post("/procesar_busqueda", function (request, response) { 
     controllerAsk.getAllAsksByText(request.body.nombreBusqueda, request.session.currentName, response);
+});
+
+router.post("/procesar_respuesta/:idPregunta", function (request, response) { 
+    controllerAsk.insertReply(request.body.textarea, request.session.currentUser, request.params.idPregunta, response);
 });
 
 

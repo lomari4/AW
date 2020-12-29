@@ -6,7 +6,6 @@ class controllerPreguntas {
     constructor(pool) {
         this.pool = pool;
         this.modelAsk = new modelAsk(pool)
-        this.modelReply = new modelReply(pool)
     }
 
     //PREGUNTAS//
@@ -20,14 +19,12 @@ class controllerPreguntas {
         });
     }
 
-    getAsk(idPregunta){
-        this.modelAsk.getAsk(idPregunta, function (err, result) {
+    getAsk(idPregunta, response){
+        this.modelAsk.getAsk(idPregunta, function (err, respuestas, pregunta) {
             if (err) {
                 console.log(err.message);
-            } else if (result) {
-                console.log(result);
             } else {
-                console.log("No existe la pregunta con el id " + idPregunta);
+                response.render("informePregunta", { userName: response.locals.userName, pregunta: pregunta[0], titulo: pregunta[0].titulo, respuestas:respuestas});
             }
         });
     }
@@ -81,14 +78,14 @@ class controllerPreguntas {
         });
     }
 
-    voteAsk(email, idPregunta, puntos){
+    voteAsk(email, idPregunta, puntos, response){
         this.modelAsk.voteAsk(email, idPregunta, puntos, function (err, result){
             if (err) {
                 console.log(err.message);
-            } else if (result) {
-                console.log(result);
+                response.redirect("/preguntas/" + idPregunta);
             } else {
-                console.log("Un usuario no puede votar dos veces a la misma pregunta");
+                //TO-DO MENSAJE DE ERROR SI USER YA HA VOTADO
+                response.redirect("/preguntas/" + idPregunta);
             }
         });
     }
@@ -106,15 +103,17 @@ class controllerPreguntas {
         });
     }
 
-    insertReply(texto, email, idPregunta){
+    insertReply(texto, email, idPregunta, response){
         let f = new Date();
         let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
 
-        this.modelReply.insertReply(texto, fecha, email, idPregunta, function (err, result){
+        this.modelAsk.insertReply(texto, fecha, email, idPregunta, function (err, result){
             if (err) {
                 console.log(err.message);
+                response.redirect("/preguntas/" + idPregunta);
             } else {            
                 console.log("Respuesta con id " + result.insertId + " añadida a la pregunta: " + idPregunta + " hecha por el usuario " + email);
+                response.redirect("/preguntas/" + idPregunta);
             }
         });
     }

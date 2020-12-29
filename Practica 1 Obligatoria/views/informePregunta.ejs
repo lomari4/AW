@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/principal.css">
+    <link rel="stylesheet" href="/css/formular.css">
+    <link rel="stylesheet" href="/css/preguntas.css">
+    <link rel="stylesheet" href="/css/informePregunta.css">
+    <link rel="icon" type="img/png" href="recursos/404icon.png">
+    <title>404</title>
+</head>
+
+<body>
+
+    <%- include('header'); %>
+
+        <h1>
+            <%=titulo%>
+        </h1>
+
+        <div class="questionBody">
+
+            <!-- PREGUNTA -->
+            <div class="view">
+                <p>Vistada <%=pregunta.visitas%> veces</p>
+            </div>
+
+            <div class="element">
+                <div class="information">
+                    <div class="puntuation">
+                        <p>
+                            <%=pregunta.votos%> Votos
+                        </p>
+                        <a href="/preguntas/likePregunta/<%=pregunta.id%>">
+                            <input type="image" class="vote" src="/recursos/like.png">
+                        </a>
+
+                        <a href="/preguntas/dislikePregunta/<%=pregunta.id%>">
+                            <input type="image" class="vote" src="/recursos/dislike.png">
+                        </a>
+
+                    </div>
+
+                    <p>
+                        <%=pregunta.texto%>
+                    </p>
+
+                    <% if (pregunta.tags !="" ) { %>
+                        <div class="tags">
+                            <div>
+                                <% pregunta.tags.forEach(function(t) { %>
+                                    <span class="tag">
+                                        <a href="/preguntas/etiquetados/<%=t%>">
+                                            <%=t%>
+                                        </a>
+                                    </span>
+                                    <% }); %>
+                            </div>
+                        </div>
+                        <% } %>
+
+                </div>
+
+                <div class="usuario">
+                    <p class="fecha">
+                        Formulada el <%=pregunta.fecha%>
+                    </p>
+                    <div class="avatar">
+                        <img class="img" src="../../profile_imgs/<%=pregunta.avatar%>">
+                    </div>
+                    <div>
+                        <a href=" ">
+                            <%=pregunta.nombreUsuario%>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RESPUESTAS -->
+            <h4>
+                <%=respuestas.length%> Respuestas
+            </h4>
+
+            <% if (respuestas !=undefined) { %>
+                <% respuestas.forEach(function(r) { %>
+                    <div class="element">
+                        <div class="information">
+                            <div class="puntuation">
+                                <p>
+                                    <%=r.votos%> Votos
+                                </p>
+                                <input type="image" class="vote" src="/recursos/like.png">
+                                <input type="image" class="vote" src="/recursos/dislike.png">
+                            </div>
+                            <p>
+                                <%=r.texto%>
+                            </p>
+                        </div>
+
+                        <div class="usuario">
+                            <p class="fecha">
+                                Formulada el <%=r.fecha%>
+                            </p>
+                            <div class="avatar">
+                                <img class="img" src="../../profile_imgs/<%=r.avatar%>">
+                            </div>
+                            <div>
+                                <a href=" ">
+                                    <%=r.nombreUsuario%>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <% }); %>
+                        <% } %>
+
+                <!-- TU RESPUESTA -->
+                <form method="POST" action="/preguntas/procesar_respuesta/<%=pregunta.id%>">
+                    <div class="ownAnswer">
+                        <h4>Tu respuesta</h4>
+                        <textarea name="textarea" class="box"></textarea>
+                    </div>
+
+                    <button class="button" type="submit">Publica tu respuesta</button>
+                </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

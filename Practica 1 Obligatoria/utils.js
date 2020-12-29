@@ -6,18 +6,35 @@ class Util {
       let p = []
       rows.forEach(e => {
         if (array[e.id] === undefined) {
-          if(e.texto.length > 150){
-            e.texto = e.texto.slice(0,150) + "..."
+
+          if (e.texto.length > 150) { //Para mostrar solo 150 caracteres
+            e.texto = e.texto.slice(0, 150) + "..."
           }
-          p = {
-            "id": e.id,
-            "titulo": e.titulo,
-            "texto": e.texto,
-            "fecha": e.fecha,
-            "avatar": e.avatar,
-            "nombreUsuario": e.nombreUsuario,
-            "tags": [e.nombreEtiqueta]
-          };
+
+          if (e.votos != undefined) { //Para ver una pregunta en especifico
+            p = {
+              "id": e.id,
+              "titulo": e.titulo,
+              "texto": e.texto,
+              "fecha": e.fecha,
+              "votos": e.votos,
+              "visitas": e.visitas,
+              "avatar": e.avatar,
+              "nombreUsuario": e.nombreUsuario,
+              "tags": [e.nombreEtiqueta]
+            };
+          }
+          else { //Para la vista de todas las preguntas
+            p = {
+              "id": e.id,
+              "titulo": e.titulo,
+              "texto": e.texto,
+              "fecha": e.fecha,
+              "avatar": e.avatar,
+              "nombreUsuario": e.nombreUsuario,
+              "tags": [e.nombreEtiqueta]
+            };
+          }
 
           array[p.id] = p
         }

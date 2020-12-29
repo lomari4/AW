@@ -15,7 +15,7 @@ class modelAsk {
             }
 
             else { //Left join para que saque preguntas aunque no tengan etiquetas
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo ORDER BY preguntas.id DESC",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto, preguntas.fecha, usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo ORDER BY preguntas.id DESC",
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -56,9 +56,21 @@ class modelAsk {
                                         callback(new Error("Error de acceso a la base de datos"))
                                     }
                                     else {
-                                        callback(null, rows)
+                                        //Para sacar las respuestas
+                                        connection.query("SELECT respuestas.texto, respuestas.votos, respuestas.fecha, usuarios.avatar, usuarios.nombre as nombreUsuario FROM (respuestas JOIN preguntas ON respuestas.idPregunta = preguntas.id) JOIN usuarios ON respuestas.idUsuario = usuarios.correo WHERE preguntas.id = ?",
+                                            [idPregunta],
+                                            function (err, resp) {
+                                                if (err) {
+                                                    callback(new Error("Error de acceso a la base de datos"))
+                                                }
+                                                else {
+                                                    let array = utils.joinAskWithTags(rows)
+                                                    callback(null, resp, array)
+                                                }
+                                            });                                       
                                     }
                                 });
+
                         }
                     });
             }
@@ -118,7 +130,7 @@ class modelAsk {
                                 callback(null, false) //no hay preguntas con esa etiqueta
                             }
                             else {
-                                let array =  utils.joinAskWithTags(rows)
+                                let array = utils.joinAskWithTags(rows)
                                 callback(null, array)
                             }
                         }
@@ -144,7 +156,7 @@ class modelAsk {
                                 callback(null, false) //todas las preguntas tienen respuesta
                             }
                             else {
-                                let array =  utils.joinAskWithTags(rows);
+                                let array = utils.joinAskWithTags(rows);
                                 callback(null, array)
                             }
                         }
@@ -170,8 +182,8 @@ class modelAsk {
                                 callback(null, false) //ninguna pregunta contiene esa palabra en su texto o titulo
                             }
                             else {
-                                let array =  utils.joinAskWithTags(rows)
-                                callback(null, array)  
+                                let array = utils.joinAskWithTags(rows)
+                                callback(null, array)
                             }
                         }
                     });
@@ -185,6 +197,7 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
+                //CUANDO SE INSERTA EN votapregunta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
                 connection.query("INSERT INTO votapregunta(idUsuario, idPregunta, puntos) VALUES (?,?,?)",
                     [email, idPregunta, puntos],
                     function (err, rows) {
@@ -207,6 +220,29 @@ class modelAsk {
                     });
             }
         });
+    }
+
+    //RESPUESTAS
+    insertReply(texto, fecha, idUsuario, idPregunta, callback) {
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"))
+            }
+            else {
+                connection.query("INSERT INTO respuestas(texto, fecha, idUsuario, idPregunta) VALUES (?,?,?,?)",
+                    [texto, fecha, idUsuario, idPregunta],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Error en la insercion de la repuesta"))
+                        }
+                        else {
+                            callback(null, rows)
+                        }
+                    });
+            }
+        }
+        );
     }
 
 }

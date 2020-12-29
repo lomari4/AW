@@ -35,7 +35,7 @@
                 <div class="element">
                     <div class="informacionPregunta">
                         <div>
-                            <a class="title" href="">
+                            <a class="title" href="/preguntas/<%=p.id%>">
                                 <%=p.titulo%>
                             </a>
                         </div>
@@ -49,7 +49,7 @@
                                 <div>
                                     <% p.tags.forEach(function(t) { %>
                                         <span class="tag">
-                                            <a href="/preguntas/<%=t%>">
+                                            <a href="/preguntas/etiquetados/<%=t%>">
                                                 <%=t%>
                                             </a>
                                         </span>
@@ -64,7 +64,7 @@
                             Formulada el <%=p.fecha%>
                         </p>
                         <div class="avatar">
-                            <img class="img" src="../profile_imgs/<%=p.avatar%>">
+                            <img class="img" src="../../profile_imgs/<%=p.avatar%>">
                         </div>
                         <div>
                             <a href=" ">

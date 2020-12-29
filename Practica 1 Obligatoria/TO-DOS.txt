@@ -1,1 +1,44 @@
-Al filtrar por etiquetas que se muestren todas las etiquetas de la pregunta
+1. Al filtrar por etiquetas que se muestren todas las etiquetas de la pregunta
+
+getAllAsksByTag(nombreTag, callback) {
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"))
+            }
+            else {
+                connection.query("SELECT preguntas.id FROM (preguntas JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) WHERE etiquetas.nombre = ?",
+                    [nombreTag],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Error de acceso a la base de datos"))
+                        }
+                        else {
+                            if (rows.length === 0) {
+                                callback(null, false) //no hay preguntas con esa etiqueta
+                            }
+                            else {
+                                let array = [];
+                                rows.forEach(e => {
+                                    connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.id = ?",
+                                        [e.id],
+                                        function (err, rows2) {
+                                            if (err) {
+                                                callback(new Error("Error de acceso a la base de datos"))
+                                            }
+                                            else {
+                                                array.push(rows2);
+                                            }
+                                        });
+                                });
+                                callback(null, array)
+                            }
+                        }
+                    });
+            }
+        });
+    }
+
+2. Visitada 1 veces, 1 Respuestas... Poner if ahi
+3. MSG de error si usuario ha votado
+4. Revisar los select y tal por si podemos ahorrarnos alguno con lo de votos=?+votos
