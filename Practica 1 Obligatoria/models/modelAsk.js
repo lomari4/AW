@@ -118,7 +118,7 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE etiquetas.nombre = ?",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.id IN (SELECT idPregunta FROM etiquetas WHERE nombre= ?)",
                     [nombreTag],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
@@ -129,7 +129,7 @@ class modelAsk {
                             if (rows.length === 0) {
                                 callback(null, false) //no hay preguntas con esa etiqueta
                             }
-                            else {
+                            else {                                
                                 let array = utils.joinAskWithTags(rows)
                                 callback(null, array)
                             }
