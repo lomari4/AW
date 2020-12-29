@@ -1,6 +1,6 @@
 class Util {
 
-  joinAskWithTags(rows) { //devuelve un array con etiquetas
+  joinAskWithTags(rows) { //devuelve un array con las preguntas y sus etiquetas en forma de array
     let array = []
     if (rows.length != 0) {
       let p = []

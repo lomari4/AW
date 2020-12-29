@@ -1,6 +1,5 @@
 const modelAsk = require("../models/modelAsk.js");
 const modelReply = require("../models/modelReply.js");
-const modelTag = require("../models/modelTag.js");
 
 class controllerPreguntas {
 
@@ -8,7 +7,6 @@ class controllerPreguntas {
         this.pool = pool;
         this.modelAsk = new modelAsk(pool)
         this.modelReply = new modelReply(pool)
-        this.modelTag = new modelTag(pool)
     }
 
     //PREGUNTAS//
