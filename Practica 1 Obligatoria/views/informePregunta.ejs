@@ -43,39 +43,11 @@
 
                     </div>
 
-                    <p>
-                        <%=pregunta.texto%>
-                    </p>
-
-                    <% if (pregunta.tags !="" ) { %>
-                        <div class="tags">
-                            <div>
-                                <% pregunta.tags.forEach(function(t) { %>
-                                    <span class="tag">
-                                        <a href="/preguntas/etiquetados/<%=t%>">
-                                            <%=t%>
-                                        </a>
-                                    </span>
-                                    <% }); %>
-                            </div>
-                        </div>
-                        <% } %>
+                    <%- include('plantillaPregunta'); %>
 
                 </div>
 
-                <div class="usuario">
-                    <p class="fecha">
-                        Formulada el <%=pregunta.fecha%>
-                    </p>
-                    <div class="avatar">
-                        <img class="img" src="../../profile_imgs/<%=pregunta.avatar%>">
-                    </div>
-                    <div>
-                        <a href=" ">
-                            <%=pregunta.nombreUsuario%>
-                        </a>
-                    </div>
-                </div>
+                <%- include('plantillaUsuario', {usuario: pregunta}); %>
 
             </div>
 
@@ -86,54 +58,27 @@
 
             <% if (respuestas !=undefined) { %>
                 <% respuestas.forEach(function(r) { %>
+
                     <div class="element">
-                        <div class="information">
-                            <div class="puntuation">
-                                <p>
-                                    <%=r.votos%> Votos
-                                </p>
 
-                                <a href="/preguntas/likeRespuesta/<%=pregunta.id%>/<%=r.id%>">
-                                    <input type="image" class="vote" src="/recursos/like.png">
-                                </a>
-                                
-                                <a href="/preguntas/dislikeRespuesta/<%=pregunta.id%>/<%=r.id%>">
-                                    <input type="image" class="vote" src="/recursos/dislike.png">
-                                </a>
-                            </div>
+                        <%- include('plantillaRespuesta', {r: r}); %>
 
-                            <p>
-                                <%=r.texto%>
-                            </p>
-                        </div>
-
-                        <div class="usuario">
-                            <p class="fecha">
-                                Formulada el <%=r.fecha%>
-                            </p>
-                            <div class="avatar">
-                                <img class="img" src="../../profile_imgs/<%=r.avatar%>">
-                            </div>
-                            <div>
-                                <a href=" ">
-                                    <%=r.nombreUsuario%>
-                                </a>
-                            </div>
-                        </div>
+                            <%- include('plantillaUsuario', {usuario: r}); %>
 
                     </div>
+
                     <% }); %>
                         <% } %>
 
-                <!-- TU RESPUESTA -->
-                <form method="POST" action="/preguntas/procesar_respuesta/<%=pregunta.id%>">
-                    <div class="ownAnswer">
-                        <h4>Tu respuesta</h4>
-                        <textarea name="textarea" class="box"></textarea>
-                    </div>
+            <!-- TU RESPUESTA -->
+            <form method="POST" action="/preguntas/procesar_respuesta/<%=pregunta.id%>">
+                <div class="ownAnswer">
+                    <h4>Tu respuesta</h4>
+                    <textarea name="textarea" class="box"></textarea>
+                </div>
 
-                    <button class="button" type="submit">Publica tu respuesta</button>
-                </form>
+                <button class="button" type="submit">Publica tu respuesta</button>
+            </form>
 
         </div>
 
