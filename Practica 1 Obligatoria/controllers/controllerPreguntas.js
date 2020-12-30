@@ -84,7 +84,17 @@ class controllerPreguntas {
                 console.log(err.message);
                 response.redirect("/preguntas/" + idPregunta);
             } else {
-                //TO-DO MENSAJE DE ERROR SI USER YA HA VOTADO
+                response.redirect("/preguntas/" + idPregunta);
+            }
+        });
+    }
+
+    visitAsk(email, idPregunta, response){
+        this.modelAsk.visitAsk(email, idPregunta, function (err, result){
+            if (err) {
+                console.log(err.message);
+                response.redirect("/preguntas/" + idPregunta);
+            } else {
                 response.redirect("/preguntas/" + idPregunta);
             }
         });
@@ -130,14 +140,13 @@ class controllerPreguntas {
         });
     }
 
-    voteReply(email, idRespuesta, puntos){
-        this.modelReply.voteReply(email, idRespuesta, puntos, function (err, result){
+    voteReply(email, idPregunta, idRespuesta, puntos, response){
+        this.modelAsk.voteReply(email, idRespuesta, puntos, function (err, result){
             if (err) {
                 console.log(err.message);
-            } else if (result) {
-                console.log(result);
+                response.redirect("/preguntas/" + idPregunta);
             } else {
-                console.log("Un usuario no puede votar dos veces a la misma respuesta");
+                response.redirect("/preguntas/" + idPregunta);
             }
         });
     }

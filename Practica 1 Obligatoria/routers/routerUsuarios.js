@@ -56,7 +56,6 @@ router.get("/imagenUsuario", function (request, response) {
 });
 
 router.get("/nombreUsuario", function (request, response) {
-    console.log("hola")
     controllerUser.getUserName(request.session.currentUser, request, response);
 });
 

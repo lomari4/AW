@@ -48,29 +48,19 @@ class modelAsk {
                         else if (rows.length === 0) {
                             callback(null, false) //no existe la pregunta
                         }
-                        else { //En cuanto a las visitas de las preguntas, cada vez que un usuario accede a la información detallada de una pregunta, se incrementa en uno sun número de visitas.
-                            connection.query("UPDATE preguntas SET visitas=visitas+1 WHERE id = ?",
+                        else {
+                            //Para sacar las respuestas
+                            connection.query("SELECT respuestas.id, respuestas.texto, respuestas.votos, respuestas.fecha, usuarios.avatar, usuarios.nombre as nombreUsuario FROM (respuestas JOIN preguntas ON respuestas.idPregunta = preguntas.id) JOIN usuarios ON respuestas.idUsuario = usuarios.correo WHERE preguntas.id = ?",
                                 [idPregunta],
-                                function (err) {
+                                function (err, resp) {
                                     if (err) {
                                         callback(new Error("Error de acceso a la base de datos"))
                                     }
                                     else {
-                                        //Para sacar las respuestas
-                                        connection.query("SELECT respuestas.texto, respuestas.votos, respuestas.fecha, usuarios.avatar, usuarios.nombre as nombreUsuario FROM (respuestas JOIN preguntas ON respuestas.idPregunta = preguntas.id) JOIN usuarios ON respuestas.idUsuario = usuarios.correo WHERE preguntas.id = ?",
-                                            [idPregunta],
-                                            function (err, resp) {
-                                                if (err) {
-                                                    callback(new Error("Error de acceso a la base de datos"))
-                                                }
-                                                else {
-                                                    let array = utils.joinAskWithTags(rows)
-                                                    callback(null, resp, array)
-                                                }
-                                            });                                       
+                                        let array = utils.joinAskWithTags(rows)
+                                        callback(null, resp, array)
                                     }
                                 });
-
                         }
                     });
             }
@@ -83,6 +73,7 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
+                //CUANDO SE INSERTA UNA PREGUNTA SALTA UN TRIGGER PARA AUMENTAR EL npreguntas DEL USUARIO
                 connection.query("INSERT INTO preguntas(titulo, texto, fecha, idUsuario) VALUES (?,?,?,?)",
                     [titulo, texto, fecha, email],
                     function (err, rows) {
@@ -129,7 +120,7 @@ class modelAsk {
                             if (rows.length === 0) {
                                 callback(null, false) //no hay preguntas con esa etiqueta
                             }
-                            else {                                
+                            else {
                                 let array = utils.joinAskWithTags(rows)
                                 callback(null, array)
                             }
@@ -222,6 +213,37 @@ class modelAsk {
         });
     }
 
+    visitAsk(email, idPregunta, callback) {
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"))
+            }
+            else {
+                //CUANDO SE INSERTA EN votaRespuesta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
+                connection.query("INSERT INTO visitaPregunta(idUsuario, idPregunta) VALUES (?,?)",
+                    [email, idPregunta],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Un usuario no se puede visitar dos veces a la misma pregunta porque sino es un chollo lo de las medallas"))
+                        }
+                        else {
+                            connection.query("UPDATE preguntas SET visitas=visitas + 1 where id=?",
+                                [idPregunta],
+                                function (err, rows) {
+                                    if (err) {
+                                        callback(new Error("Error de acceso a la base de datos"))
+                                    }
+                                    else {
+                                        callback(null, rows)
+                                    }
+                                });
+                        }
+                    });
+            }
+        });
+    }
+
     //RESPUESTAS
     insertReply(texto, fecha, idUsuario, idPregunta, callback) {
         this.pool.getConnection(function (err, connection) {
@@ -229,6 +251,7 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
+                //CUANDO SE INSERTA UNA RESPUESTA SALTA UN TRIGGER PARA AUMENTAR EL nrespuestas DEL USUARIO
                 connection.query("INSERT INTO respuestas(texto, fecha, idUsuario, idPregunta) VALUES (?,?,?,?)",
                     [texto, fecha, idUsuario, idPregunta],
                     function (err, rows) {
@@ -244,6 +267,37 @@ class modelAsk {
         }
         );
     }
+
+    voteReply(idUsuario, idRespuesta, puntos, callback){
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"))
+            }
+            else {
+                connection.query("INSERT INTO votarespuesta(idUsuario, idRespuesta, puntos) VALUES (?,?,?)",
+                    [idUsuario, idRespuesta, puntos],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Un usuario no puede votar dos veces a la misma respuesta"))
+                        }
+                        else {
+                            connection.query("UPDATE respuestas SET votos=? + votos where id=?",
+                            [puntos, idRespuesta],
+                            function (err, rows) {
+                                if (err) {
+                                    callback(new Error("Error de acceso a la base de datos"))
+                                }
+                                else {
+                                    callback(null, rows)
+                                }
+                            });
+                        }
+                    });
+            }
+        });
+    }
+
 
 }
 module.exports = modelAsk;

@@ -50,33 +50,53 @@ router.get("/",)
 */
 
 //MANEJADORES DE RUTA
+
+//pagina principal de preguntas
 router.get("/preguntas", identificacionRequerida, function (request, response) {
     controllerAsk.getAllAsk(response);
 });
 
+//formular pregunta
 router.get("/formular", identificacionRequerida, function (request, response) {
     response.render("formular", { userName: response.locals.userName });
 });
 
+//preguntas sin responder
 router.get("/sinResponder", identificacionRequerida, function (request, response) {
     controllerAsk.getAllAsksWithoutReply(response);
 });
 
+//para coger las etiquetas de la pregunta
 router.get("/etiquetados/:tag", identificacionRequerida, function (request, response) {
     controllerAsk.getAllAsksByTag(request.params.tag, response);
 });
 
+//get pregunta
 router.get("/:idPregunta", identificacionRequerida, function (request, response) {
     controllerAsk.getAsk(request.params.idPregunta, response);
 });
 
+//Visitar pregunta
+router.get("/visita/:idPregunta", identificacionRequerida, function (request, response) {
+    controllerAsk.visitAsk(response.locals.userEmail,request.params.idPregunta, response);
+});
+
+//Like y dislike preguntas
 router.get("/likePregunta/:idPregunta", identificacionRequerida, function (request, response) {
     controllerAsk.voteAsk(response.locals.userEmail,request.params.idPregunta, 1, response);
 });
-
 router.get("/dislikePregunta/:idPregunta", identificacionRequerida, function (request, response) {
     controllerAsk.voteAsk(response.locals.userEmail,request.params.idPregunta, -1, response);
 });
+
+//Like y dislike respuesta
+router.get("/likeRespuesta/:idPregunta/:idRespuesta", identificacionRequerida, function (request, response) {
+    controllerAsk.voteReply(response.locals.userEmail,request.params.idPregunta,request.params.idRespuesta, 1, response);
+});
+router.get("/dislikeRespuesta/:idPregunta/:idRespuesta", identificacionRequerida, function (request, response) {
+    controllerAsk.voteReply(response.locals.userEmail,request.params.idPregunta,request.params.idRespuesta, -1, response);
+});
+
 
 //POST REQUESTS
 router.post("/procesar_formular", function (request, response) { //al no necesitar la funcion identificacionRequerida, no puedes usar response.locals para pasarle el username ya que ahi es donde se define

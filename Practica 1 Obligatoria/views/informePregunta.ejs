@@ -92,9 +92,16 @@
                                 <p>
                                     <%=r.votos%> Votos
                                 </p>
-                                <input type="image" class="vote" src="/recursos/like.png">
-                                <input type="image" class="vote" src="/recursos/dislike.png">
+
+                                <a href="/preguntas/likeRespuesta/<%=pregunta.id%>/<%=r.id%>">
+                                    <input type="image" class="vote" src="/recursos/like.png">
+                                </a>
+                                
+                                <a href="/preguntas/dislikeRespuesta/<%=pregunta.id%>/<%=r.id%>">
+                                    <input type="image" class="vote" src="/recursos/dislike.png">
+                                </a>
                             </div>
+
                             <p>
                                 <%=r.texto%>
                             </p>
