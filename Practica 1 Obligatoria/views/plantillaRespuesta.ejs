@@ -8,27 +8,25 @@
 </head>
 
 <body>
-    
-    <div class="information">
-        <div class="puntuation">
-            <p>
-                <%=r.votos%> Votos
-            </p>
 
-            <a href="/preguntas/likeRespuesta/<%=pregunta.id%>/<%=r.id%>">
-                <input type="image" class="vote" src="/recursos/like.png">
-            </a>
-            
-            <a href="/preguntas/dislikeRespuesta/<%=pregunta.id%>/<%=r.id%>">
-                <input type="image" class="vote" src="/recursos/dislike.png">
-            </a>
-        </div>
-
+    <div class="puntuation">
         <p>
-            <%=r.texto%>
+            <%=r.votos%> Votos
         </p>
+
+        <a href="/preguntas/likeRespuesta/<%=pregunta.id%>/<%=r.id%>">
+            <input type="image" class="vote" src="/recursos/like.png">
+        </a>
+
+        <a href="/preguntas/dislikeRespuesta/<%=pregunta.id%>/<%=r.id%>">
+            <input type="image" class="vote" src="/recursos/dislike.png">
+        </a>
     </div>
-            
+
+    <p>
+        <%=r.texto%>
+    </p>
+
 </body>
 
 </html>

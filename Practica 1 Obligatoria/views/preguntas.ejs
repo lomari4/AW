@@ -33,8 +33,8 @@
         <% if (preguntas !=undefined) { %>
             <% preguntas.forEach(function(p) { %>
                 <div class="element">
+
                     <div class="informacionPregunta">
-                        
                         <div>
                             <a class="title" href="/preguntas/<%=p.id%>">
                                 <%=p.titulo%>
@@ -42,10 +42,11 @@
                         </div>
 
                         <%- include('plantillaPregunta', {pregunta: p}); %>
-
                     </div>
 
-                    <%- include('plantillaUsuario', {usuario: p}); %>
+                    <div class="usuario">
+                        <%- include('plantillaUsuario', {usuario: p}); %>
+                    </div>
                         
                 </div>
 

@@ -45,6 +45,7 @@ class Util {
       });
       //como los ids son las posiciones del array, a veces los ids en la BD son 1,4,5... Y las posiciones del 2 al 3 quedan vacias, por lo que para eliminarlas se hace esto:
       array = array.filter(Boolean)
+      array = array.reverse(); //para que saque las respuestas de mas reciente a mas antigua, ya que va por ids
     }
     return array;
   }

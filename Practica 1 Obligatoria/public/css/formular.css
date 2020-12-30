@@ -12,7 +12,7 @@ div.askQuestion{
     margin-right: auto;  
 }
 
-form{
+.formular{
     padding-bottom: 100px;
 }
 
@@ -36,8 +36,8 @@ div.askQuestion button{
 }
 
 h1{
-    font-size:55px;
-    margin-top:25px;
+    font-size:35px;
+    margin-top:15px;
     margin-bottom:70px;
     text-align: center;
 }

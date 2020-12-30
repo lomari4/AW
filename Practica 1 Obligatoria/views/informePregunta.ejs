@@ -40,14 +40,14 @@
                         <a href="/preguntas/dislikePregunta/<%=pregunta.id%>">
                             <input type="image" class="vote" src="/recursos/dislike.png">
                         </a>
-
                     </div>
 
                     <%- include('plantillaPregunta'); %>
-
                 </div>
 
-                <%- include('plantillaUsuario', {usuario: pregunta}); %>
+                <div class="usuario">
+                    <%- include('plantillaUsuario', {usuario: pregunta}); %>
+                </div>
 
             </div>
 
@@ -61,9 +61,13 @@
 
                     <div class="element">
 
-                        <%- include('plantillaRespuesta', {r: r}); %>
+                        <div class="information">
+                            <%- include('plantillaRespuesta', {r: r}); %>
+                        </div>
 
+                        <div class="usuario">
                             <%- include('plantillaUsuario', {usuario: r}); %>
+                        </div>
 
                     </div>
 
@@ -71,7 +75,7 @@
                         <% } %>
 
             <!-- TU RESPUESTA -->
-            <form method="POST" action="/preguntas/procesar_respuesta/<%=pregunta.id%>">
+            <form class="formular" method="POST" action="/preguntas/procesar_respuesta/<%=pregunta.id%>">
                 <div class="ownAnswer">
                     <h4>Tu respuesta</h4>
                     <textarea name="textarea" class="box"></textarea>

@@ -50,7 +50,7 @@ class modelAsk {
                         }
                         else {
                             //Para sacar las respuestas
-                            connection.query("SELECT respuestas.id, respuestas.texto, respuestas.votos, respuestas.fecha, usuarios.avatar, usuarios.nombre as nombreUsuario FROM (respuestas JOIN preguntas ON respuestas.idPregunta = preguntas.id) JOIN usuarios ON respuestas.idUsuario = usuarios.correo WHERE preguntas.id = ?",
+                            connection.query("SELECT respuestas.id, respuestas.texto, respuestas.votos, respuestas.fecha, usuarios.avatar, usuarios.nombre as nombreUsuario FROM (respuestas JOIN preguntas ON respuestas.idPregunta = preguntas.id) JOIN usuarios ON respuestas.idUsuario = usuarios.correo WHERE preguntas.id = ? ORDER BY respuestas.id DESC",
                                 [idPregunta],
                                 function (err, resp) {
                                     if (err) {
