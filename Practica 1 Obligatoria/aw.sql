@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-12-2020 a las 13:28:32
--- Versión del servidor: 10.4.16-MariaDB
--- Versión de PHP: 7.4.12
+-- Tiempo de generación: 30-12-2020 a las 13:00:17
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,9 +39,9 @@ CREATE TABLE `etiquetas` (
 
 INSERT INTO `etiquetas` (`id`, `idPregunta`, `nombre`) VALUES
 (9, 8, 'aw'),
-(23, 17, 'aw'),
-(24, 17, 'node'),
-(25, 18, 'java');
+(25, 18, 'java'),
+(26, 23, 'uwu'),
+(27, 24, 'node');
 
 -- --------------------------------------------------------
 
@@ -77,10 +77,20 @@ CREATE TABLE `preguntas` (
 --
 
 INSERT INTO `preguntas` (`id`, `titulo`, `texto`, `idUsuario`, `votos`, `visitas`, `fecha`) VALUES
-(8, 'pls funsiona', 'pls', 'usuario3@ucm.es', 0, 24, '2020-12-27'),
-(17, 'pls funsiona', 'yy', 'usuario1@ucm.es', 0, 0, '2020-12-28'),
+(8, 'pls funsiona', 'pls', 'usuario3@ucm.es', 1, 3, '2020-12-27'),
 (18, 'ff', 'ff', 'usuario1@ucm.es', 0, 0, '2020-12-28'),
-(19, 'pls funsiona', 'fgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsf', 'usuario3@ucm.es', 0, 0, '2020-12-28');
+(19, 'pls funsiona', 'fgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsf', 'usuario3@ucm.es', 0, 0, '2020-12-28'),
+(23, 'wuw', 'd', 'usuario5@ucm.es', 0, 1, '2020-12-30'),
+(24, 'kk', 'kk', 'usuario5@ucm.es', 0, 0, '2020-12-30'),
+(25, 'hh', 'hh', 'usuario4@ucm.es', 0, 0, '2020-12-30');
+
+--
+-- Disparadores `preguntas`
+--
+DELIMITER $$
+CREATE TRIGGER `updateNpreguntas` AFTER INSERT ON `preguntas` FOR EACH ROW UPDATE usuarios SET npreguntas=npreguntas+1 WHERE correo=NEW.idUsuario
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -102,8 +112,21 @@ CREATE TABLE `respuestas` (
 --
 
 INSERT INTO `respuestas` (`id`, `texto`, `votos`, `fecha`, `idUsuario`, `idPregunta`) VALUES
-(6, 'buen pregunta bro', 0, '2020-12-01', 'usuario1@ucm.es', 8),
-(9, 'rr', 0, '2020-12-29', 'usuario1@ucm.es', 8);
+(6, 'buen pregunta bro', -1, '2020-12-01', 'usuario1@ucm.es', 8),
+(9, 'rr', 1, '2020-12-29', 'usuario1@ucm.es', 8),
+(10, 'hopi', -1, '2020-12-30', 'usuario3@ucm.es', 8),
+(11, 'holiwis', 1, '2020-12-30', 'usuario5@ucm.es', 8),
+(12, 'hh', 1, '2020-12-30', 'usuario5@ucm.es', 8),
+(13, 'hh', 0, '2020-12-30', 'usuario5@ucm.es', 23),
+(14, 'g', 1, '2020-12-30', 'usuario5@ucm.es', 8);
+
+--
+-- Disparadores `respuestas`
+--
+DELIMITER $$
+CREATE TRIGGER `updateNrespuestas` AFTER INSERT ON `respuestas` FOR EACH ROW UPDATE usuarios SET nrespuestas=nrespuestas+1 WHERE correo=NEW.idUsuario
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -122,9 +145,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('CkczId0ZqyW180yqzfyrVkpUZh0Bk5tj', 1609246180, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"usuario4@ucm.es\",\"currentName\":\"Usuario 4\"}'),
-('PUuy1xQAWosd1xURMHEDneyaUMvpFLxW', 1609327117, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"usuario1@ucm.es\",\"currentName\":\"Usuario 1\"}'),
-('TKcs8QCnvIFziq1JxOD6L527lwbuwpkt', 1609290193, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"usuario1@ucm.es\",\"currentName\":\"Usuario 1\"}');
+('CLRn5FTQ8GlL1Bi0aBM2r5XkOsB3xqXN', 1609415822, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"usuario1@ucm.es\",\"currentName\":\"Usuario 1\"}');
 
 -- --------------------------------------------------------
 
@@ -140,7 +161,7 @@ CREATE TABLE `usuarios` (
   `nombre` varchar(15) NOT NULL,
   `npreguntas` int(10) NOT NULL,
   `nrespuestas` int(10) NOT NULL,
-  `reputacion` int(10) NOT NULL
+  `reputacion` int(10) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -148,9 +169,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`correo`, `pass`, `avatar`, `fecha`, `nombre`, `npreguntas`, `nrespuestas`, `reputacion`) VALUES
-('usuario1@ucm.es', '12345678', 'avatar_2.png', '2020-12-27', 'Usuario 1', 0, 0, 18),
-('usuario3@ucm.es', '12345678', 'avatar_0.png', '2020-12-27', 'Usuario 3', 0, 0, 0),
-('usuario4@ucm.es', '12345678', 'user.png', '2020-12-28', 'Usuario 4', 0, 0, 0);
+('usuario1@ucm.es', '12345678', 'avatar_2.png', '2020-12-27', 'Usuario 1', 0, 0, 11),
+('usuario3@ucm.es', '12345678', 'avatar_0.png', '2020-12-27', 'Usuario 3', 0, 0, 24),
+('usuario4@ucm.es', '12345678', 'user.png', '2020-12-28', 'Usuario 4', 1, 0, 11),
+('usuario5@ucm.es', '12345678', 'user.png', '2020-12-30', 'Usuario 5', 2, 4, 31);
 
 -- --------------------------------------------------------
 
@@ -162,6 +184,16 @@ CREATE TABLE `visitapregunta` (
   `idUsuario` varchar(20) NOT NULL,
   `idPregunta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `visitapregunta`
+--
+
+INSERT INTO `visitapregunta` (`idUsuario`, `idPregunta`) VALUES
+('usuario1@ucm.es', 8),
+('usuario3@ucm.es', 8),
+('usuario5@ucm.es', 8),
+('usuario5@ucm.es', 23);
 
 -- --------------------------------------------------------
 
@@ -180,22 +212,32 @@ CREATE TABLE `votapregunta` (
 --
 
 INSERT INTO `votapregunta` (`idUsuario`, `idPregunta`, `puntos`) VALUES
-('usuario1@ucm.es', 18, 1),
-('usuario3@ucm.es', 18, -1),
-('usuario4@ucm.es', 18, 1);
+('usuario1@ucm.es', 8, 1),
+('usuario1@ucm.es', 25, 1),
+('usuario3@ucm.es', 8, 1),
+('usuario4@ucm.es', 25, -1),
+('usuario5@ucm.es', 8, -1);
 
 --
 -- Disparadores `votapregunta`
 --
 DELIMITER $$
-CREATE TRIGGER `updateReputation` AFTER INSERT ON `votapregunta` FOR EACH ROW BEGIN
+CREATE TRIGGER `updateReputationAsk` AFTER INSERT ON `votapregunta` FOR EACH ROW BEGIN
         DECLARE c varchar(20);
+        DECLARE rep int;
         SELECT preguntas.idUsuario into c FROM preguntas WHERE preguntas.id=NEW.idPregunta;
+        
         if NEW.puntos = 1 THEN
         	UPDATE usuarios SET reputacion=reputacion+10 WHERE correo=c;
         else
         	UPDATE usuarios SET reputacion=reputacion-2 WHERE correo=c;
         END IF;
+        
+        SELECT usuarios.reputacion into rep FROM usuarios WHERE usuarios.correo=c;
+        
+        if rep < 1 THEN
+        	UPDATE usuarios SET reputacion=1 WHERE correo=c;
+       	END IF;
                 
  	END
 $$
@@ -212,6 +254,44 @@ CREATE TABLE `votarespuesta` (
   `idRespuesta` int(10) NOT NULL,
   `puntos` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `votarespuesta`
+--
+
+INSERT INTO `votarespuesta` (`idUsuario`, `idRespuesta`, `puntos`) VALUES
+('usuario1@ucm.es', 6, -1),
+('usuario1@ucm.es', 10, 1),
+('usuario3@ucm.es', 10, -1),
+('usuario5@ucm.es', 9, 1),
+('usuario5@ucm.es', 10, -1),
+('usuario5@ucm.es', 11, 1),
+('usuario5@ucm.es', 12, 1),
+('usuario5@ucm.es', 14, 1);
+
+--
+-- Disparadores `votarespuesta`
+--
+DELIMITER $$
+CREATE TRIGGER `updateReputationReply` AFTER INSERT ON `votarespuesta` FOR EACH ROW BEGIN
+        DECLARE c varchar(20);
+        DECLARE rep int;
+        SELECT respuestas.idUsuario into c FROM respuestas WHERE respuestas.id=NEW.idRespuesta;
+        if NEW.puntos = 1 THEN
+        	UPDATE usuarios SET reputacion=reputacion+10 WHERE correo=c;
+        else
+        	UPDATE usuarios SET reputacion=reputacion-2 WHERE correo=c;
+        END IF;
+        
+        SELECT usuarios.reputacion into rep FROM usuarios WHERE usuarios.correo=c;
+
+        if rep < 1 THEN
+            UPDATE usuarios SET reputacion=1 WHERE correo=c;
+        END IF;
+                
+ 	END
+$$
+DELIMITER ;
 
 --
 -- Índices para tablas volcadas
@@ -287,19 +367,19 @@ ALTER TABLE `votarespuesta`
 -- AUTO_INCREMENT de la tabla `etiquetas`
 --
 ALTER TABLE `etiquetas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
