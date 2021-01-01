@@ -35,7 +35,7 @@ var storage = multer.diskStorage({
     destination: function (req, file, cb) { //donde se guardara el archivo
       cb(null, 'public/profile_imgs')
     },
-    filename: function (req, file, cb) { //nombre del archivo, avatar-fecha.extension para que todos sean unicos y no se sobreescriban
+    filename: function (req, file, cb) { //nombre del archivo, avatar_fecha.extension para que todos sean unicos y no se sobreescriban
       cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname))
     }
   })
