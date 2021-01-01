@@ -61,7 +61,8 @@ class controllerUsuarios {
             if (err) {
                 console.log(err.message);
             } else {
-                response.sendFile(path.resolve("public/profile_imgs/") + "/" + result[0].avatar)
+                let pathImg = path.join(__dirname, "../public/profile_imgs/", result[0].avatar);
+                response.sendFile(pathImg);
             }
         });
     }
