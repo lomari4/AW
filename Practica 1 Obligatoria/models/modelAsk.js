@@ -197,17 +197,8 @@ class modelAsk {
                         if (err) {
                             callback(new Error("Un usuario no puede votar dos veces a la misma pregunta"))
                         }
-                        else {
-                            connection.query("UPDATE preguntas SET votos=votos+? where id=?",
-                                [puntos, idPregunta],
-                                function (err, rows) {
-                                    if (err) {
-                                        callback(new Error("Error de acceso a la base de datos"))
-                                    }
-                                    else {
-                                        callback(null, rows)
-                                    }
-                                });
+                        else {  
+                            callback(null, rows);
                         }
                     });
             }
