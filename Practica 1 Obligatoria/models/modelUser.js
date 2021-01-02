@@ -6,6 +6,8 @@ class modelUser {
         this.pool = pool;
     }
 
+    //USUARIOS// 
+    
     getAllUsers(callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {

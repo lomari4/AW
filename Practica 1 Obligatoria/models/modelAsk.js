@@ -8,6 +8,8 @@ class modelAsk {
         this.pool = pool;
     }
 
+    //PREGUNTAS//
+
     getAllAsks(callback) { //saca todas las preguntas
         this.pool.getConnection(function (err, connection) {
             if (err) {
@@ -183,7 +185,8 @@ class modelAsk {
     }
 
     //CUANDO SE INSERTA EN votapregunta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
-    //TRIGGER DARMEDALLA CUANDO SE UPDATEAN LOS VOTOS
+    //TRIGGER updateVotos AFTER INSERT votapregunta para actualizar los votos
+    //TRIGGER darMedalla AFTER UPDATE pregunta dentro del trigger anterior, cuando se updatean los votos
     voteAsk(email, idPregunta, puntos, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
@@ -236,7 +239,7 @@ class modelAsk {
         });
     }
 
-    //RESPUESTAS
+    //RESPUESTAS//
     
     //CUANDO SE INSERTA UNA RESPUESTA SALTA UN TRIGGER PARA AUMENTAR EL nrespuestas DEL USUARIO
     insertReply(texto, fecha, idUsuario, idPregunta, callback) {
