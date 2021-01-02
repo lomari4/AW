@@ -67,13 +67,13 @@ class modelAsk {
         });
     }
 
+    //CUANDO SE INSERTA UNA PREGUNTA SALTA UN TRIGGER PARA AUMENTAR EL npreguntas DEL USUARIO
     insertAsk(titulo, texto, fecha, email, etiquetas, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                //CUANDO SE INSERTA UNA PREGUNTA SALTA UN TRIGGER PARA AUMENTAR EL npreguntas DEL USUARIO
                 connection.query("INSERT INTO preguntas(titulo, texto, fecha, idUsuario) VALUES (?,?,?,?)",
                     [titulo, texto, fecha, email],
                     function (err, rows) {
@@ -182,13 +182,14 @@ class modelAsk {
         });
     }
 
+    //CUANDO SE INSERTA EN votapregunta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
+    //TRIGGER DARMEDALLA CUANDO SE UPDATEAN LOS VOTOS
     voteAsk(email, idPregunta, puntos, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                //CUANDO SE INSERTA EN votapregunta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
                 connection.query("INSERT INTO votapregunta(idUsuario, idPregunta, puntos) VALUES (?,?,?)",
                     [email, idPregunta, puntos],
                     function (err, rows) {
@@ -197,8 +198,8 @@ class modelAsk {
                             callback(new Error("Un usuario no puede votar dos veces a la misma pregunta"))
                         }
                         else {
-                            connection.query("UPDATE preguntas SET votos=? + (SELECT votos FROM preguntas WHERE id=?) where id=?",
-                                [puntos, idPregunta, idPregunta],
+                            connection.query("UPDATE preguntas SET votos=votos+? where id=?",
+                                [puntos, idPregunta],
                                 function (err, rows) {
                                     if (err) {
                                         callback(new Error("Error de acceso a la base de datos"))
@@ -213,13 +214,13 @@ class modelAsk {
         });
     }
 
+    //CUANDO SE INSERTA EN votaRespuesta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
     visitAsk(email, idPregunta, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                //CUANDO SE INSERTA EN votaRespuesta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
                 connection.query("INSERT INTO visitaPregunta(idUsuario, idPregunta) VALUES (?,?)",
                     [email, idPregunta],
                     function (err, rows) {
@@ -245,13 +246,14 @@ class modelAsk {
     }
 
     //RESPUESTAS
+    
+    //CUANDO SE INSERTA UNA RESPUESTA SALTA UN TRIGGER PARA AUMENTAR EL nrespuestas DEL USUARIO
     insertReply(texto, fecha, idUsuario, idPregunta, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                //CUANDO SE INSERTA UNA RESPUESTA SALTA UN TRIGGER PARA AUMENTAR EL nrespuestas DEL USUARIO
                 connection.query("INSERT INTO respuestas(texto, fecha, idUsuario, idPregunta) VALUES (?,?,?,?)",
                     [texto, fecha, idUsuario, idPregunta],
                     function (err, rows) {

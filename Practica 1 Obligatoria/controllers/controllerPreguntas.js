@@ -1,5 +1,4 @@
 const modelAsk = require("../models/modelAsk.js");
-const modelReply = require("../models/modelReply.js");
 
 class controllerPreguntas {
 
@@ -120,10 +119,12 @@ class controllerPreguntas {
         this.modelAsk.insertReply(texto, fecha, email, idPregunta, function (err, result){
             if (err) {
                 console.log(err.message);
-                response.redirect("/preguntas/" + idPregunta);
+                //response.redirect("/preguntas/" + idPregunta);
+                response.redirect("/preguntas/preguntas")
             } else {            
                 console.log("Respuesta con id " + result.insertId + " añadida a la pregunta: " + idPregunta + " hecha por el usuario " + email);
-                response.redirect("/preguntas/" + idPregunta);
+                //response.redirect("/preguntas/" + idPregunta);
+                response.redirect("/preguntas/preguntas")
             }
         });
     }
