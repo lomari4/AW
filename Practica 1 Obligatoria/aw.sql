@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-01-2021 a las 16:26:28
--- Versión del servidor: 10.4.16-MariaDB
--- Versión de PHP: 7.4.12
+-- Tiempo de generación: 02-01-2021 a las 16:43:46
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -59,6 +59,8 @@ CREATE TABLE `medallas` (
 --
 
 INSERT INTO `medallas` (`idUsuario`, `logro`, `cantidad`, `tipo`) VALUES
+('usuario3@ucm.es', 'Estudiante', 1, 'bronce'),
+('usuario5@ucm.es', 'Buena pregunta', 1, 'plata'),
 ('usuario5@ucm.es', 'Estudiante', 2, 'bronce'),
 ('usuario5@ucm.es', 'Pregunta interesante', 1, 'bronce');
 
@@ -76,7 +78,7 @@ CREATE TABLE `preguntas` (
   `votos` int(30) NOT NULL DEFAULT 0,
   `visitas` int(30) NOT NULL,
   `fecha` varchar(10) NOT NULL,
-  `medAsignada` int(11) NOT NULL
+  `medAsignada` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -85,9 +87,9 @@ CREATE TABLE `preguntas` (
 
 INSERT INTO `preguntas` (`id`, `titulo`, `texto`, `idUsuario`, `votos`, `visitas`, `fecha`, `medAsignada`) VALUES
 (18, 'ff', 'ff', 'usuario1@ucm.es', 0, 2, '2020-12-28', 0),
-(19, 'pls funsiona', 'fgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsf', 'usuario3@ucm.es', 0, 3, '2020-12-28', 0),
-(30, 'preg 1', 'weq', 'usuario5@ucm.es', 1, 3, '2021-1-2', 1),
-(33, 'preg 2', '213', 'usuario5@ucm.es', 2, 4, '2021-1-2', 4);
+(19, 'pls funsiona', 'fgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsf', 'usuario3@ucm.es', 1, 5, '2020-12-28', 1),
+(30, 'preg 1', 'weq', 'usuario5@ucm.es', 1, 5, '2021-1-2', 1),
+(33, 'preg 2', '213', 'usuario5@ucm.es', 4, 5, '2021-1-2', 1);
 
 --
 -- Disparadores `preguntas`
@@ -98,7 +100,7 @@ CREATE TRIGGER `darMedallas` AFTER UPDATE ON `preguntas` FOR EACH ROW BEGIN
         DECLARE tipoMedalla varchar(10);
         DECLARE existe int;
 		  
-    	IF (NEW.votos > OLD.votos) THEN
+    	IF NEW.votos > OLD.votos THEN
 			if NEW.votos = 1 OR NEW.votos = 2 OR NEW.votos = 4 OR NEW.votos = 6 THEN
 				if NEW.votos = 1 THEN
 					SET nombreMedalla="Estudiante";
@@ -173,9 +175,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('nJUIxoj2puXmvjK8migrPfHXdk-FCw3A', 1609687438, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"usuario3@ucm.es\",\"currentName\":\"Usuario 3\"}'),
-('vHkcuEBBTh_ucQiDF5Qqn5ZUwAIrtjQJ', 1609626013, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"usuario1@ucm.es\",\"currentName\":\"Usuario 1\"}'),
-('x3nNVlVSgmxUkSwfN5997MwDj6Qk9x_m', 1609674956, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"usuario4@ucm.es\",\"currentName\":\"Usuario 4\"}');
+('SDvvdU8__dZQDIYoB1EfaiV6hT-kkfy4', 1609688573, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"usuario4@ucm.es\",\"currentName\":\"Usuario 4\"}');
 
 -- --------------------------------------------------------
 
@@ -200,9 +200,9 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`correo`, `pass`, `avatar`, `fecha`, `nombre`, `npreguntas`, `nrespuestas`, `reputacion`) VALUES
 ('usuario1@ucm.es', '12345678', 'avatar_2.png', '2020-12-27', 'Usuario 1', 1, 0, 79),
-('usuario3@ucm.es', '12345678', 'avatar_0.png', '2020-12-27', 'Usuario 3', 0, 0, 72),
+('usuario3@ucm.es', '12345678', 'avatar_0.png', '2020-12-27', 'Usuario 3', 0, 0, 90),
 ('usuario4@ucm.es', '12345678', 'user.png', '2020-12-28', 'Usuario 4', 3, 0, 117),
-('usuario5@ucm.es', '12345678', 'user.png', '2020-12-30', 'Usuario 5', 6, 4, 473),
+('usuario5@ucm.es', '12345678', 'user.png', '2020-12-30', 'Usuario 5', 6, 4, 551),
 ('usuario6@ucm.es', '12345678', 'avatar_1609536395550.png', '2021-01-01', 'Usuario 6', 0, 1, 1),
 ('usuario7@ucm.es', '12345678', 'avatar_0.png', '2021-01-01', 'Usuario 7', 0, 0, 1);
 
@@ -224,6 +224,8 @@ CREATE TABLE `visitapregunta` (
 INSERT INTO `visitapregunta` (`idUsuario`, `idPregunta`) VALUES
 ('usuario1@ucm.es', 19),
 ('usuario1@ucm.es', 30),
+('usuario1@ucm.es', 33),
+('usuario3@ucm.es', 30),
 ('usuario3@ucm.es', 33),
 ('usuario4@ucm.es', 19),
 ('usuario4@ucm.es', 30),
@@ -232,7 +234,10 @@ INSERT INTO `visitapregunta` (`idUsuario`, `idPregunta`) VALUES
 ('usuario5@ucm.es', 19),
 ('usuario5@ucm.es', 30),
 ('usuario5@ucm.es', 33),
+('usuario6@ucm.es', 19),
+('usuario6@ucm.es', 30),
 ('usuario7@ucm.es', 18),
+('usuario7@ucm.es', 19),
 ('usuario7@ucm.es', 30),
 ('usuario7@ucm.es', 33);
 
@@ -253,13 +258,16 @@ CREATE TABLE `votapregunta` (
 --
 
 INSERT INTO `votapregunta` (`idUsuario`, `idPregunta`, `puntos`) VALUES
-('usuario1@ucm.es', 30, -1),
+('usuario1@ucm.es', 19, 1),
+('usuario1@ucm.es', 30, 1),
+('usuario1@ucm.es', 33, 1),
+('usuario3@ucm.es', 30, -1),
 ('usuario3@ucm.es', 33, 1),
-('usuario4@ucm.es', 30, 1),
 ('usuario4@ucm.es', 33, 1),
-('usuario5@ucm.es', 30, 1),
-('usuario5@ucm.es', 33, 1),
-('usuario7@ucm.es', 33, -1);
+('usuario6@ucm.es', 19, -1),
+('usuario6@ucm.es', 30, 1),
+('usuario7@ucm.es', 19, 1),
+('usuario7@ucm.es', 33, 1);
 
 --
 -- Disparadores `votapregunta`
@@ -294,7 +302,7 @@ UPDATE preguntas SET votos = votos + NEW.puntos WHERE id=NEW.idPregunta;
 SELECT votos into v FROM preguntas WHERE id=NEW.idPregunta;
 
 IF v = 1 OR v = 2 OR v = 4 OR v = 6 THEN
-	UPDATE preguntas SET medAsignada = medAsignada + 1 WHERE id=NEW.idPregunta;
+	UPDATE preguntas SET medAsignada = 1 WHERE id=NEW.idPregunta;
 END IF;
                 
 END
