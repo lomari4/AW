@@ -6,6 +6,11 @@ class controllerPreguntas {
         this.pool = pool;
         this.modelAsk = new modelAsk(pool)
     }
+   
+    /*
+    RECORDATORIOS:
+    CUALQUIER RENDER QUE TENGA HEADER NECESITA QUE LE PASES userName Y userEmail
+    */
 
     //PREGUNTAS//
     getAllAsk(response) {
@@ -13,7 +18,7 @@ class controllerPreguntas {
             if (err) {
                 console.log(err.message);
             } else {
-                response.render("preguntas", { userName: response.locals.userName, preguntas: result, titulo: "Todas las preguntas" });
+                response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: result, titulo: "Todas las preguntas" });
             }
         });
     }
@@ -23,7 +28,7 @@ class controllerPreguntas {
             if (err) {
                 console.log(err.message);
             } else {
-                response.render("informePregunta", { userName: response.locals.userName, pregunta: pregunta[0], titulo: pregunta[0].titulo, respuestas:respuestas});
+                response.render("informePregunta", { userName: response.locals.userName, userEmail: response.locals.userEmail, pregunta: pregunta[0], titulo: pregunta[0].titulo, respuestas:respuestas});
             }
         });
     }
@@ -48,7 +53,7 @@ class controllerPreguntas {
             if (err) {
                 console.log(err.message);
             } else {
-                response.render("preguntas", { userName: response.locals.userName, preguntas: result, titulo: "Preguntas con la etiqueta [" + nombreTag + "]" });
+                response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: result, titulo: "Preguntas con la etiqueta [" + nombreTag + "]" });
             }
         });
     }
@@ -58,21 +63,21 @@ class controllerPreguntas {
             if (err) {
                 console.log(err.message);
             } else if (result) {
-                response.render("preguntas", { userName: response.locals.userName, preguntas: result, titulo: "Preguntas sin responder" });
+                response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: result, titulo: "Preguntas sin responder" });
             } else {
-                response.render("preguntas", { userName: response.locals.userName, preguntas: [], titulo: "Todas las preguntas tienen respuesta" });
+                response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: [], titulo: "Todas las preguntas tienen respuesta" });
             }
         });
     }
 
-    getAllAsksByText(palabra, username, response){
+    getAllAsksByText(palabra, useremail, username, response){
         this.modelAsk.getAllAsksByText(palabra, function (err, result){
             if (err) {
                 console.log(err.message);
             } else if (result) {
-                response.render("preguntas", { userName: username, preguntas: result, titulo: "Resultados de la busqueda \"" + palabra + "\"" });
+                response.render("preguntas", { userName: username, userEmail: useremail, preguntas: result, titulo: "Resultados de la busqueda \"" + palabra + "\"" });
             } else {
-                response.render("preguntas", { userName: username, preguntas: [], titulo: "Ninguna pregunta contiene esa palabra en su texto o titulo" });
+                response.render("preguntas", { userName: username, userEmail: useremail, preguntas: [], titulo: "Ninguna pregunta contiene esa palabra en su texto o titulo" });
             }
         });
     }

@@ -20,6 +20,7 @@ class Util {
               "votos": e.votos,
               "visitas": e.visitas,
               "avatar": e.avatar,
+              "correo": e.correo,
               "nombreUsuario": e.nombreUsuario,
               "tags": [e.nombreEtiqueta]
             };
@@ -31,6 +32,7 @@ class Util {
               "texto": e.texto,
               "fecha": e.fecha,
               "avatar": e.avatar,
+              "correo": e.correo,
               "nombreUsuario": e.nombreUsuario,
               "tags": [e.nombreEtiqueta]
             };
@@ -48,6 +50,52 @@ class Util {
       array = array.reverse(); //para que saque las respuestas de mas reciente a mas antigua, ya que va por ids
     }
     return array;
+  }
+
+  joinUserWithMedallas(rows) { //devuelve un array con los usuarios y sus logros (medallas)
+
+    let user = {
+      "correo": rows[0].correo,
+      "fecha": rows[0].fecha,
+      "avatar": rows[0].avatar,
+      "nombre": rows[0].nombre,
+      "npreguntas": rows[0].npreguntas,
+      "nrespuestas": rows[0].nrespuestas,
+      "reputacion": rows[0].reputacion,
+      "totalBronce": 0,
+      "totalPlata": 0,
+      "totalOro": 0,
+      "medallasBronce": [],
+      "medallasPlata": [],
+      "medallasOro": []
+    };
+
+    if (rows.length != 0) {
+
+      rows.forEach(e => {
+
+        if (e.logro != undefined) {
+          switch (e.tipo) {
+            case "bronce":
+              user.totalBronce += e.cantidad;
+              user.medallasBronce.push({ "logro": e.logro, "cantidad": e.cantidad })
+              break;
+            case "plata":
+              user.totalPlata += e.cantidad;
+              user.medallasPlata.push({ "logro": e.logro, "cantidad": e.cantidad })
+              break;
+            case "oro":
+              user.totalOro += e.cantidad;
+              user.medallasOro.push({ "logro": e.logro, "cantidad": e.cantidad })
+              break;
+          }
+        }
+
+      });
+      
+    }
+
+    return user;
   }
 
   createTask(texto) {

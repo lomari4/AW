@@ -1,5 +1,7 @@
 "use strict";
 const mysql = require("mysql");
+const util = require("../utils.js")
+const utils = new util();
 
 class modelUser {
     constructor(pool) {
@@ -94,7 +96,7 @@ class modelUser {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT * FROM usuarios WHERE correo = ?",
+                connection.query("SELECT usuarios.correo, usuarios.fecha, usuarios.avatar, usuarios.nombre, usuarios.npreguntas, usuarios.nrespuestas, usuarios.reputacion, medallas.logro, medallas.cantidad, medallas.tipo FROM usuarios LEFT JOIN medallas ON usuarios.correo = medallas.idUsuario WHERE usuarios.correo = ?",
                     [email],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
@@ -106,7 +108,8 @@ class modelUser {
                                 callback(null, false) //no existe el usuario
                             }
                             else {
-                                callback(null, rows)
+                                let array = utils.joinUserWithMedallas(rows);
+                                callback(null, array)
                             }
                         }
                     });

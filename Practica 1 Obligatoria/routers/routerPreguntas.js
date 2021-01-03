@@ -105,7 +105,7 @@ router.post("/procesar_formular", function (request, response) { //al no necesit
 });
 
 router.post("/procesar_busqueda", function (request, response) { 
-    controllerAsk.getAllAsksByText(request.body.nombreBusqueda, request.session.currentName, response);
+    controllerAsk.getAllAsksByText(request.body.nombreBusqueda, request.session.currentUser, request.session.currentName, response);
 });
 
 router.post("/procesar_respuesta/:idPregunta", function (request, response) { 

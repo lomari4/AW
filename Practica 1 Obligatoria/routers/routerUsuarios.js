@@ -70,6 +70,10 @@ router.get("/nombreUsuario", function (request, response) {
     controllerUser.getUserName(request.session.currentUser, request, response);
 });
 
+router.get("/perfil/:correo", identificacionRequerida, function (request, response) {
+    controllerUser.getUser(request.params.correo, response);
+});
+
 //POST REQUESTS
 router.post("/procesar_login", function (request, response) {
     controllerUser.isUserCorrect(request.body.correo, request.body.password, request, response)

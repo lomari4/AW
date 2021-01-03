@@ -17,7 +17,7 @@ class modelAsk {
             }
 
             else { //Left join para que saque preguntas aunque no tengan etiquetas
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto, preguntas.fecha, usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo ORDER BY preguntas.id DESC",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto, preguntas.fecha, usuarios.avatar, usuarios.correo, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo ORDER BY preguntas.id DESC",
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -40,7 +40,7 @@ class modelAsk {
             }
 
             else { //Left join para que saque preguntas aunque no tengan etiquetas
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto, preguntas.fecha, preguntas.votos, preguntas.visitas, usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.id = ?",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto, preguntas.fecha, preguntas.votos, preguntas.visitas, usuarios.avatar, usuarios.correo, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.id = ?",
                     [idPregunta],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
@@ -185,8 +185,8 @@ class modelAsk {
     }
 
     //CUANDO SE INSERTA EN votapregunta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
-    //TRIGGER updateVotos AFTER INSERT votapregunta para actualizar los votos
-    //TRIGGER darMedalla AFTER UPDATE pregunta dentro del trigger anterior, cuando se updatean los votos
+    //TRIGGER updateVotosPreguntas AFTER INSERT votapregunta para actualizar los votos
+    //TRIGGER darMedallaPregunta AFTER UPDATE pregunta dentro del trigger anterior, cuando se updatean los votos
     voteAsk(email, idPregunta, puntos, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
@@ -209,6 +209,7 @@ class modelAsk {
     }
 
     //CUANDO SE INSERTA EN votaRespuesta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
+    //TRIGGER darMedallaVisita AFTER UPDATE preguntas cuando aumentan las visitas de la pregunta
     visitAsk(email, idPregunta, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
@@ -264,6 +265,9 @@ class modelAsk {
         );
     }
 
+    //CUANDO SE INSERTA EN votarespuesta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
+    //TRIGGER updateVotosRespuestas AFTER INSERT votarespuesta para actualizar los votos
+    //TRIGGER darMedallaRespuesta AFTER UPDATE repuestas dentro del trigger anterior, cuando se updatean los votos
     voteReply(idUsuario, idRespuesta, puntos, callback){
         this.pool.getConnection(function (err, connection) {
             if (err) {
@@ -278,16 +282,7 @@ class modelAsk {
                             callback(new Error("Un usuario no puede votar dos veces a la misma respuesta"))
                         }
                         else {
-                            connection.query("UPDATE respuestas SET votos=? + votos where id=?",
-                            [puntos, idRespuesta],
-                            function (err, rows) {
-                                if (err) {
-                                    callback(new Error("Error de acceso a la base de datos"))
-                                }
-                                else {
-                                    callback(null, rows)
-                                }
-                            });
+                            callback(null, rows)
                         }
                     });
             }

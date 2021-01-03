@@ -1,5 +1,4 @@
 const modelUser = require("../models/modelUser.js");
-const modelMedal = require("../models/modelMedal.js");
 
 var path = require('path');
 
@@ -8,7 +7,6 @@ class controllerUsuarios {
     constructor(pool) {
         this.pool = pool;
         this.modelUser = new modelUser(pool)
-        this.modelMedal = new modelMedal(pool)
     }
 
     //USUARIOS//
@@ -78,14 +76,12 @@ class controllerUsuarios {
         });
     }
 
-    getUser(email){
+    getUser(email, response){
         this.modelUser.getUser(email, function (err, result) {
             if (err) {
                 console.log(err.message);
-            } else if (result) {
-                console.log("Usuario: " + result[0].correo);
-            } else {
-                console.log("Error al obtener el usuario con el email " + email);
+            } else{
+                response.render("perfilUsuario", { userName: response.locals.userName, userEmail: response.locals.userEmail, usuario: result});
             }
         });
     }

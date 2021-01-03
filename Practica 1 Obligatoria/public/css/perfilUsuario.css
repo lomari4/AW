@@ -26,7 +26,7 @@ img.avatar{
     height: 200px;
 }
 
-p{
+div.profile p{
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -104,6 +104,19 @@ div.medals{
     justify-content: space-around;
     margin-top: 40px;
     width: 50%;
+    margin-bottom:150px;
+}
+
+div.bronzeMedal{
+    width:100%;
+}
+
+div.silverMedal{
+    width:100%;
+}
+
+div.goldMedal{
+    width:100%;
 }
 
 div.bronze{
