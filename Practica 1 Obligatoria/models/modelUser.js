@@ -17,7 +17,28 @@ class modelUser {
             }
 
             else {
-                connection.query("SELECT * FROM usuarios",
+                connection.query("SELECT tabla.nombre, tabla.avatar, tabla.reputacion, tabla.nombreEtiqueta as nombreEtiqueta FROM (SELECT usuarios.nombre, usuarios.avatar, usuarios.reputacion, etiquetas.nombre as nombreEtiqueta, count(*) as numEtiquetas FROM (usuarios LEFT JOIN preguntas ON usuarios.correo = preguntas.idUsuario) LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta GROUP BY usuarios.nombre, etiquetas.nombre ORDER BY numEtiquetas DESC) as tabla GROUP BY tabla.nombre",
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Error de acceso a la base de datos"))
+                        }
+                        else {
+                            callback(null, rows)
+                        }
+                    });
+            }
+        });
+    }
+
+    getAllUsersByText(palabra, callback) {
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"))
+            }
+            else {
+                connection.query("SELECT tabla.nombre, tabla.avatar, tabla.reputacion, tabla.nombreEtiqueta as nombreEtiqueta FROM (SELECT usuarios.nombre, usuarios.avatar, usuarios.reputacion, etiquetas.nombre as nombreEtiqueta, count(*) as numEtiquetas FROM (usuarios LEFT JOIN preguntas ON usuarios.correo = preguntas.idUsuario) LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta GROUP BY usuarios.nombre, etiquetas.nombre ORDER BY numEtiquetas DESC) as tabla GROUP BY tabla.nombre HAVING tabla.nombre LIKE '%" + palabra + "%'",
+                    [palabra],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -25,7 +46,7 @@ class modelUser {
                         }
                         else {
                             if (rows.length === 0) {
-                                callback(null, false) //no existe ningun usuario
+                                callback(null, false) //ningun nombre contiene esa palabra en su texto o titulo
                             }
                             else {
                                 callback(null, rows)
@@ -36,67 +57,13 @@ class modelUser {
         });
     }
 
-    isUserCorrect(email, password, callback) {
-        this.pool.getConnection(function (err, connection) {
-            if (err) {
-                callback(new Error("Error de conexión a la base de datos"));
-            }
-            else {
-                connection.query("SELECT * FROM usuarios WHERE correo = ? AND pass = ?",
-                    [email, password],
-                    function (err, rows) {
-                        connection.release(); // devolver al pool la conexión
-                        if (err) {
-                            callback(new Error("Error de acceso a la base de datos"))
-                        }
-                        else {
-                            if (rows.length === 0) {
-                                callback(null, false) //no está el usuario con el password proporcionado
-                            }
-                            else {
-                                callback(null, rows)
-                            }
-                        }
-                    });
-            }
-        }
-        );
-    }
-
-    insertUser(email, pass, name, avatar, fecha, callback) {
-        this.pool.getConnection(function (err, connection) {
-            if (err) {
-                callback(new Error("Error de conexión a la base de datos"))
-            }
-            else {
-                if(avatar.length < 1){
-                    console.log("Sin avatar. Generando uno random.")
-                    let random = Math.floor(Math.random() * 4);
-                    avatar = "avatar_" + random + ".png";
-                }
-                connection.query("INSERT INTO usuarios(correo, pass, nombre, avatar, fecha) VALUES (?,?,?,?,?)",
-                    [email, pass, name, avatar, fecha],
-                    function (err, rows) {
-                        connection.release(); // devolver al pool la conexión
-                        if (err) {
-                            callback(new Error("Ya existe un usuario con ese nombre"))
-                        }
-                        else {
-                            callback(null, rows)
-                        }
-                    });
-            }
-        }
-        );
-    }
-
     getUser(email, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT usuarios.correo, usuarios.fecha, usuarios.avatar, usuarios.nombre, usuarios.npreguntas, usuarios.nrespuestas, usuarios.reputacion, medallas.logro, medallas.cantidad, medallas.tipo FROM usuarios LEFT JOIN medallas ON usuarios.correo = medallas.idUsuario WHERE usuarios.correo = ?",
+                connection.query("SELECT usuarios.correo, usuarios.fecha, usuarios.numero, usuarios.avatar, usuarios.nombre, usuarios.npreguntas, usuarios.nrespuestas, usuarios.reputacion, medallas.logro, medallas.cantidad, medallas.tipo FROM usuarios LEFT JOIN medallas ON usuarios.correo = medallas.idUsuario WHERE usuarios.correo = ?",
                     [email],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
@@ -167,6 +134,60 @@ class modelUser {
                     });
             }
         });
+    }
+
+    isUserCorrect(email, password, callback) {
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"));
+            }
+            else {
+                connection.query("SELECT * FROM usuarios WHERE correo = ? AND pass = ?",
+                    [email, password],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Error de acceso a la base de datos"))
+                        }
+                        else {
+                            if (rows.length === 0) {
+                                callback(null, false) //no está el usuario con el password proporcionado
+                            }
+                            else {
+                                callback(null, rows)
+                            }
+                        }
+                    });
+            }
+        }
+        );
+    }
+
+    insertUser(email, pass, name, avatar, fecha, callback) {
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"))
+            }
+            else {
+                if(avatar.length < 1){
+                    console.log("Sin avatar. Generando uno random.")
+                    let random = Math.floor(Math.random() * 4);
+                    avatar = "avatar_" + random + ".png";
+                }
+                connection.query("INSERT INTO usuarios(correo, pass, nombre, avatar, fecha) VALUES (?,?,?,?,?)",
+                    [email, pass, name, avatar, fecha],
+                    function (err, rows) {
+                        connection.release(); // devolver al pool la conexión
+                        if (err) {
+                            callback(new Error("Ya existe un usuario con ese nombre"))
+                        }
+                        else {
+                            callback(null, rows)
+                        }
+                    });
+            }
+        }
+        );
     }
 
     updateReputation(correo, reputacion, callback) {

@@ -22,8 +22,7 @@ div.usuario{
 
 img.avatar{
     margin-bottom: 13px;
-    border-radius:50%;
-    height: 200px;
+    width: 60%;
 }
 
 div.profile p{

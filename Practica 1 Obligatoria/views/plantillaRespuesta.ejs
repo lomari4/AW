@@ -9,8 +9,13 @@
 </head>
 
 <body>
-
-    <div class="puntuation">
+    
+    <% if (r.votos>=0) { %>
+    <div class="puntuationVerde">
+         <% } else { %>
+    <div class="puntuationRojo">
+        <% } %>
+        
         <p>
             <%=r.votos%> Votos
         </p>

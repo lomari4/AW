@@ -10,14 +10,24 @@ class controllerUsuarios {
     }
 
     //USUARIOS//
-    getAllUsers() {
+    getAllUsers(response) {
         this.modelUser.getAllUsers(function (err, result) {
             if (err) {
                 console.log(err.message);
-            } else if (result) {
-                console.log(result);
             } else {
-                console.log("No hay usuarios en la base de datos");
+                response.render("usuarios", { userName: response.locals.userName, userEmail: response.locals.userEmail, usuarios: result, titulo: "Usuarios"});
+            }
+        });
+    }
+
+    getAllUsersByText(palabra, useremail, username, response){
+        this.modelUser.getAllUsersByText(palabra, function (err, result){
+            if (err) {
+                console.log(err.message);
+            } else if (result) {
+                response.render("usuarios", { userName: username, userEmail: useremail, usuarios: result, titulo:"Usuarios filtrados por [\""+palabra+"\"]" });           
+            } else {
+                response.render("usuarios", { userName: username, userEmail: useremail, usuarios: [], titulo: "No hay usuarios con [\""+palabra+"\"]" });           
             }
         });
     }
@@ -34,22 +44,6 @@ class controllerUsuarios {
             } else {
                 console.log("Usuario y/o  contraseña incorrectos");
                 response.render("login", { errorMsg: "Usuario y/o contraseña incorrectos" });
-            }
-        });
-    }
-
-    insertUser(email,pass,nombre,avatar,request,response){
-        let f = new Date();
-        let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
-    
-        this.modelUser.insertUser(email,pass,nombre,avatar,fecha, function (err, result){
-            if (err) {
-                console.log(err.message);
-                response.render("registro", { errorMsg: "Email ya existente" });
-            } else {            
-                console.log("Usuario registrado con correo: " + email);
-                request.session.currentUser = request.body.correo;
-                response.redirect("/usuarios/nombreUsuario")    
             }
         });
     }
@@ -96,6 +90,22 @@ class controllerUsuarios {
                 response.redirect("/usuarios/principal");
             } else {
                 console.log("Error al obtener el usuario");
+            }
+        });
+    }
+
+    insertUser(email,pass,nombre,avatar,request,response){
+        let f = new Date();
+        let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
+    
+        this.modelUser.insertUser(email,pass,nombre,avatar,fecha, function (err, result){
+            if (err) {
+                console.log(err.message);
+                response.render("registro", { errorMsg: "Email ya existente" });
+            } else {            
+                console.log("Usuario registrado con correo: " + email);
+                request.session.currentUser = request.body.correo;
+                response.redirect("/usuarios/nombreUsuario")    
             }
         });
     }

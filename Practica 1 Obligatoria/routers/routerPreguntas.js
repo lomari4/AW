@@ -45,9 +45,6 @@ function identificacionRequerida(request, response, next) {
     }
 }
 
-/* middleware propios
-router.get("/",)
-*/
 
 //MANEJADORES DE RUTA
 

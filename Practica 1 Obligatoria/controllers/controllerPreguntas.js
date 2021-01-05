@@ -33,21 +33,6 @@ class controllerPreguntas {
         });
     }
 
-    insertAsk(titulo, texto, email,etiquetas, response){
-        let f = new Date();
-        let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
-
-        this.modelAsk.insertAsk(titulo, texto, fecha, email, etiquetas, function (err, result){
-            if (err) {
-                console.log(err.message);
-                response.redirect("/preguntas/preguntas")
-            } else {       
-                console.log("Pregunta con id " + result.insertId + " hecha por el usuario " + email);
-                response.redirect("/preguntas/preguntas")
-            }
-        });
-    }
-
     getAllAsksByTag(nombreTag, response){
         this.modelAsk.getAllAsksByTag(nombreTag, function (err, result){
             if (err) {
@@ -78,6 +63,21 @@ class controllerPreguntas {
                 response.render("preguntas", { userName: username, userEmail: useremail, preguntas: result, titulo: "Resultados de la busqueda \"" + palabra + "\"" });
             } else {
                 response.render("preguntas", { userName: username, userEmail: useremail, preguntas: [], titulo: "Ninguna pregunta contiene esa palabra en su texto o titulo" });
+            }
+        });
+    }
+    
+    insertAsk(titulo, texto, email,etiquetas, response){
+        let f = new Date();
+        let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
+
+        this.modelAsk.insertAsk(titulo, texto, fecha, email, etiquetas, function (err, result){
+            if (err) {
+                console.log(err.message);
+                response.redirect("/preguntas/preguntas")
+            } else {       
+                console.log("Pregunta con id " + result.insertId + " hecha por el usuario " + email);
+                response.redirect("/preguntas/preguntas")
             }
         });
     }

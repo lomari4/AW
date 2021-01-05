@@ -53,20 +53,16 @@ function identificacionRequerida(request, response, next) {
     }
 }
 
-/* middleware propios
-router.get("perfil/:idUsuario",....)
-*/
-
 //MANEJADORES DE RUTA
 router.get("/principal", identificacionRequerida, function (request, response) {
     response.render("principal", { userName: response.locals.userName });
 });
 
-router.get("/imagenUsuario", function (request, response) {
+router.get("/imagenUsuario", identificacionRequerida, function (request, response) {
     controllerUser.getUserImageName(request.session.currentUser,response)
 });
 
-router.get("/nombreUsuario", function (request, response) {
+router.get("/nombreUsuario", identificacionRequerida, function (request, response) {
     controllerUser.getUserName(request.session.currentUser, request, response);
 });
 
@@ -74,9 +70,17 @@ router.get("/perfil/:correo", identificacionRequerida, function (request, respon
     controllerUser.getUser(request.params.correo, response);
 });
 
+router.get("/usuarios", identificacionRequerida, function (request, response) {
+    controllerUser.getAllUsers(response);
+});
+
 //POST REQUESTS
 router.post("/procesar_login", function (request, response) {
     controllerUser.isUserCorrect(request.body.correo, request.body.password, request, response)
+});
+
+router.post("/procesar_busqueda", function (request, response) {
+    controllerUser.getAllUsersByText(request.body.nombreUserBusqueda, request.session.currentUser, request.session.currentName, response);
 });
 
 router.post("/procesar_registro", multerFactory.single("avatar"), function (request, response) {

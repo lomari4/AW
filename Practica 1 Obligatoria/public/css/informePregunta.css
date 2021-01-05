@@ -42,11 +42,18 @@ div.information p{
     margin:10px;
 }
 
-div.puntuation{
+div.puntuationVerde{
     display:flex;
     margin-left:5px;
     text-align: center;
     background-color: aquamarine;
+}
+
+div.puntuationRojo{
+    display:flex;
+    margin-left:5px;
+    text-align: center;
+    background-color: rgb(247, 122, 122);
 }
 
 .vote{

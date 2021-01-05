@@ -29,7 +29,13 @@
 
             <div class="element">
                 <div class="information">
-                    <div class="puntuation">
+
+                    <% if (pregunta.votos>=0) { %>
+                    <div class="puntuationVerde">
+                     <% } else { %>
+                    <div class="puntuationRojo">
+                    <% } %>
+                    
                         <p>
                             <%=pregunta.votos%> Votos
                         </p>
