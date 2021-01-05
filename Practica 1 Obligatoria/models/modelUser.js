@@ -17,7 +17,7 @@ class modelUser {
             }
 
             else {
-                connection.query("SELECT tabla.nombre, tabla.avatar, tabla.reputacion, tabla.nombreEtiqueta as nombreEtiqueta FROM (SELECT usuarios.nombre, usuarios.avatar, usuarios.reputacion, etiquetas.nombre as nombreEtiqueta, count(*) as numEtiquetas FROM (usuarios LEFT JOIN preguntas ON usuarios.correo = preguntas.idUsuario) LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta GROUP BY usuarios.nombre, etiquetas.nombre ORDER BY numEtiquetas DESC) as tabla GROUP BY tabla.nombre",
+                connection.query("SELECT tabla.correo, tabla.nombre, tabla.avatar, tabla.reputacion, tabla.nombreEtiqueta as nombreEtiqueta FROM (SELECT usuarios.correo, usuarios.nombre, usuarios.avatar, usuarios.reputacion, etiquetas.nombre as nombreEtiqueta, count(*) as numEtiquetas FROM (usuarios LEFT JOIN preguntas ON usuarios.correo = preguntas.idUsuario) LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta GROUP BY usuarios.nombre, etiquetas.nombre ORDER BY numEtiquetas DESC) as tabla GROUP BY tabla.nombre",
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -37,7 +37,7 @@ class modelUser {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT tabla.nombre, tabla.avatar, tabla.reputacion, tabla.nombreEtiqueta as nombreEtiqueta FROM (SELECT usuarios.nombre, usuarios.avatar, usuarios.reputacion, etiquetas.nombre as nombreEtiqueta, count(*) as numEtiquetas FROM (usuarios LEFT JOIN preguntas ON usuarios.correo = preguntas.idUsuario) LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta GROUP BY usuarios.nombre, etiquetas.nombre ORDER BY numEtiquetas DESC) as tabla GROUP BY tabla.nombre HAVING tabla.nombre LIKE '%" + palabra + "%'",
+                connection.query("SELECT tabla.correo, tabla.nombre, tabla.avatar, tabla.reputacion, tabla.nombreEtiqueta as nombreEtiqueta FROM (SELECT usuarios.correo, usuarios.nombre, usuarios.avatar, usuarios.reputacion, etiquetas.nombre as nombreEtiqueta, count(*) as numEtiquetas FROM (usuarios LEFT JOIN preguntas ON usuarios.correo = preguntas.idUsuario) LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta GROUP BY usuarios.nombre, etiquetas.nombre ORDER BY numEtiquetas DESC) as tabla GROUP BY tabla.nombre HAVING tabla.nombre LIKE '%" + palabra + "%'",
                     [palabra],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
