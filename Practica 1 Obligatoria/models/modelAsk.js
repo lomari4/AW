@@ -76,6 +76,11 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
+                console.log(titulo)
+                console.log(fecha)
+                console.log(etiquetas)
+                console.log(texto)
+                console.log(email)
                 connection.query("INSERT INTO preguntas(titulo, texto, fecha, idUsuario) VALUES (?,?,?,?)",
                     [titulo, texto, fecha, email],
                     function (err, rows) {
@@ -111,7 +116,7 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.id IN (SELECT idPregunta FROM etiquetas WHERE nombre= ?)",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,usuarios.correo,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.id IN (SELECT idPregunta FROM etiquetas WHERE nombre= ?)",
                     [nombreTag],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
@@ -138,7 +143,7 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.id NOT IN (SELECT respuestas.idPregunta FROM respuestas)",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,usuarios.correo, usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.id NOT IN (SELECT respuestas.idPregunta FROM respuestas)",
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -164,7 +169,7 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.titulo LIKE '%" + palabra + "%' OR preguntas.texto LIKE '%" + palabra + "%'",
+                connection.query("SELECT preguntas.id, preguntas.titulo, preguntas.texto,preguntas.fecha,usuarios.avatar,usuarios.correo,  usuarios.nombre as nombreUsuario, etiquetas.nombre as nombreEtiqueta FROM (preguntas LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta) JOIN usuarios ON preguntas.idUsuario = usuarios.correo WHERE preguntas.titulo LIKE '%" + palabra + "%' OR preguntas.texto LIKE '%" + palabra + "%'",
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {

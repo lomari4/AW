@@ -70,7 +70,6 @@ class controllerPreguntas {
     insertAsk(titulo, texto, email,etiquetas, response){
         let f = new Date();
         let fecha = f.getFullYear() + "-"+ (f.getMonth()+1) + "-" + f.getDate();
-
         this.modelAsk.insertAsk(titulo, texto, fecha, email, etiquetas, function (err, result){
             if (err) {
                 console.log(err.message);

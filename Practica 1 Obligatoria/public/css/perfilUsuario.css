@@ -8,8 +8,8 @@ div.profile{
 
 div.allStatistics{
     display: flex;
-    width: 75%;
     justify-content: center;
+    width: 75%;
 }
 
 div.usuario{
@@ -34,21 +34,21 @@ div.profile p{
 
 .cat1{
     height:150px;
-    margin-top:10px;
-    margin-bottom:20px;
+    width: 100%;
+    margin-top:30px;
 }
 
 .cat2{
     height:150px;
-    margin-left:30px;
-    margin-top:50px;
+    width: 100%;
+    margin-top:40px;
     padding-bottom:10px;
 }
 
 .cat3{
     height:110px;
+    width: 100%;
     margin-top:60px;
-    margin-left:10px;
     margin-bottom:20px;
 }
 
@@ -86,10 +86,13 @@ div.type{
 
 div.type p{
     padding-top: 5px;
+    padding-left: auto;
+    padding-right: auto;
 }
 
 div.topPosition{
-    padding-top: 38px;
+    display: flex;
+    flex-direction: column;
 }
 
 .titleMedals{    

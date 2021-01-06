@@ -17,7 +17,7 @@ class modelUser {
             }
 
             else {
-                connection.query("SELECT tabla.correo, tabla.nombre, tabla.avatar, tabla.reputacion, tabla.nombreEtiqueta as nombreEtiqueta FROM (SELECT usuarios.correo, usuarios.nombre, usuarios.avatar, usuarios.reputacion, etiquetas.nombre as nombreEtiqueta, count(*) as numEtiquetas FROM (usuarios LEFT JOIN preguntas ON usuarios.correo = preguntas.idUsuario) LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta GROUP BY usuarios.nombre, etiquetas.nombre ORDER BY numEtiquetas DESC) as tabla GROUP BY tabla.nombre",
+                connection.query("SELECT tabla.correo, tabla.nombre, tabla.avatar, tabla.reputacion, tabla.nombreEtiqueta as nombreEtiqueta, suma FROM (SELECT usuarios.correo, usuarios.nombre, usuarios.avatar, usuarios.reputacion, etiquetas.nombre as nombreEtiqueta, SUM(CASE WHEN etiquetas.nombre IS NOT NULL THEN 1 ELSE 0 END) AS suma FROM (usuarios LEFT JOIN preguntas ON usuarios.correo = preguntas.idUsuario) LEFT JOIN etiquetas ON preguntas.id = etiquetas.idPregunta GROUP BY usuarios.nombre, etiquetas.nombre ORDER BY suma DESC) as tabla GROUP BY tabla.nombre",
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
@@ -63,7 +63,8 @@ class modelUser {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                connection.query("SELECT usuarios.correo, usuarios.fecha, usuarios.numero, usuarios.avatar, usuarios.nombre, usuarios.npreguntas, usuarios.nrespuestas, usuarios.reputacion, medallas.logro, medallas.cantidad, medallas.tipo FROM usuarios LEFT JOIN medallas ON usuarios.correo = medallas.idUsuario WHERE usuarios.correo = ?",
+                console.log(email)
+                connection.query("SELECT usuarios.correo, usuarios.fecha, usuarios.avatar, usuarios.nombre, usuarios.npreguntas, usuarios.nrespuestas, usuarios.reputacion, medallas.logro, medallas.cantidad, medallas.tipo FROM usuarios LEFT JOIN medallas ON usuarios.correo = medallas.idUsuario WHERE usuarios.correo = ?",
                     [email],
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
