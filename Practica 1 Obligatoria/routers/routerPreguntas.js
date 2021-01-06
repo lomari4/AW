@@ -98,7 +98,6 @@ router.get("/dislikeRespuesta/:idPregunta/:idRespuesta", identificacionRequerida
 //POST REQUESTS
 router.post("/procesar_formular", function (request, response) { //al no necesitar la funcion identificacionRequerida, no puedes usar response.locals para pasarle el username ya que ahi es donde se define
     let etiquetas = utils.createTask(request.body.etiquetas)
-    console.log("hola")
     controllerAsk.insertAsk(request.body.titulo, request.body.cuerpo, request.session.currentUser, etiquetas, response);
 });
 

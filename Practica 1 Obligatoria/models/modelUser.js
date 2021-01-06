@@ -63,7 +63,6 @@ class modelUser {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                console.log(email)
                 connection.query("SELECT usuarios.correo, usuarios.fecha, usuarios.avatar, usuarios.nombre, usuarios.npreguntas, usuarios.nrespuestas, usuarios.reputacion, medallas.logro, medallas.cantidad, medallas.tipo FROM usuarios LEFT JOIN medallas ON usuarios.correo = medallas.idUsuario WHERE usuarios.correo = ?",
                     [email],
                     function (err, rows) {
