@@ -17,6 +17,7 @@ class controllerPreguntas {
         this.modelAsk.getAllAsks(function (err, result) {
             if (err) {
                 console.log(err.message);
+                response.render("error503.ejs");
             } else {
                 response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: result, titulo: "Todas las preguntas" });
             }
@@ -27,6 +28,7 @@ class controllerPreguntas {
         this.modelAsk.getAsk(idPregunta, function (err, respuestas, pregunta) {
             if (err) {
                 console.log(err.message);
+                response.render("error503.ejs");
             } else {
                 response.render("informePregunta", { userName: response.locals.userName, userEmail: response.locals.userEmail, pregunta: pregunta[0], titulo: pregunta[0].titulo, respuestas:respuestas});
             }
@@ -37,6 +39,7 @@ class controllerPreguntas {
         this.modelAsk.getAllAsksByTag(nombreTag, function (err, result){
             if (err) {
                 console.log(err.message);
+                response.render("error503.ejs");
             } else {
                 response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: result, titulo: "Preguntas con la etiqueta [" + nombreTag + "]" });
             }
@@ -47,6 +50,7 @@ class controllerPreguntas {
         this.modelAsk.getAllAsksWithoutReply(function (err, result){
             if (err) {
                 console.log(err.message);
+                response.render("error503.ejs");
             } else if (result) {
                 response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: result, titulo: "Preguntas sin responder" });
             } else {
@@ -59,6 +63,7 @@ class controllerPreguntas {
         this.modelAsk.getAllAsksByText(palabra, function (err, result){
             if (err) {
                 console.log(err.message);
+                response.render("error503.ejs");
             } else if (result) {
                 response.render("preguntas", { userName: username, userEmail: useremail, preguntas: result, titulo: "Resultados de la busqueda \"" + palabra + "\"" });
             } else {
@@ -73,7 +78,7 @@ class controllerPreguntas {
         this.modelAsk.insertAsk(titulo, texto, fecha, email, etiquetas, function (err, result){
             if (err) {
                 console.log(err.message);
-                response.redirect("/preguntas/preguntas")
+                response.render("error503.ejs");
             } else {       
                 console.log("Pregunta con id " + result.insertId + " hecha por el usuario " + email);
                 response.redirect("/preguntas/preguntas")
@@ -108,6 +113,7 @@ class controllerPreguntas {
         this.modelReply.getAllReplies(idPregunta, function (err, result) {
             if (err) {
                 console.log(err.message);
+                response.render("error503.ejs");
             } else if (result) {
                 console.log(result);
             } else {
@@ -123,8 +129,7 @@ class controllerPreguntas {
         this.modelAsk.insertReply(texto, fecha, email, idPregunta, function (err, result){
             if (err) {
                 console.log(err.message);
-                //response.redirect("/preguntas/" + idPregunta);
-                response.redirect("/preguntas/preguntas")
+                response.render("error503.ejs");
             } else {            
                 console.log("Respuesta con id " + result.insertId + " añadida a la pregunta: " + idPregunta + " hecha por el usuario " + email);
                 //response.redirect("/preguntas/" + idPregunta);
@@ -137,6 +142,7 @@ class controllerPreguntas {
         this.modelReply.getAllUserReplies(idUsuario, function (err, result){
             if (err) {
                 console.log(err.message);
+                response.render("error503.ejs");
             } else if (result) {
                 console.log(result);
             } else {
@@ -156,30 +162,5 @@ class controllerPreguntas {
         });
     }
 
-    //ETIQUETAS//
-    getAllTags(idPregunta) {
-        this.modelTag.getAllTags(idPregunta, function (err, result) {
-            if (err) {
-                console.log(err.message);
-            } else if (result) {
-                console.log(result);
-            } else {
-                console.log("No existen etiquetas para esa pregunta");
-            }
-        });
-    }
-
-    insertTag(idPregunta, nombre){
-        this.modelTag.insertTag(idPregunta, nombre, function (err, result){
-            if (err) {
-                console.log(err.message);
-            } else if (result) {   
-                console.log("Etiqueta añadida a la pregunta con id: " + idPregunta);
-            }
-            else{
-                console.log("La pregunta ya tiene esa etiqueta");
-            }
-        });
-    }
 }
 module.exports = controllerPreguntas;
