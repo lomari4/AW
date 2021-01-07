@@ -24,7 +24,8 @@ class modelAsk {
                             callback(new Error("Error de acceso a la base de datos"))
                         }
                         else {
-                            let array = utils.joinAskWithTags(rows)
+                            let splice = true; //variable para hacer que la funcion de utils parta el cuerpo de la pregunta, ya que en la vista general solo puede haber 150 caracteres
+                            let array = utils.joinAskWithTags(rows,splice)
                             callback(null, array)
                         }
 
@@ -51,7 +52,8 @@ class modelAsk {
                             callback(null, false) //no existe la pregunta
                         }
                         else {
-                            let array = utils.joinAskWithTags(rows)
+                            let splice = false;
+                            let array = utils.joinAskWithTags(rows,splice)
                             callback(null, array)
                         }
                     });
@@ -134,7 +136,8 @@ class modelAsk {
                                 callback(null, false) //no hay preguntas con esa etiqueta
                             }
                             else {
-                                let array = utils.joinAskWithTags(rows)
+                                let splice = true;
+                                let array = utils.joinAskWithTags(rows, splice)
                                 callback(null, array)
                             }
                         }
@@ -160,7 +163,8 @@ class modelAsk {
                                 callback(null, false) //todas las preguntas tienen respuesta
                             }
                             else {
-                                let array = utils.joinAskWithTags(rows);
+                                let splice = true;
+                                let array = utils.joinAskWithTags(rows, splice);
                                 callback(null, array)
                             }
                         }
@@ -186,7 +190,8 @@ class modelAsk {
                                 callback(null, false) //ninguna pregunta contiene esa palabra en su texto o titulo
                             }
                             else {
-                                let array = utils.joinAskWithTags(rows)
+                                let splice = true;
+                                let array = utils.joinAskWithTags(rows, splice)
                                 callback(null, array)
                             }
                         }

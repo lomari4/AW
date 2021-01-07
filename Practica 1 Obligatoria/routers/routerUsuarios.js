@@ -66,13 +66,6 @@ router.post("/procesar_busqueda", controllerUser.getAllUsersByText);
 
 router.post("/perfil", controllerUser.getUser);
 
-router.post("/procesar_registro", multerFactory.single("avatar"), function (request, response) {
-    if (request.body.password == request.body.confirmPassword) {
-        controllerUser.insertUser(request, response);
-    }
-    else {
-        response.render("registro", { errorMsg: "Passwords no coinciden" });
-    }
-});
+router.post("/procesar_registro", multerFactory.single("avatar"), controllerUser.insertUser);
 
 module.exports = router;

@@ -76,23 +76,30 @@ function insertUser(request, response, next) {
     let f = new Date();
     let fecha = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
 
-    //necesario ver si request.file existe primero para asignarle el request.file.filename a una var. Si no existe, esa var es vacia.
-    let nombreFichero='';
-    if (request.file) {
-        nombreFichero = request.file.filename;
+    //si las passwords no coinciden, redireccionar con un errMsg
+    if (request.body.password != request.body.confirmPassword) {
+        response.render("registro", { errorMsg: "Passwords no coinciden" });
     }
-
-    modelUser.insertUser(request.body.correo, request.body.password, request.body.nombre, nombreFichero, fecha, function (err, result) {
-        if (err) {
-            console.log(err.message);
-            response.render("registro", { errorMsg: "Email ya existente" });
-        } else {
-            console.log("Usuario registrado con correo: " + request.body.correo);
-            request.session.currentUser = request.body.correo;
-            request.session.currentName = request.body.nombre;
-            response.redirect("/usuarios/principal");
+    else {
+        
+        //necesario ver si request.file existe primero para asignarle el request.file.filename a una var. Si no existe, esa var es vacia.
+        let nombreFichero = '';
+        if (request.file) {
+            nombreFichero = request.file.filename;
         }
-    });
+
+        modelUser.insertUser(request.body.correo, request.body.password, request.body.nombre, nombreFichero, fecha, function (err, result) {
+            if (err) {
+                console.log(err.message);
+                response.render("registro", { errorMsg: "Email ya existente" });
+            } else {
+                console.log("Usuario registrado con correo: " + request.body.correo);
+                request.session.currentUser = request.body.correo;
+                request.session.currentName = request.body.nombre;
+                response.redirect("/usuarios/principal");
+            }
+        });
+    }
 }
 
 module.exports = {

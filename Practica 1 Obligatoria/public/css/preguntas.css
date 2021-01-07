@@ -24,6 +24,7 @@ div.containerQuestions{
 
 div.tags{
     display:flex;
+    margin-bottom:10px;
 }
 
 .tag{
