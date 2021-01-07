@@ -59,16 +59,18 @@ router.get("/principal", identificacionRequerida, function (request, response) {
 });
 
 router.get("/imagenUsuario", identificacionRequerida, function (request, response) {
-    controllerUser.getUserImageName(request.session.currentUser,response)
+    controllerUser.getUserImageName(request.session.currentUser,response);
 });
 
 router.get("/nombreUsuario", identificacionRequerida, function (request, response) {
     controllerUser.getUserName(request.session.currentUser, request, response);
 });
 
-router.get("/perfil/:correo", identificacionRequerida, function (request, response) {
-    controllerUser.getUser(request.params.correo, response);
-});
+//router.get("/nombreUsuario", identificacionRequerida, controllerUser.getUserName);
+
+// router.get("/perfil/:correo", identificacionRequerida, function (request, response) {
+//     controllerUser.getUser(request.params.correo, response);
+// });
 
 router.get("/usuarios", identificacionRequerida, function (request, response) {
     controllerUser.getAllUsers(response);
@@ -81,6 +83,10 @@ router.post("/procesar_login", function (request, response) {
 
 router.post("/procesar_busqueda", function (request, response) {
     controllerUser.getAllUsersByText(request.body.nombreUserBusqueda, request.session.currentUser, request.session.currentName, response);
+});
+
+router.post("/perfil", function (request, response) {
+    controllerUser.getUser(request.body.correo, request, response);
 });
 
 router.post("/procesar_registro", multerFactory.single("avatar"), function (request, response) {

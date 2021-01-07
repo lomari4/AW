@@ -62,13 +62,13 @@ class controllerUsuarios {
         });
     }
 
-    getUser(email, response){
+    getUser(email, request, response){
         this.modelUser.getUser(email, function (err, result) {
             if (err) {
                 console.log(err.message);
                 response.render("error503.ejs");
             } else{
-                response.render("perfilUsuario", { userName: response.locals.userName, userEmail: response.locals.userEmail, usuario: result});
+                response.render("perfilUsuario", { userName: request.session.currentName, userEmail: request.session.currentUser, usuario: result});
             }
         });
     }
@@ -87,6 +87,22 @@ class controllerUsuarios {
             }
         });
     }
+
+    // getUserName(request, response, next){
+    //     this.modelUser.getUserName(request.currentUser, function (err, result) {
+    //         if (err) {
+    //             console.log(err.message);
+    //             //response.render("error500.ejs");
+    //             next(err);
+    //         } else if (result) {
+    //             request.session.currentName = result[0].nombre;
+    //             console.log(request.session.currentName);
+    //             response.redirect("/usuarios/principal");
+    //         } else {
+    //             console.log("Error al obtener el usuario");
+    //         }
+    //     });
+    // }
 
     insertUser(email,pass,nombre,avatar,request,response){
         let f = new Date();

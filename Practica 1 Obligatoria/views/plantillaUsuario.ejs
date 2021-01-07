@@ -19,9 +19,9 @@
     </div>
     
     <div>
-        <a href="/usuarios/perfil/<%=usuario.correo%>">
-            <%=usuario.nombreUsuario%>
-        </a>
+        <form method="POST" action="/usuarios/perfil">
+            <button class="user" type="submit" name="correo" value="<%=usuario.correo%>"><%=usuario.nombreUsuario%></button>
+        </form>
     </div>
 
 

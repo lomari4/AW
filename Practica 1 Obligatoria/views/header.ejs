@@ -22,8 +22,11 @@
                 <img class="img" src="/usuarios/imagenUsuario">
             </div>
 
-            <div class="informacion">                
-                <a class="user" href="/usuarios/perfil/<%=userEmail%>"><%=userName%></a>
+            <div class="informacion">
+                <form method="POST" action="/usuarios/perfil">
+                    <button class="user" type="submit" name="correo" value="<%=userEmail%>"><%=userName%></button>
+                </form>      
+                          
                 <a class="logout" href="/logout"><p>Cerrar sesion</p></a> 
             </div> 
         </div>

@@ -56,14 +56,17 @@ div.userInfo{
 div.informacion{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .logout{
     border-radius: 5px;
+    text-align: center;
     font-size:22px;
     padding-top: 10px;
     padding-bottom: 10px;
     margin-bottom: 50px;
+    margin-top: 15px;
     background-color: #0f679b;
     color: white;
     border: 2px solid rgb(36, 45, 85);
@@ -78,15 +81,15 @@ div.buscar .button{
     width: 150px;
 }
 
-div.userInfo a{
-    text-decoration: none;
-    font-size:20px;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
 .user{
     font-weight: bold;
+}
+
+button {
+    background: none;
+    border: none;
+    font-size:20px;
+    cursor:pointer;
 }
 
 .user:hover{

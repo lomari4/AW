@@ -62,6 +62,12 @@ app.get("/logout", function (request, response) {
   response.redirect("/login");
 });
 
+//middleware error
+app.use(function (request, response, next) {
+  response.status(500);
+  response.render("error500");
+});
+
 // Arrancar el servidor
 app.listen(config.port, function (err) {
   if (err) {
