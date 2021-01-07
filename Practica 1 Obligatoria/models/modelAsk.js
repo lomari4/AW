@@ -70,6 +70,7 @@ class modelAsk {
                 connection.query("SELECT respuestas.id, respuestas.texto, respuestas.votos, respuestas.fecha, usuarios.avatar, usuarios.nombre as nombreUsuario FROM (respuestas RIGHT JOIN preguntas ON respuestas.idPregunta = preguntas.id) JOIN usuarios ON respuestas.idUsuario = usuarios.correo WHERE preguntas.id = ? ORDER BY respuestas.id DESC",
                     [idPregunta],
                     function (err, resp) {
+                        connection.release(); // devolver al pool la conexión
                         if (err) {
                             callback(new Error("Error de acceso a la base de datos"))
                         }
