@@ -68,10 +68,6 @@ router.post("/perfil", controllerUser.getUser);
 
 router.post("/procesar_registro", multerFactory.single("avatar"), function (request, response) {
     if (request.body.password == request.body.confirmPassword) {
-        let nombreFichero='';
-        if (request.file) {
-            nombreFichero = request.file.filename;
-        }
         controllerUser.insertUser(request, response);
     }
     else {

@@ -15,7 +15,8 @@ div.usuario {
 }
 
 div.filtrarUser .box{
-    width: 300px;
+    width: 500px;
+    height:30px;
 }
 
 div.containerUsers{

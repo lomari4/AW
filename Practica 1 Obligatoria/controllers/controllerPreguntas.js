@@ -56,7 +56,7 @@ function getAllAsksWithoutReply(request, response, next) {
         } else if (result) {
             response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: result, titulo: "Preguntas sin responder" });
         } else {
-            response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: [], titulo: "Todas las preguntas tienen respuesta" });
+            response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: [], titulo: "No hay resultados" });
         }
     });
 }
@@ -117,10 +117,6 @@ function insertReply(request, response, next) {
     let f = new Date();
     let fecha = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
 
-    console.log(request.body.textarea)
-    console.log(fecha)
-    console.log(request.session.currentUser)
-    console.log(request.params.idPregunta)
     modelAsk.insertReply(request.body.textarea, fecha, request.session.currentUser, request.params.idPregunta, function (err, result) {
         if (err) {
             console.log(err.message);

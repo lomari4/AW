@@ -179,7 +179,7 @@ class modelUser {
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
-                            callback(new Error("Ya existe un usuario con ese nombre"))
+                            callback(new Error("Ya existe un usuario con ese correo"))
                         }
                         else {
                             callback(null, rows)
