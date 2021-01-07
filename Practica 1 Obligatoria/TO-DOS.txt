@@ -1,3 +1,0 @@
-2. Visitada 1 veces, 1 Respuestas... Poner if ahi
-3. MSG de error si usuario ha votado
-4. poner todo mas bonito (si voto negativo, la barra se pone roja, si 0 gris, si + verde..)

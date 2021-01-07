@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-01-2021 a las 13:19:06
+-- Tiempo de generación: 07-01-2021 a las 18:16:28
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -33,28 +33,6 @@ CREATE TABLE `etiquetas` (
   `nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `etiquetas`
---
-
-INSERT INTO `etiquetas` (`id`, `idPregunta`, `nombre`) VALUES
-(25, 18, 'java'),
-(29, 18, 'html'),
-(32, 34, 'uwu'),
-(33, 35, 'java'),
-(34, 36, 'uwu'),
-(35, 36, 'owo'),
-(36, 37, 'owo'),
-(37, 37, 'owo'),
-(38, 40, 'express'),
-(39, 40, 'express'),
-(40, 40, 'hola'),
-(41, 41, 'hola'),
-(42, 41, 'hola'),
-(43, 41, 'hola'),
-(44, 41, 'hola'),
-(45, 41, 'hola');
-
 -- --------------------------------------------------------
 
 --
@@ -67,16 +45,6 @@ CREATE TABLE `medallas` (
   `cantidad` int(10) NOT NULL,
   `tipo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `medallas`
---
-
-INSERT INTO `medallas` (`idUsuario`, `logro`, `cantidad`, `tipo`) VALUES
-('usuario1@ucm.es', 'Pregunta popular', 1, 'bronce'),
-('usuario3@ucm.es', 'Pregunta popular', 1, 'bronce'),
-('usuario4@ucm.es', 'Estudiante', 1, 'bronce'),
-('usuario4@ucm.es', 'Pregunta popular', 1, 'bronce');
 
 -- --------------------------------------------------------
 
@@ -94,24 +62,6 @@ CREATE TABLE `preguntas` (
   `fecha` varchar(10) NOT NULL,
   `medAsignada` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `preguntas`
---
-
-INSERT INTO `preguntas` (`id`, `titulo`, `texto`, `idUsuario`, `votos`, `visitas`, `fecha`, `medAsignada`) VALUES
-(18, 'ff', 'ff', 'usuario1@ucm.es', 0, 2, '2020-12-28', 0),
-(19, 'pls funsiona', 'fgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfgsf', 'usuario3@ucm.es', 0, 2, '2020-12-28', 0),
-(30, 'preg 1', 'weq', 'usuario5@ucm.es', 0, 8, '2021-1-2', 0),
-(33, 'preg 2', '213', 'usuario5@ucm.es', 0, 7, '2021-1-2', 0),
-(34, 'holi', 'gh', 'usuario4@ucm.es', 0, 3, '2021-1-3', 0),
-(35, 'h', 'h', 'usuario1@ucm.es', 0, 1, '2021-1-5', 0),
-(36, 'pls funsiona', 'u', 'usuario4@ucm.es', 0, 1, '2021-1-5', 0),
-(37, 'h', 'h', 'usuario4@ucm.es', 1, 2, '2021-1-5', 1),
-(38, 'h', 'k', 'usuario1@ucm.es', 0, 0, '2021-1-6', 0),
-(39, 'pls funsiona', 'g', 'usuario1@ucm.es', 0, 0, '2021-1-6', 0),
-(40, 'h', 'ff', 'usuario1@ucm.es', 0, 0, '2021-1-6', 0),
-(41, '¿Cómo puedo agregar varios botones con una misma función?', 'g', 'usuario1@ucm.es', 0, 1, '2021-1-6', 0);
 
 --
 -- Disparadores `preguntas`
@@ -205,14 +155,6 @@ CREATE TABLE `respuestas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `respuestas`
---
-
-INSERT INTO `respuestas` (`id`, `texto`, `votos`, `fecha`, `idUsuario`, `idPregunta`, `medAsignada`) VALUES
-(17, 'h', 0, '2021-1-3', 'usuario1@ucm.es', 33, 0),
-(18, 'j', 0, '2021-1-3', 'usuario1@ucm.es', 30, 0);
-
---
 -- Disparadores `respuestas`
 --
 DELIMITER $$
@@ -265,13 +207,6 @@ CREATE TABLE `sessions` (
   `data` mediumtext CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `sessions`
---
-
-INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('u41tfajTU1y-sa-OzSt-zINrbtf6Aewb', 1610038458, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"usuario1@ucm.es\",\"currentName\":\"Usuario 1\"}');
-
 -- --------------------------------------------------------
 
 --
@@ -280,8 +215,7 @@ INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
 
 CREATE TABLE `usuarios` (
   `correo` varchar(100) NOT NULL,
-  `numero` int(11) NOT NULL,
-  `pass` varchar(100) NOT NULL,
+  `pass` varchar(20) NOT NULL,
   `avatar` varchar(500) DEFAULT NULL,
   `fecha` varchar(10) NOT NULL,
   `nombre` varchar(15) NOT NULL,
@@ -289,20 +223,6 @@ CREATE TABLE `usuarios` (
   `nrespuestas` int(10) NOT NULL,
   `reputacion` int(10) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`correo`, `numero`, `pass`, `avatar`, `fecha`, `nombre`, `npreguntas`, `nrespuestas`, `reputacion`) VALUES
-('usuario1@ucm.es', 1, '12345678', 'avatar_2.png', '2020-12-27', 'Usuario 1', 6, 7, 11),
-('usuario3@ucm.es', 2, '12345678', 'avatar_0.png', '2020-12-27', 'Usuario 3', 0, 0, 1),
-('usuario4@ucm.es', 3, '12345678', 'user.png', '2020-12-28', 'Usuario 4', 6, 1, 37),
-('usuario5@ucm.es', 4, '12345678', 'user.png', '2020-12-30', 'Usuario 5', 6, 4, 11),
-('usuario6@ucm.es', 5, '12345678', 'avatar_1609536395550.png', '2021-01-01', 'Usuario 6', 0, 1, 1),
-('usuario7@ucm.es', 6, '12345678', 'avatar_0.png', '2021-01-01', 'Usuario 7', 0, 0, 1),
-('usuario2@ucm.es', 7, '12345678', 'avatar_0.png', '2021-1-5', 'Usuario 2', 0, 0, 1),
-('usuario8@ucm.es', 9, '12345678', 'avatar_0.png', '2021-1-5', 'Usuario 8', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -315,32 +235,6 @@ CREATE TABLE `visitapregunta` (
   `idPregunta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `visitapregunta`
---
-
-INSERT INTO `visitapregunta` (`idUsuario`, `idPregunta`) VALUES
-('usuario1@ucm.es', 18),
-('usuario1@ucm.es', 19),
-('usuario1@ucm.es', 30),
-('usuario1@ucm.es', 33),
-('usuario1@ucm.es', 34),
-('usuario1@ucm.es', 35),
-('usuario1@ucm.es', 36),
-('usuario1@ucm.es', 37),
-('usuario1@ucm.es', 41),
-('usuario3@ucm.es', 18),
-('usuario3@ucm.es', 30),
-('usuario3@ucm.es', 33),
-('usuario3@ucm.es', 34),
-('usuario4@ucm.es', 19),
-('usuario4@ucm.es', 30),
-('usuario4@ucm.es', 33),
-('usuario4@ucm.es', 34),
-('usuario5@ucm.es', 30),
-('usuario5@ucm.es', 33),
-('usuario8@ucm.es', 37);
-
 -- --------------------------------------------------------
 
 --
@@ -352,15 +246,6 @@ CREATE TABLE `votapregunta` (
   `idPregunta` int(11) NOT NULL,
   `puntos` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `votapregunta`
---
-
-INSERT INTO `votapregunta` (`idUsuario`, `idPregunta`, `puntos`) VALUES
-('usuario1@ucm.es', 34, -1),
-('usuario3@ucm.es', 34, 1),
-('usuario8@ucm.es', 37, 1);
 
 --
 -- Disparadores `votapregunta`
@@ -419,7 +304,7 @@ CREATE TABLE `votarespuesta` (
 --
 DELIMITER $$
 CREATE TRIGGER `updateReputationReply` AFTER INSERT ON `votarespuesta` FOR EACH ROW BEGIN
-        DECLARE c varchar(100);
+        DECLARE c varchar(20);
         DECLARE rep int;
         SELECT respuestas.idUsuario into c FROM respuestas WHERE respuestas.id=NEW.idRespuesta;
         if NEW.puntos = 1 THEN
@@ -496,8 +381,7 @@ ALTER TABLE `sessions`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`numero`),
-  ADD UNIQUE KEY `correo` (`correo`);
+  ADD PRIMARY KEY (`correo`);
 
 --
 -- Indices de la tabla `visitapregunta`
@@ -528,25 +412,19 @@ ALTER TABLE `votarespuesta`
 -- AUTO_INCREMENT de la tabla `etiquetas`
 --
 ALTER TABLE `etiquetas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Restricciones para tablas volcadas

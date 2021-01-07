@@ -51,22 +51,33 @@ class modelAsk {
                             callback(null, false) //no existe la pregunta
                         }
                         else {
-                            //Para sacar las respuestas
-                            connection.query("SELECT respuestas.id, respuestas.texto, respuestas.votos, respuestas.fecha, usuarios.avatar, usuarios.nombre as nombreUsuario FROM (respuestas JOIN preguntas ON respuestas.idPregunta = preguntas.id) JOIN usuarios ON respuestas.idUsuario = usuarios.correo WHERE preguntas.id = ? ORDER BY respuestas.id DESC",
-                                [idPregunta],
-                                function (err, resp) {
-                                    if (err) {
-                                        callback(new Error("Error de acceso a la base de datos"))
-                                    }
-                                    else {
-                                        let array = utils.joinAskWithTags(rows)
-                                        callback(null, resp, array)
-                                    }
-                                });
+                            let array = utils.joinAskWithTags(rows)
+                            callback(null, array)
                         }
                     });
             }
         });
+    }
+
+    getReplies(idPregunta, callback) {
+        this.pool.getConnection(function (err, connection) {
+            if (err) {
+                callback(new Error("Error de conexión a la base de datos"))
+            }
+            else {
+                connection.query("SELECT respuestas.id, respuestas.texto, respuestas.votos, respuestas.fecha, usuarios.avatar, usuarios.nombre as nombreUsuario FROM (respuestas RIGHT JOIN preguntas ON respuestas.idPregunta = preguntas.id) JOIN usuarios ON respuestas.idUsuario = usuarios.correo WHERE preguntas.id = ? ORDER BY respuestas.id DESC",
+                    [idPregunta],
+                    function (err, resp) {
+                        if (err) {
+                            callback(new Error("Error de acceso a la base de datos"))
+                        }
+                        else {
+                            callback(null, resp)
+                        }
+                    });
+            }
+        });
+
     }
 
     //CUANDO SE INSERTA UNA PREGUNTA SALTA UN TRIGGER PARA AUMENTAR EL npreguntas DEL USUARIO
@@ -76,11 +87,6 @@ class modelAsk {
                 callback(new Error("Error de conexión a la base de datos"))
             }
             else {
-                console.log(titulo)
-                console.log(fecha)
-                console.log(etiquetas)
-                console.log(texto)
-                console.log(email)
                 connection.query("INSERT INTO preguntas(titulo, texto, fecha, idUsuario) VALUES (?,?,?,?)",
                     [titulo, texto, fecha, email],
                     function (err, rows) {
@@ -205,7 +211,7 @@ class modelAsk {
                         if (err) {
                             callback(new Error("Un usuario no puede votar dos veces a la misma pregunta"))
                         }
-                        else {  
+                        else {
                             callback(null, rows);
                         }
                     });
@@ -246,7 +252,7 @@ class modelAsk {
     }
 
     //RESPUESTAS//
-    
+
     //CUANDO SE INSERTA UNA RESPUESTA SALTA UN TRIGGER PARA AUMENTAR EL nrespuestas DEL USUARIO
     insertReply(texto, fecha, idUsuario, idPregunta, callback) {
         this.pool.getConnection(function (err, connection) {
@@ -273,7 +279,7 @@ class modelAsk {
     //CUANDO SE INSERTA EN votarespuesta SALTA UN TRIGGER EN LA BD PARA ACTUALIZAR LA REPUTACION DEL USUARIO
     //TRIGGER updateVotosRespuestas AFTER INSERT votarespuesta para actualizar los votos
     //TRIGGER darMedallaRespuesta AFTER UPDATE repuestas dentro del trigger anterior, cuando se updatean los votos
-    voteReply(idUsuario, idRespuesta, puntos, callback){
+    voteReply(idUsuario, idRespuesta, puntos, callback) {
         this.pool.getConnection(function (err, connection) {
             if (err) {
                 callback(new Error("Error de conexión a la base de datos"))

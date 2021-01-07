@@ -1,8 +1,6 @@
 const express = require("express");
-const router = express.Router();
 const bodyParser = require("body-parser");
 const config = require("../config.js");
-const mysql = require("mysql");
 const path = require("path");
 const multer = require("multer");
 
@@ -10,10 +8,10 @@ const session = require("express-session");
 const mysqlSession = require("express-mysql-session");
 const MySQLStore = mysqlSession(session);
 
-const controllerUsuarios = require("../controllers/controllerUsuarios.js");
+const controllerUser = require("../controllers/controllerUsuarios.js");
 
-// Crear el pool de conexiones
-const pool = mysql.createPool(config.mysqlConfig);
+//Declaramos el router
+const router = express.Router();
 
 //Sesiones
 const sessionStore = new MySQLStore(config.mysqlConfig);
@@ -28,8 +26,6 @@ const middlewareSession = session({
 router.use(middlewareSession);
 router.use(bodyParser.urlencoded({ extended: true }));
 
-//Declaraciones
-let controllerUser = new controllerUsuarios(pool)
 //Multer. Permite guardar las imagenes de perfil que suba el usuario en profile_imgs
 var storage = multer.diskStorage({
     destination: function (req, file, cb) { //donde se guardara el archivo
@@ -54,40 +50,21 @@ function identificacionRequerida(request, response, next) {
 }
 
 //MANEJADORES DE RUTA
+
 router.get("/principal", identificacionRequerida, function (request, response) {
     response.render("principal", { userName: response.locals.userName });
 });
 
-router.get("/imagenUsuario", identificacionRequerida, function (request, response) {
-    controllerUser.getUserImageName(request.session.currentUser,response);
-});
+router.get("/imagenUsuario", identificacionRequerida, controllerUser.getUserImageName);
 
-router.get("/nombreUsuario", identificacionRequerida, function (request, response) {
-    controllerUser.getUserName(request.session.currentUser, request, response);
-});
-
-//router.get("/nombreUsuario", identificacionRequerida, controllerUser.getUserName);
-
-// router.get("/perfil/:correo", identificacionRequerida, function (request, response) {
-//     controllerUser.getUser(request.params.correo, response);
-// });
-
-router.get("/usuarios", identificacionRequerida, function (request, response) {
-    controllerUser.getAllUsers(response);
-});
+router.get("/usuarios", identificacionRequerida, controllerUser.getAllUsers);
 
 //POST REQUESTS
-router.post("/procesar_login", function (request, response) {
-    controllerUser.isUserCorrect(request.body.correo, request.body.password, request, response)
-});
+router.post("/procesar_login",  controllerUser.isUserCorrect);
 
-router.post("/procesar_busqueda", function (request, response) {
-    controllerUser.getAllUsersByText(request.body.nombreUserBusqueda, request.session.currentUser, request.session.currentName, response);
-});
+router.post("/procesar_busqueda", controllerUser.getAllUsersByText);
 
-router.post("/perfil", function (request, response) {
-    controllerUser.getUser(request.body.correo, request, response);
-});
+router.post("/perfil", controllerUser.getUser);
 
 router.post("/procesar_registro", multerFactory.single("avatar"), function (request, response) {
     if (request.body.password == request.body.confirmPassword) {
@@ -95,7 +72,7 @@ router.post("/procesar_registro", multerFactory.single("avatar"), function (requ
         if (request.file) {
             nombreFichero = request.file.filename;
         }
-        controllerUser.insertUser(request.body.correo, request.body.password, request.body.nickname, nombreFichero, request, response);
+        controllerUser.insertUser(request, response);
     }
     else {
         response.render("registro", { errorMsg: "Passwords no coinciden" });

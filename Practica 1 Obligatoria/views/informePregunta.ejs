@@ -39,11 +39,11 @@
                         <p>
                             <%=pregunta.votos%> Votos
                         </p>
-                        <a href="/preguntas/likePregunta/<%=pregunta.id%>">
+                        <a href="/preguntas/<%=1%>/<%=pregunta.id%>">
                             <input type="image" class="vote" src="/recursos/like.png">
                         </a>
 
-                        <a href="/preguntas/dislikePregunta/<%=pregunta.id%>">
+                        <a href="/preguntas/<%=-1%>/<%=pregunta.id%>">
                             <input type="image" class="vote" src="/recursos/dislike.png">
                         </a>
                     </div>

@@ -27,6 +27,7 @@ app.set("views", path.join(__dirname, "views"));
 //Uses
 app.use(middlewareSession);
 app.use(express.static(__dirname + '/public')); //IMPORTANTE
+
 //routers
 app.use("/usuarios", routerUsuarios)
 app.use("/preguntas", routerPreguntas)
@@ -63,9 +64,9 @@ app.get("/logout", function (request, response) {
 });
 
 //middleware error
-app.use(function (request, response, next) {
+app.use(function (err, request, response, next) {
   response.status(500);
-  response.render("error500");
+  response.render("error500", {error: err});
 });
 
 // Arrancar el servidor

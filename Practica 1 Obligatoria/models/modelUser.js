@@ -147,7 +147,7 @@ class modelUser {
                     function (err, rows) {
                         connection.release(); // devolver al pool la conexión
                         if (err) {
-                            callback(new Error("Error de acceso a la base de datos"))
+                            callback(new Error("Error dendaskndaks acceso a la base de datos"))
                         }
                         else {
                             if (rows.length === 0) {
