@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-01-2021 a las 18:16:28
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.0
+-- Tiempo de generación: 10-01-2021 a las 13:09:03
+-- Versión del servidor: 10.4.16-MariaDB
+-- Versión de PHP: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -107,25 +107,27 @@ CREATE TRIGGER `darMedallaVisita` AFTER UPDATE ON `preguntas` FOR EACH ROW BEGIN
     	DECLARE nombreMedalla varchar(40);
         DECLARE tipoMedalla varchar(10);
         DECLARE existe int;
-  
-		if NEW.visitas = 2 OR NEW.visitas = 4 OR NEW.visitas = 6 THEN
-			if NEW.visitas = 2 THEN
-				SET nombreMedalla="Pregunta popular";
-				SET tipoMedalla="bronce";
-			elseif NEW.visitas = 4 THEN
-				SET nombreMedalla="Pregunta destacada";
-				SET tipoMedalla="plata";
-			else
-				SET nombreMedalla="Pregunta famosa";
-				SET tipoMedalla="oro";
-			END IF;
-						
-			select COUNT(*) into existe FROM medallas WHERE idUsuario=NEW.idUsuario AND logro=nombreMedalla;
 		
-			if existe > 0 THEN
-				UPDATE medallas SET cantidad = cantidad + 1 WHERE logro=nombreMedalla AND tipo=tipoMedalla AND idUsuario=NEW.idUsuario;
-			else
-				INSERT INTO medallas(idUsuario, logro, cantidad, tipo) VALUES (NEW.idUsuario,nombreMedalla,1,tipoMedalla);
+		if NEW.visitas > OLD.visitas THEN
+			if NEW.visitas = 2 OR NEW.visitas = 4 OR NEW.visitas = 6 THEN
+				if NEW.visitas = 2 THEN
+					SET nombreMedalla="Pregunta popular";
+					SET tipoMedalla="bronce";
+				elseif NEW.visitas = 4 THEN
+					SET nombreMedalla="Pregunta destacada";
+					SET tipoMedalla="plata";
+				else
+					SET nombreMedalla="Pregunta famosa";
+					SET tipoMedalla="oro";
+				END IF;
+							
+				select COUNT(*) into existe FROM medallas WHERE idUsuario=NEW.idUsuario AND logro=nombreMedalla;
+			
+				if existe > 0 THEN
+					UPDATE medallas SET cantidad = cantidad + 1 WHERE logro=nombreMedalla AND tipo=tipoMedalla AND idUsuario=NEW.idUsuario;
+				else
+					INSERT INTO medallas(idUsuario, logro, cantidad, tipo) VALUES (NEW.idUsuario,nombreMedalla,1,tipoMedalla);
+				END IF;
 			END IF;
 		END IF;
 			
@@ -412,19 +414,19 @@ ALTER TABLE `votarespuesta`
 -- AUTO_INCREMENT de la tabla `etiquetas`
 --
 ALTER TABLE `etiquetas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Restricciones para tablas volcadas
