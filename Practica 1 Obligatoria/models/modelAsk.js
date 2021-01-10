@@ -52,7 +52,7 @@ class modelAsk {
                             callback(null, false) //no existe la pregunta
                         }
                         else {
-                            let splice = false;
+                            let splice = false; //false porque en vista general se ve todo el cuerpo, no solo 150 chars
                             let array = utils.joinAskWithTags(rows,splice)
                             callback(null, array)
                         }
