@@ -54,7 +54,7 @@ div.headingQuestions .botones{
 div.informacionPregunta{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 85%;
     margin:10px;
 }
 
@@ -82,7 +82,8 @@ div.usuario{
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 20%;
+    width: 15%;
+    padding-right: 10px;
     margin-bottom:10px;
 }
 
