@@ -9,6 +9,18 @@ div.menu{
     cursor: pointer;
 }
 
+div.buscar{
+    margin-top: 50px;
+    margin-left: 80px;
+    margin-bottom: 35px;
+}
+
+div.buscar .button{
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 150px;
+}
+
 div.buscar .box{
     font-size:20px;
     margin-bottom:20px;
@@ -71,14 +83,6 @@ div.informacion{
     color: white;
     border: 2px solid rgb(36, 45, 85);
     width:150px;
-}
-
-div.buscar .button{
-    border-radius: 5px;
-    margin-top: 50px;
-    margin-left: 80px;
-    margin-bottom: 35px;
-    width: 150px;
 }
 
 .user{
