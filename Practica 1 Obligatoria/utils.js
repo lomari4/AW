@@ -1,13 +1,13 @@
 class Util {
 
-  joinAskWithTags(rows, splice) { //devuelve un array con las preguntas y sus etiquetas en forma de array
+  joinAskWithTags(rows, slice) { //devuelve un array con las preguntas y sus etiquetas en forma de array
     let array = []
     if (rows.length != 0) {
       let p = []
       rows.forEach(e => {
         if (array[e.id] === undefined) {
 
-          if (e.texto.length > 150 && splice) { //Para mostrar solo 150 caracteres
+          if (e.texto.length > 150 && slice) { //Para mostrar solo 150 caracteres
             e.texto = e.texto.slice(0, 150) + "..."
           }
 
@@ -52,7 +52,7 @@ class Util {
     return array;
   }
 
-  joinUserWithMedallas(rows) { //devuelve un array con los usuarios y sus logros (medallas)
+  joinUserWithMedallas(rows) { //devuelve un array con el usuario y sus logros (medallas)
 
     let user = {
       "correo": rows[0].correo,
