@@ -63,10 +63,16 @@ app.get("/logout", function (request, response) {
   response.redirect("/login");
 });
 
-//middleware error
+//middleware error 500
 app.use(function (err, request, response, next) {
   response.status(500);
   response.render("error500", {error: err});
+});
+
+//middleware error 404
+app.use(function (request, response, next) {
+  response.status(404);
+  response.render("error404", {error: request.url});
 });
 
 // Arrancar el servidor
@@ -77,37 +83,3 @@ app.listen(config.port, function (err) {
     console.log(`Servidor arrancado en el puerto ${config.port}`);
   }
 });
-
-
-//**************USUARIOS****************
-//console.log(controllerUser.getAllUsers());
-//console.log(controllerUser.isUserCorrect("usuario1@ucm.es", 1234));
-//console.log(controllerUser.insertUser("usuario3@ucm.es", 4321, "Usuario3", "../recursos/user.png"));
-//console.log(controllerUser.getUser("usuario35@ucm.es"));
-//console.log(controllerUser.getUserbyName("Usuario3"));
-// console.log(controllerUser.updateReputation(1, -2))
-
-//**************MEDALLAS****************
-//console.log(controllerUser.getAllMedals("usuario1@ucm.es"));
-//console.log(controllerUser.insertMedal(2, "Registrado", 1, "oro"));
-
-//**************ETIQUETAS***************
-//console.log(controllerAsk.getAllTags(1))
-// console.log(controllerAsk.insertTag(5, "covid"));
-
-//**************RESPUESTAS***************
-//console.log(controllerAsk.insertReply("Respuesta prueba2",2,2));
-//console.log(controllerAsk.getAllReplies(1));
-//console.log(controllerAsk.getAllUserReplies(2));
-// console.log(controllerAsk.voteReply(1,1,1))
-
-
-//**************PREGUNTAS***************
-//console.log(controllerAsk.getAllAsk())
-// console.log(controllerAsk.insertAsk("Evolucion del covid-19", "El covid a dia de hoy...", 2))
-// console.log(controllerAsk.getAllAsksByTag("aw"))
-// console.log(controllerAsk.getAllAsksWithoutReply())
-// console.log(controllerAsk.getAllAsksByText("dia"))
-// console.log(controllerAsk.getAsk(5)) 
-// console.log(controllerAsk.voteAsk(1,1,1))
-//DUDA CON HACER TRIGGER O AUMENTAR EN 1 A MANO creo que mejor a mano 
