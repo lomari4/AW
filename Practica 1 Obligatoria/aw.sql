@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-01-2021 a las 13:09:03
--- Versión del servidor: 10.4.16-MariaDB
--- Versión de PHP: 7.4.12
+-- Tiempo de generación: 13-01-2021 a las 12:18:10
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,6 +32,20 @@ CREATE TABLE `etiquetas` (
   `idPregunta` int(10) NOT NULL,
   `nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `etiquetas`
+--
+
+INSERT INTO `etiquetas` (`id`, `idPregunta`, `nombre`) VALUES
+(2, 63, 'css'),
+(3, 63, 'css3'),
+(6, 65, 'css'),
+(7, 65, 'html'),
+(8, 66, 'JavaScript'),
+(9, 67, 'nodejs'),
+(10, 68, 'mysql'),
+(11, 68, 'sql');
 
 -- --------------------------------------------------------
 
@@ -62,6 +76,17 @@ CREATE TABLE `preguntas` (
   `fecha` varchar(10) NOT NULL,
   `medAsignada` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `preguntas`
+--
+
+INSERT INTO `preguntas` (`id`, `titulo`, `texto`, `idUsuario`, `votos`, `visitas`, `fecha`, `medAsignada`) VALUES
+(63, '¿Cual es la diferencia entre position: relative, position: absolute y position: fixed?', 'Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página. Sé que estas propiedades de CSS sirven para posicionar un elemento dentro de la página.', 'nico@404.es', 0, 0, '2021-1-13', 0),
+(65, '¿Cómo funciona exactamente nth-child?', 'No acabo de comprender muy bien que hace exactamente y qué usos prácticos puede tener.\r\n', 'roberto@404.es', 0, 0, '2021-1-13', 0),
+(66, 'Diferencias entre == y === (comparaciones en JavaScript)', 'Siempre he visto que en JavaScript hay:\r\n\r\nasignaciones =\r\ncomparaciones == y ===\r\nCreo entender que == hace algo parecido a comparar el valor de la variable y el === también compara el tipo (como un equals de java).\r\n', 'sfg@404.es', 0, 0, '2021-1-13', 0),
+(67, 'Problema con asincronismo en Node', 'Soy nueva en Node... Tengo una modulo que conecta a una BD de postgres por medio de pg-node. En eso no tengo problemas. Mi problema es que al llamar a ese modulo, desde otro modulo, y despues querer usar los datos que salieron de la BD me dice undefined... Estoy casi seguro que es porque la conexion a la BD devuelve una promesa, y los datos no estan disponibles al momento de usarlos.', 'marta@404.es', 0, 0, '2021-1-13', 0),
+(68, '¿Qué es la inyección SQL y cómo puedo evitarla?', 'He encontrado bastantes preguntas en StackOverflow sobre programas o formularios web que guardan información en una base de datos (especialmente en PHP y MySQL) y que contienen graves problemas de seguridad relacionados principalmente con la inyección SQL.\r\n\r\nNormalmente dejo un comentario y/o un enlace a una referencia externa, pero un comentario no da mucho espacio para mucho y sería positivo que hubiera una referencia interna en SOes sobre el tema así que decidí escribir esta pregunta.\r\n', 'lucas@404.es', 0, 0, '2021-1-13', 0);
 
 --
 -- Disparadores `preguntas`
@@ -157,6 +182,14 @@ CREATE TABLE `respuestas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Volcado de datos para la tabla `respuestas`
+--
+
+INSERT INTO `respuestas` (`id`, `texto`, `votos`, `fecha`, `idUsuario`, `idPregunta`, `medAsignada`) VALUES
+(23, 'La propiedad position sirve para posicionar un elemento dentro de la página. Sin embargo, dependiendo de cual sea la propiedad que usemos, el elemento tomará una referencia u otra para posicionarse respecto a ella.\r\n\r\nLos posibles valores que puede adoptar la propiedad position son: static | relative | absolute | fixed | inherit | initial.\r\n', 0, '2021-1-13', 'lucas@404.es', 63, 0),
+(24, 'La pseudoclase :nth-child() selecciona los hermanos que cumplan cierta condición definida en la fórmula an + b. a y b deben ser números enteros, n es un contador. El grupo an representa un ciclo, cada cuantos elementos se repite; b indica desde donde empezamos a contar.', 0, '2021-1-13', 'emy@404.es', 65, 0);
+
+--
 -- Disparadores `respuestas`
 --
 DELIMITER $$
@@ -209,6 +242,13 @@ CREATE TABLE `sessions` (
   `data` mediumtext CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `sessions`
+--
+
+INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
+('0adTIXpJBmPnWAGcfDym-gtFzsStTHaZ', 1610623006, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"currentUser\":\"lucas@404.es\",\"currentName\":\"Lucas\"}');
+
 -- --------------------------------------------------------
 
 --
@@ -225,6 +265,18 @@ CREATE TABLE `usuarios` (
   `nrespuestas` int(10) NOT NULL,
   `reputacion` int(10) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`correo`, `pass`, `avatar`, `fecha`, `nombre`, `npreguntas`, `nrespuestas`, `reputacion`) VALUES
+('emy@404.es', '12345678', 'avatar_1610536014802.png', '2021-1-13', 'Emy', 0, 1, 1),
+('lucas@404.es', '12345678', 'defecto2.png', '2021-1-13', 'Lucas', 1, 1, 1),
+('marta@404.es', '12345678', 'avatar_1610535969721.png', '2021-1-13', 'Marta', 1, 0, 1),
+('nico@404.es', '12345678', 'avatar_1610535889913.png', '2021-1-13', 'Nico', 1, 0, 1),
+('roberto@404.es', '12345678', 'avatar_1610535925771.png', '2021-1-13', 'Roberto', 1, 0, 1),
+('sfg@404.es', '12345678', 'avatar_1610535951756.png', '2021-1-13', 'SGF', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -414,19 +466,19 @@ ALTER TABLE `votarespuesta`
 -- AUTO_INCREMENT de la tabla `etiquetas`
 --
 ALTER TABLE `etiquetas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Restricciones para tablas volcadas

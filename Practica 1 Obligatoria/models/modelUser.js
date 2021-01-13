@@ -171,8 +171,10 @@ class modelUser {
             else {
                 if(avatar.length < 1){
                     console.log("Sin avatar. Generando uno random.")
-                    let random = Math.floor(Math.random() * 4);
-                    avatar = "avatar_" + random + ".png";
+                    //let random = Math.floor(Math.random() * 4);
+                    //avatar = "avatar_" + random + ".png";
+                    let random = Math.floor(Math.random() * 3) + 1;
+                    avatar = "defecto" + random + ".png";
                 }
                 connection.query("INSERT INTO usuarios(correo, pass, nombre, avatar, fecha) VALUES (?,?,?,?,?)",
                     [email, pass, name, avatar, fecha],
