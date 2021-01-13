@@ -60,7 +60,7 @@ router.get("/imagenUsuario", identificacionRequerida, controllerUser.getUserImag
 router.get("/usuarios", identificacionRequerida, controllerUser.getAllUsers);
 
 //POST REQUESTS
-router.post("/procesar_login",  controllerUser.isUserCorrect);
+router.post("/procesar_login", controllerUser.isUserCorrect);
 
 router.post("/procesar_busqueda", identificacionRequerida, controllerUser.getAllUsersByText);
 
