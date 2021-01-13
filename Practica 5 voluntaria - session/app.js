@@ -86,7 +86,7 @@ app.get("/logout", function (request, response) {
   response.redirect("/login");
 });
 
-app.get("/imagenUsuario", function (request, response) {
+app.get("/imagenUsuario", identificacionRequerida, function (request, response) {
   daoUser.getUserImageName(request.session.currentUser, function (err, result) {
     if (err) {
       console.log(err.message);
@@ -116,7 +116,7 @@ app.get("/tasks", identificacionRequerida, function (request, response) {
 
 });
 
-app.post("/addTask", function (request, response) {
+app.post("/addTask", identificacionRequerida, function (request, response) {
   let task = util.createTask(request.body.text);
   task.done = 0;
 

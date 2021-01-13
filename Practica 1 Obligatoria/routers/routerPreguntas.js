@@ -65,10 +65,10 @@ router.get("/:like/:idPregunta", identificacionRequerida, controllerAsk.voteAsk)
 router.get("/:like/:idPregunta/:idRespuesta", identificacionRequerida, controllerAsk.voteReply);
 
 //POST REQUESTS
-router.post("/procesar_formular", controllerAsk.insertAsk); //al no necesitar la funcion identificacionRequerida, no puedes usar response.locals para pasarle el username ya que ahi es donde se define
+router.post("/procesar_formular", identificacionRequerida, controllerAsk.insertAsk); //al no necesitar la funcion identificacionRequerida, no puedes usar response.locals para pasarle el username ya que ahi es donde se define
 
-router.post("/procesar_busqueda", controllerAsk.getAllAsksByText);
+router.post("/procesar_busqueda", identificacionRequerida, controllerAsk.getAllAsksByText);
 
-router.post("/procesar_respuesta/:idPregunta", controllerAsk.insertReply);
+router.post("/procesar_respuesta/:idPregunta", identificacionRequerida, controllerAsk.insertReply);
 
 module.exports = router;

@@ -62,9 +62,9 @@ router.get("/usuarios", identificacionRequerida, controllerUser.getAllUsers);
 //POST REQUESTS
 router.post("/procesar_login",  controllerUser.isUserCorrect);
 
-router.post("/procesar_busqueda", controllerUser.getAllUsersByText);
+router.post("/procesar_busqueda", identificacionRequerida, controllerUser.getAllUsersByText);
 
-router.post("/perfil", controllerUser.getUser);
+router.post("/perfil", identificacionRequerida, controllerUser.getUser);
 
 router.post("/procesar_registro", multerFactory.single("avatar"), controllerUser.insertUser);
 
