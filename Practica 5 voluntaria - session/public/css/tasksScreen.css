@@ -70,10 +70,15 @@ div.login button{
 div.infoUser{
     display: flex;
     flex-direction: row;
-    padding-right: 10px;
     position:absolute;
     top:5px;
-    right:20px;
+    right:0;
+    width:15%;
+}
+
+.imgUser{
+    border-radius:50%;
+    width:29%;
 }
 
 div.User{
@@ -86,11 +91,6 @@ div.User{
 
 .boton:hover{ 
     color: #e8858e;
-}
-
-.imgUser{
-    border-radius:50%;
-    height:110px;
 }
 
 div.logo{
