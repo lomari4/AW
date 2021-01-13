@@ -69,7 +69,7 @@ function getAllAsksByText(request, response, next) {
         } else if (result) {
             response.render("preguntas", { userName: request.session.currentName, userEmail: request.session.currentUser, preguntas: result, titulo: "Resultados de la busqueda \"" + request.body.nombreBusqueda + "\"" });
         } else {
-            response.render("preguntas", { userName: request.session.currentName, userEmail: request.session.currentUser, preguntas: [], titulo: "Ninguna pregunta contiene esa palabra en su texto o titulo" });
+            response.render("preguntas", { userName: request.session.currentName, userEmail: request.session.currentUser, preguntas: [], titulo: "Ninguna pregunta contiene \"" + request.body.nombreBusqueda + "\" en su texto o titulo" });
         }
     });
 }
