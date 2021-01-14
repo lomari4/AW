@@ -2,30 +2,23 @@
 const mysql = require("mysql");
 const config = require("./config.js");
 const express = require("express");
-const routerUsuarios = require("./routers/routerUsuarios.js");
-const routerPreguntas = require("./routers/routerPreguntas.js");
 const path = require("path");
 const app = express();
 
-const session = require("express-session");
-const mysqlSession = require("express-mysql-session");
-const MySQLStore = mysqlSession(session);
+//modulo de los middlewares
+const middlewares = require("./middlewares.js");
 
-//Sesiones
-const sessionStore = new MySQLStore(config.mysqlConfig);
-const middlewareSession = session({
-  saveUninitialized: false,
-  secret: "foobar34",
-  resave: false,
-  store: sessionStore
-});
+//modulo routers
+const routerUsuarios = require("./routers/routerUsuarios.js");
+const routerPreguntas = require("./routers/routerPreguntas.js");
 
 //para que funcione ejs
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 //Uses
-app.use(middlewareSession);
+//middleware de sesion
+app.use(middlewares.middlewareSession);
 app.use(express.static(__dirname + '/public')); //IMPORTANTE
 
 //routers
@@ -64,16 +57,10 @@ app.get("/logout", function (request, response) {
 });
 
 //middleware error 500
-app.use(function (err, request, response, next) {
-  response.status(500);
-  response.render("error500", {error: err});
-});
+app.use(middlewares.error500);
 
 //middleware error 404
-app.use(function (request, response, next) {
-  response.status(404);
-  response.render("error404", {error: request.url});
-});
+app.use(middlewares.error404);
 
 // Arrancar el servidor
 app.listen(config.port, function (err) {
