@@ -117,22 +117,17 @@ app.get("/tasks", identificacionRequerida, function (request, response) {
 });
 
 app.post("/addTask", identificacionRequerida, function (request, response) {
+  let task = util.createTask(request.body.desc);
+  task.done = 0;
 
-  if (request.body.desc.length > 0) { //no se pueden enviar tareas vacias
-
-    let task = util.createTask(request.body.desc);
-    console.log(task)
-    task.done = 0;
-
-    daoT.insertTask(request.session.currentUser, task, function (err, result) {
-      if (err) {
-        console.log(err.message);
-      } else {
-        console.log("Se inserto la tarea");
-        response.redirect("/tasks");
-      }
-    });
-  }
+  daoT.insertTask(request.session.currentUser, task, function (err, result) {
+    if (err) {
+      console.log(err.message);
+    } else {
+      console.log("Se inserto la tarea");
+      response.redirect("/tasks");
+    }
+  });
 
 });
 
