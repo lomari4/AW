@@ -58,8 +58,12 @@
         <% } %>
 
         <div class="AddTask">
-            <div class="label">Nombre de tarea</div>
+            
+            <div class="label"> <!--usar div para que aparezca arriba del input-->
+                <label for="tarea">Nombre de tarea</label>
+            </div>
             <input type="text" id="tarea" name="tarea" class="Write">
+            
             <div class="añadirTag">
                 <input type="text" id="tag" name="tag" class="WriteTag">
                 <button class="botonAdd botonAddTag">AÑADIR TAG</button>
