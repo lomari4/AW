@@ -29,19 +29,24 @@ const multerFactory = multer({ storage: storage});
 
 //MANEJADORES DE RUTA
 
+//GETS//
+//pagina principal
 router.get("/principal", middlewares.identificacionRequerida, function (request, response) {
     response.render("principal");
 });
 
+//para coger la imagen del usuario en el header
 router.get("/imagenUsuario", middlewares.identificacionRequerida, controllerUser.getUserImageName);
 
+//pagina de vista de los usuarios
 router.get("/usuarios", middlewares.identificacionRequerida, controllerUser.getAllUsers);
 
-//POST REQUESTS
+//POSTS//
 router.post("/procesar_login", controllerUser.isUserCorrect);
 
 router.post("/procesar_busqueda", middlewares.identificacionRequerida, controllerUser.getAllUsersByText);
 
+//perfil del usuario
 router.post("/perfil", middlewares.identificacionRequerida, controllerUser.getUser);
 
 router.post("/procesar_registro", multerFactory.single("avatar"), controllerUser.insertUser);

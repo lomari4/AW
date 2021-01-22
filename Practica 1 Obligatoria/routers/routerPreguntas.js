@@ -15,6 +15,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 //MANEJADORES DE RUTA
 
+//GETS//
 //pagina principal de preguntas
 router.get("/preguntas", middlewares.identificacionRequerida, controllerAsk.getAllAsk);
 
@@ -29,6 +30,7 @@ router.get("/sinResponder", middlewares.identificacionRequerida, controllerAsk.g
 //para coger las etiquetas de la pregunta
 router.get("/etiquetados/:tag", middlewares.identificacionRequerida, controllerAsk.getAllAsksByTag);
 
+//rutas parametricas
 //get pregunta
 router.get("/:idPregunta", middlewares.identificacionRequerida, controllerAsk.getAsk);
 
@@ -41,7 +43,7 @@ router.get("/:like/:idPregunta", middlewares.identificacionRequerida, controller
 //Like y dislike respuesta
 router.get("/:like/:idPregunta/:idRespuesta", middlewares.identificacionRequerida, controllerAsk.voteReply);
 
-//POST REQUESTS
+//POSTS//
 router.post("/procesar_formular", middlewares.identificacionRequerida, controllerAsk.insertAsk); //al no necesitar la funcion identificacionRequerida, no puedes usar response.locals para pasarle el username ya que ahi es donde se define
 
 router.post("/procesar_busqueda", middlewares.identificacionRequerida, controllerAsk.getAllAsksByText);
