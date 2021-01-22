@@ -104,14 +104,15 @@ class modelAsk {
 
                                 connection.query("INSERT INTO etiquetas(idPregunta, nombre) VALUES (?,?)",
                                     [rows.insertId, etiquetas[i]],                                  
-                                    function (err, rows2) {
-                                        connection.release(); // devolver al pool la conexión
+                                    function (err, rows2) { 
                                         if (err) {
+											connection.release(); // devolver al pool la conexión
                                             callback(new Error("Error de acceso a la base de datos"))
                                         }
                                     });
                                 cont++;
                             }
+							connection.release(); // devolver al pool la conexión
                             callback(null, rows)
                         }
                     });
