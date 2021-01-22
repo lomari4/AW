@@ -30,7 +30,7 @@ const multerFactory = multer({ storage: storage});
 //MANEJADORES DE RUTA
 
 router.get("/principal", middlewares.identificacionRequerida, function (request, response) {
-    response.render("principal", { userName: response.locals.userName });
+    response.render("principal");
 });
 
 router.get("/imagenUsuario", middlewares.identificacionRequerida, controllerUser.getUserImageName);

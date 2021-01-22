@@ -93,8 +93,8 @@ class modelAsk {
                 connection.query("INSERT INTO preguntas(titulo, texto, fecha, idUsuario) VALUES (?,?,?,?)",
                     [titulo, texto, fecha, email],
                     function (err, rows) {
-                        connection.release(); // devolver al pool la conexión
                         if (err) {
+                            connection.release(); // devolver al pool la conexión
                             callback(new Error("Error en la insercion de la pregunta"))
                         }
                         else {
@@ -103,8 +103,9 @@ class modelAsk {
                                 if (cont > 4) break; //solo deja insertar 5 etiquetas
 
                                 connection.query("INSERT INTO etiquetas(idPregunta, nombre) VALUES (?,?)",
-                                    [rows.insertId, etiquetas[i]],
+                                    [rows.insertId, etiquetas[i]],                                  
                                     function (err, rows2) {
+                                        connection.release(); // devolver al pool la conexión
                                         if (err) {
                                             callback(new Error("Error de acceso a la base de datos"))
                                         }
@@ -238,14 +239,15 @@ class modelAsk {
                 connection.query("INSERT INTO visitaPregunta(idUsuario, idPregunta) VALUES (?,?)",
                     [email, idPregunta],
                     function (err, rows) {
-                        connection.release(); // devolver al pool la conexión
                         if (err) {
+                            connection.release(); // devolver al pool la conexión
                             callback(new Error("Un usuario no se puede visitar dos veces a la misma pregunta porque sino es un chollo lo de las medallas"))
                         }
                         else {
                             connection.query("UPDATE preguntas SET visitas=visitas + 1 where id=?",
                                 [idPregunta],
                                 function (err, rows) {
+                                    connection.release(); // devolver al pool la conexión
                                     if (err) {
                                         callback(new Error("Error de acceso a la base de datos"))
                                     }

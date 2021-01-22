@@ -13,7 +13,7 @@ function getAllUsers(request, response, next) {
             console.log(err.message);
             response.render("error503.ejs");
         } else {
-            response.render("usuarios", { userName: response.locals.userName, userEmail: response.locals.userEmail, usuarios: result, titulo: "Usuarios" });
+            response.render("usuarios", { usuarios: result, titulo: "Usuarios" });
         }
     });
 }
@@ -24,9 +24,9 @@ function getAllUsersByText(request, response, next) {
             console.log(err.message);
             next(err);
         } else if (result) {
-            response.render("usuarios", { userName: request.session.currentName, userEmail: request.session.currentUser, usuarios: result, titulo: "Usuarios filtrados por [\"" + request.body.nombreUserBusqueda + "\"]" });
+            response.render("usuarios", { usuarios: result, titulo: "Usuarios filtrados por [\"" + request.body.nombreUserBusqueda + "\"]" });
         } else {
-            response.render("usuarios", { userName: request.session.currentName, userEmail: request.session.currentUser, usuarios: [], titulo: "No hay usuarios con [\"" + request.body.nombreUserBusqueda + "\"]" });
+            response.render("usuarios", { usuarios: [], titulo: "No hay usuarios con [\"" + request.body.nombreUserBusqueda + "\"]" });
         }
     });
 }
@@ -67,7 +67,7 @@ function getUser(request, response, next) {
             console.log(err.message);
             next();
         } else {
-            response.render("perfilUsuario", { userName: request.session.currentName, userEmail: request.session.currentUser, usuario: result });
+            response.render("perfilUsuario", { usuario: result });
         }
     });
 }

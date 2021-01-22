@@ -20,7 +20,7 @@ router.get("/preguntas", middlewares.identificacionRequerida, controllerAsk.getA
 
 //formular pregunta
 router.get("/formular", middlewares.identificacionRequerida, function (request, response) {
-    response.render("formular", { userName: response.locals.userName });
+    response.render("formular");
 });
 
 //preguntas sin responder

@@ -14,7 +14,7 @@ function getAllAsk(request, response, next) {
             console.log(err.message);
             next(err);
         } else {
-            response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: result, titulo: "Todas las preguntas" });
+            response.render("preguntas", { preguntas: result, titulo: "Todas las preguntas" });
         }
     });
 }
@@ -30,7 +30,7 @@ function getAsk(request, response, next) {
                     console.log(err.message);
                     next(err);
                 } else {
-                    response.render("informePregunta", { userName: response.locals.userName, userEmail: response.locals.userEmail, pregunta: pregunta[0], titulo: pregunta[0].titulo, respuestas: respuestas });
+                    response.render("informePregunta", { pregunta: pregunta[0], titulo: pregunta[0].titulo, respuestas: respuestas });
                 }
             });
         }
@@ -43,7 +43,7 @@ function getAllAsksByTag(request, response, next) {
             console.log(err.message);
             next(err);
         } else {
-            response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: result, titulo: "Preguntas con la etiqueta [" + request.params.tag + "]" });
+            response.render("preguntas", { preguntas: result, titulo: "Preguntas con la etiqueta [" + request.params.tag + "]" });
         }
     });
 }
@@ -54,9 +54,9 @@ function getAllAsksWithoutReply(request, response, next) {
             console.log(err.message);
             next(err);
         } else if (result) {
-            response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: result, titulo: "Preguntas sin responder" });
+            response.render("preguntas", { preguntas: result, titulo: "Preguntas sin responder" });
         } else {
-            response.render("preguntas", { userName: response.locals.userName, userEmail: response.locals.userEmail, preguntas: [], titulo: "No hay resultados" });
+            response.render("preguntas", { preguntas: [], titulo: "No hay resultados" });
         }
     });
 }
@@ -67,9 +67,9 @@ function getAllAsksByText(request, response, next) {
             console.log(err.message);
             next(err);
         } else if (result) {
-            response.render("preguntas", { userName: request.session.currentName, userEmail: request.session.currentUser, preguntas: result, titulo: "Resultados de la busqueda \"" + request.body.nombreBusqueda + "\"" });
+            response.render("preguntas", { preguntas: result, titulo: "Resultados de la busqueda \"" + request.body.nombreBusqueda + "\"" });
         } else {
-            response.render("preguntas", { userName: request.session.currentName, userEmail: request.session.currentUser, preguntas: [], titulo: "Ninguna pregunta contiene \"" + request.body.nombreBusqueda + "\" en su texto o titulo" });
+            response.render("preguntas", { preguntas: [], titulo: "Ninguna pregunta contiene \"" + request.body.nombreBusqueda + "\" en su texto o titulo" });
         }
     });
 }
