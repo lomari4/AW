@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-01-2021 a las 18:58:43
+-- Tiempo de generación: 23-01-2021 a las 16:23:16
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -28,7 +28,6 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `etiquetas` (
-  `id` int(10) NOT NULL,
   `idPregunta` int(10) NOT NULL,
   `nombre` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -37,15 +36,15 @@ CREATE TABLE `etiquetas` (
 -- Volcado de datos para la tabla `etiquetas`
 --
 
-INSERT INTO `etiquetas` (`id`, `idPregunta`, `nombre`) VALUES
-(2, 63, 'css'),
-(3, 63, 'css3'),
-(6, 65, 'css'),
-(7, 65, 'html'),
-(8, 66, 'JavaScript'),
-(9, 67, 'nodejs'),
-(10, 68, 'mysql'),
-(11, 68, 'sql');
+INSERT INTO `etiquetas` (`idPregunta`, `nombre`) VALUES
+(63, 'css'),
+(63, 'css3'),
+(65, 'css'),
+(65, 'html'),
+(66, 'JavaScript'),
+(67, 'nodejs'),
+(68, 'mysql'),
+(68, 'sql');
 
 -- --------------------------------------------------------
 
@@ -267,7 +266,7 @@ INSERT INTO `usuarios` (`correo`, `pass`, `avatar`, `fecha`, `nombre`, `npregunt
 ('emy@404.es', '12345678', 'avatar_1610536014802.png', '2021-1-13', 'Emy', 0, 1, 1),
 ('lucas@404.es', '12345678', 'defecto2.png', '2021-1-13', 'Lucas', 1, 1, 1),
 ('marta@404.es', '12345678', 'avatar_1610535969721.png', '2021-1-13', 'Marta', 1, 0, 1),
-('nico@404.es', '12345678', 'avatar_1610535889913.png', '2021-1-13', 'Nico', 1, 0, 1),
+('nico@404.es', '12345678', 'avatar_1610535889913.png', '2021-1-13', 'Nico', 9, 0, 1),
 ('roberto@404.es', '12345678', 'avatar_1610535925771.png', '2021-1-13', 'Roberto', 1, 0, 1),
 ('sfg@404.es', '12345678', 'avatar_1610535951756.png', '2021-1-13', 'SGF', 1, 0, 1);
 
@@ -393,7 +392,7 @@ DELIMITER ;
 -- Indices de la tabla `etiquetas`
 --
 ALTER TABLE `etiquetas`
-  ADD PRIMARY KEY (`id`,`nombre`),
+  ADD PRIMARY KEY (`idPregunta`,`nombre`) USING BTREE,
   ADD KEY `idPreguntas` (`idPregunta`);
 
 --
@@ -456,16 +455,10 @@ ALTER TABLE `votarespuesta`
 --
 
 --
--- AUTO_INCREMENT de la tabla `etiquetas`
---
-ALTER TABLE `etiquetas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
