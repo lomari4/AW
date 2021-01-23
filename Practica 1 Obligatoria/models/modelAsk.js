@@ -98,27 +98,33 @@ class modelAsk {
                             callback(new Error("Error en la insercion de la pregunta"))
                         }
                         else {
-                            let cont = 0;
-                            for (var i = 0; i < etiquetas.length; ++i) {
-                                if (cont > 4) break; //solo deja insertar 5 etiquetas
-
-                                connection.query("INSERT INTO etiquetas(idPregunta, nombre) VALUES (?,?)",
-                                    [rows.insertId, etiquetas[i]],                                  
-                                    function (err, rows2) {
-                                        connection.release(); // devolver al pool la conexión
-                                        if (err) {
-                                            callback(new Error("Error de acceso a la base de datos"))
-                                        }
-                                    });
-                                cont++;
+                            let arrayTags = "";
+                            for (let i = 0; i < etiquetas.length && i < 5; ++i) { //solo deja insertar 5 etiquetas
+                                if(i ==etiquetas.length - 1 || i == 4){
+                                    arrayTags += "(" + rows.insertId + ", ?)";
+                                } else{
+                                    arrayTags += "(" + rows.insertId + ", ?),";
+                                }
                             }
-                            callback(null, rows)
+                            
+                            connection.query("INSERT INTO etiquetas(idPregunta, nombre) VALUES " + arrayTags,
+                                etiquetas, function (err, rows2) {
+                                    connection.release(); // devolver al pool la conexión
+                                    if (err) {
+                                        callback(new Error("Error de acceso a la base de datos"))
+                                    }
+                                    else {
+                                        callback(null, rows)
+                                    }
+                                });
                         }
                     });
             }
         }
         );
+       
     }
+    
 
     getAllAsksByTag(nombreTag, callback) {
         this.pool.getConnection(function (err, connection) {
