@@ -11,7 +11,7 @@ function getAllUsers(request, response, next) {
     modelUser.getAllUsers(function (err, result) {
         if (err) {
             console.log(err.message);
-            response.render("error503.ejs");
+            next(err);
         } else {
             response.render("usuarios", { usuarios: result, titulo: "Usuarios" });
         }
