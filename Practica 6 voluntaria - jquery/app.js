@@ -99,7 +99,7 @@ app.get("/imagenUsuario", identificacionRequerida, function (request, response) 
 });
 
 //PRACTICA 4
-app.get("/tasks", function (request, response) {
+app.get("/tasks", identificacionRequerida, function (request, response) {
   response.status(200);
 
   let taskList;
@@ -116,7 +116,7 @@ app.get("/tasks", function (request, response) {
 
 });
 
-app.post("/addTask", function (request, response) {
+app.post("/addTask", identificacionRequerida, function (request, response) {
   let task = util.createTask(request.body.desc);
   task.done = 0;
 
