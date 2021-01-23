@@ -106,7 +106,6 @@ class Util {
     if (tags != null) {
       tagsFin = tags.map((e) => e.substring(1)); //le quitas el @ del principio
     }
-
     return tagsFin;
   }
 }

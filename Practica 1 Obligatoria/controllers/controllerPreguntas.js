@@ -78,6 +78,7 @@ function insertAsk(request, response, next) {
     let f = new Date();
     let fecha = f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
     let etiquetas = utils.createTask(request.body.etiquetas)
+    etiquetas = etiquetas.filter((el, index) => etiquetas.indexOf(el) === index)
 
     modelAsk.insertAsk(request.body.titulo, request.body.cuerpo, fecha, request.session.currentUser, etiquetas, function (err, result) {
         if (err) {
