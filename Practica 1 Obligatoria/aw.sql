@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-01-2021 a las 17:09:00
+-- Tiempo de generación: 24-01-2021 a las 17:13:40
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -266,7 +266,7 @@ INSERT INTO `usuarios` (`correo`, `pass`, `avatar`, `fecha`, `nombre`, `npregunt
 ('emy@404.es', '12345678', 'avatar_1610536014802.png', '2021-1-13', 'Emy', 0, 1, 1),
 ('lucas@404.es', '12345678', 'defecto2.png', '2021-1-13', 'Lucas', 1, 1, 1),
 ('marta@404.es', '12345678', 'avatar_1610535969721.png', '2021-1-13', 'Marta', 1, 0, 1),
-('nico@404.es', '12345678', 'avatar_1610535889913.png', '2021-1-13', 'Nico', 9, 0, 1),
+('nico@404.es', '12345678', 'avatar_1610535889913.png', '2021-1-13', 'Nico', 1, 0, 1),
 ('roberto@404.es', '12345678', 'avatar_1610535925771.png', '2021-1-13', 'Roberto', 1, 0, 1),
 ('sfg@404.es', '12345678', 'avatar_1610535951756.png', '2021-1-13', 'SGF', 1, 0, 1);
 
