@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-01-2021 a las 16:23:16
+-- Tiempo de generación: 24-01-2021 a las 17:09:00
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -434,21 +434,24 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `visitapregunta`
   ADD PRIMARY KEY (`idUsuario`,`idPregunta`),
-  ADD KEY `idPregunta` (`idPregunta`);
+  ADD KEY `idPregunta` (`idPregunta`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Indices de la tabla `votapregunta`
 --
 ALTER TABLE `votapregunta`
   ADD PRIMARY KEY (`idUsuario`,`idPregunta`),
-  ADD KEY `idPregunta` (`idPregunta`);
+  ADD KEY `idPregunta` (`idPregunta`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Indices de la tabla `votarespuesta`
 --
 ALTER TABLE `votarespuesta`
   ADD PRIMARY KEY (`idUsuario`,`idRespuesta`),
-  ADD KEY `idRespuesta` (`idRespuesta`);
+  ADD KEY `idRespuesta` (`idRespuesta`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
