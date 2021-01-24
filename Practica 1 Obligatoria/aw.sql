@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-01-2021 a las 17:13:40
+-- Tiempo de generación: 24-01-2021 a las 17:21:04
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -278,7 +278,7 @@ INSERT INTO `usuarios` (`correo`, `pass`, `avatar`, `fecha`, `nombre`, `npregunt
 
 CREATE TABLE `visitapregunta` (
   `idUsuario` varchar(100) NOT NULL,
-  `idPregunta` int(11) NOT NULL
+  `idPregunta` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -289,7 +289,7 @@ CREATE TABLE `visitapregunta` (
 
 CREATE TABLE `votapregunta` (
   `idUsuario` varchar(100) NOT NULL,
-  `idPregunta` int(11) NOT NULL,
+  `idPregunta` int(10) NOT NULL,
   `puntos` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
